@@ -413,16 +413,20 @@
             }
             
             /* رفع النص لفوق ومسافة آمنة بعيدة عن الرأس */
-            .hero-right { 
-                flex: none; 
-                order: 1; 
-                padding: 0 5%; 
-                width: 100%; 
-                align-items: center; 
-                text-align: center; 
-                margin-top: 5px;
-            }
-            .hero-desc { font-size: 0.92rem; margin-bottom: 8px; line-height: 1.45; }            
+.hero-right {
+    position: absolute;
+    top: 14%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+    padding: 0;
+}
+            .hero-desc { display: none !important; }            
             .hero-center { 
                 flex: 1; 
                 order: 2; 
