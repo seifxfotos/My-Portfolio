@@ -15,7 +15,7 @@
         :root {
             --bg-color: #020408; 
             --surface-color: #0b111a;
-            --surface-glass: rgba(11, 17, 26, 0.7);
+            --surface-glass: rgba(11, 17, 26, 0.85);
             --border-color: rgba(37, 109, 150, 0.3); 
             
             --text-main: #f4f4f6;
@@ -38,7 +38,6 @@
             cursor: none !important;
         }
 
-        /* إصلاح جذري للتمدد العرضي في الموبايل */
         html, body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -46,7 +45,7 @@
             overflow-x: hidden; 
             overflow-y: hidden;
             width: 100%;
-            height: 100dvh; /* استخدام dvh لضبط الطول مع الموبايل الديناميكي */
+            height: 100dvh;
             perspective: 1200px; 
             position: relative;
         }
@@ -69,7 +68,7 @@
         .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-gold); }
         .cursor-circle { width: 36px; height: 36px; border: 1px solid rgba(212, 175, 55, 0.6); background-color: rgba(212, 175, 55, 0.05); }
 
-        /* ✨ HIGH-END SMOOTH LIGHTING (BOOSTED OPACITY) */
+        /* ✨ HIGH-END SMOOTH LIGHTING */
         .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; z-index: 0; overflow: hidden; background-color: var(--bg-color); pointer-events: none; }
         .mesh-blob { position: absolute; border-radius: 50%; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), background 1.2s ease; will-change: transform; pointer-events: none; }
         
@@ -123,9 +122,65 @@
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
         .nav-links a:hover { color: var(--text-main); }
+        
         .nav-actions { display: flex; gap: 15px; align-items: center; }
-        .lang-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; transition: var(--transition); }
+        .lang-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; transition: var(--transition); cursor: pointer !important; }
         .lang-btn:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); }
+
+        /* Burger Menu (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            cursor: pointer !important;
+        }
+        .menu-toggle:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); }
+
+        /* Dropdown Menu for Mobile */
+        .mobile-dropdown {
+            position: absolute;
+            top: 75px;
+            left: 5%;
+            right: 5%;
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2000;
+        }
+        .mobile-dropdown.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        .mobile-dropdown a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 10px 15px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.02);
+            transition: var(--transition);
+        }
+        .mobile-dropdown a:hover { background: var(--accent-blue-glow); color: var(--accent-gold); }
 
         /* Slide Engine Structure */
         .slide {
@@ -133,7 +188,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100dvh; /* Dynamic Height */
+            height: 100dvh;
             transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.7, 0, 0.2, 1), filter 1.2s ease;
             will-change: transform, opacity;
             transform-style: preserve-3d;
@@ -192,18 +247,16 @@
 
         .hero-center { flex: 1.2; display: flex; justify-content: center; align-items: flex-end; height: 100%; position: relative; }
         
-        /* إصلاح اللوجو الضخم وتجاوبه */
         .bg-logo-huge {
             position: absolute;
             top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
-            /* دالة حسابية تضمن إن اللوجو ميكبرش عن حده وميبوظش العرض */
             width: clamp(600px, 140%, 1200px); 
-            min-width: unset; /* ده اللي كان مبوظ الدنيا وتم حذفه */
             z-index: 1; 
             pointer-events: none;
-            opacity: 0.15; 
+            /* أوبستي عالية وظاهرة تماماً وراء الرأس والجسد */
+            opacity: 0.55; 
         }
 
         .hero-portrait {
@@ -212,6 +265,7 @@
             z-index: 3; 
             position: relative;
             bottom: -5dvh; 
+            /* ماسك من فوق ومن تحت لضمان نعومة القص تماماً */
             -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
             mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
             animation: floatPortrait 8s ease-in-out infinite;
@@ -342,20 +396,22 @@
         .zoom-controls button { background: transparent; border: none; color: var(--text-main); width: 45px; height: 45px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: var(--transition); cursor: pointer !important; }
         .zoom-controls button:hover { background: var(--accent-blue-glow); color: var(--accent-blue); }
 
-        /* 🔥 MOBILE UI - THE ULTIMATE FIX 🔥 */
+        /* 🔥 MOBILE UI - BURGER MENU & PERFECT ALIGNMENT 🔥 */
         @media(max-width: 900px) {
             @media (pointer: coarse) { .cursor-dot, .cursor-circle { display: none !important; } * { cursor: auto !important; } }
             header { padding: 15px 5%; }
-            .nav-links { display: none; } 
             
-            /* إعادة هندسة فليكس بوكس للموبايل عشان كل حاجة تتسنتر بدقة */
+            /* إخفاء القايمة التقليدية وإظهار الـ Burger Menu */
+            .nav-links { display: none; } 
+            .menu-toggle { display: flex; }
+            
             .hero-layout { 
                 flex-direction: column; 
                 justify-content: space-between; 
-                padding-top: 80px; /* مسافة من الهيدر */
+                padding-top: 75px; 
             }
             
-            /* النص والزرار فوق متسنترين تماماً */
+            /* رفع النص لفوق ومسافة آمنة بعيدة عن الرأس */
             .hero-right { 
                 flex: none; 
                 order: 1; 
@@ -363,11 +419,10 @@
                 width: 100%; 
                 align-items: center; 
                 text-align: center; 
-                margin-top: 15px;
+                margin-top: 5px;
             }
-            .hero-desc { font-size: 1.1rem; margin-bottom: 20px; }
+            .hero-desc { font-size: 1rem; margin-bottom: 12px; }
             
-            /* الصورة تتوسط الشاشة وتملا المساحة بشكل متجاوب */
             .hero-center { 
                 flex: 1; 
                 order: 2; 
@@ -375,25 +430,21 @@
                 width: 100%; 
                 align-items: center; 
             }
-            /* تقليص حجم الصورة عشان متدمرش الزراير */
-            .hero-portrait { max-height: 48dvh; bottom: 0; }
+            .hero-portrait { max-height: 44dvh; bottom: 0; }
             
-            /* اللوجو الخلفي ياخد حجم ديناميكي (vw) بدل الثابت عشان ميخرجش بره الشاشة */
-            .bg-logo-huge { width: 200vw; top: 45%; }
+            /* ضبط اللوجو الخلفي بالموبايل عشان يظهر كامل وواضح ومظبوط */
+            .bg-logo-huge { width: 170vw; top: 38%; opacity: 0.55; }
             
-            /* زرار السيرة الذاتية تحت متسنتر */
             .hero-left { 
                 flex: none; 
                 order: 3; 
-                padding: 0 5% 30px 5%; 
+                padding: 0 5% 25px 5%; 
                 width: 100%; 
                 justify-content: center; 
             }
 
-            /* تكبير الزراير عشان تناسب اللمس وتملأ العرض المتاح بشياكة */
-            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 15px; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 14px; }
             
-            /* تظبيطات السلايد التاني والمودال للموبايل */
             #showcase { padding: 100px 5%; }
             .bento-grid { grid-template-columns: 1fr; }
             .bento-card.large { grid-column: span 1; }
@@ -432,13 +483,25 @@
                 <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
             </svg>
         </a>
+        
         <ul class="nav-links">
             <li><a href="#" onclick="goToSlide(0); return false;" data-i18n="nav_about">عني</a></li>
             <li><a href="#" onclick="goToSlide(1); return false;" data-i18n="nav_work">الأعمال</a></li>
             <li><a href="#" onclick="openCVModal(event)" data-i18n="nav_cv">السيرة الذاتية</a></li>
         </ul>
+
         <div class="nav-actions">
             <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars" id="menuIcon"></i>
+            </button>
+        </div>
+
+        <!-- القايمة المنسدلة للموبايل -->
+        <div class="mobile-dropdown" id="mobileDropdown">
+            <a href="#" onclick="goToSlide(0); toggleMobileMenu(); return false;" data-i18n="nav_about">عني</a>
+            <a href="#" onclick="goToSlide(1); toggleMobileMenu(); return false;" data-i18n="nav_work">الأعمال</a>
+            <a href="#" onclick="openCVModal(event); toggleMobileMenu(); return false;" data-i18n="nav_cv">السيرة الذاتية</a>
         </div>
     </header>
 
@@ -585,6 +648,18 @@
                     cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
                 });
             });
+        }
+
+        // Mobile Menu Toggle Logic
+        function toggleMobileMenu() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const menuIcon = document.getElementById('menuIcon');
+            dropdown.classList.toggle('active');
+            if (dropdown.classList.contains('active')) {
+                menuIcon.className = "fa-solid fa-xmark";
+            } else {
+                menuIcon.className = "fa-solid fa-bars";
+            }
         }
 
         // Slide Engine
