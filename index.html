@@ -41,17 +41,15 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-ar);
-            overflow-x: hidden; 
-            overflow-y: hidden;
+            overflow: hidden;
             width: 100%;
+            height: 100vh;
             height: 100dvh;
             perspective: 1200px; 
             position: relative;
         }
 
-        html[lang="en"] body {
-            font-family: var(--font-en);
-        }
+        html[lang="en"] body { font-family: var(--font-en); }
 
         /* Custom Cursor */
         .cursor-dot, .cursor-circle {
@@ -201,17 +199,62 @@
             pointer-events: none;
         }
 
-        .hero-layout { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; position: relative; z-index: 2; }
+        .hero-layout { 
+            position: relative;
+            width: 100%; 
+            height: 100%; 
+            z-index: 2; 
+        }
+
+        /* توسيط صورتك واللوجو بالكامل هندسياً في منتصف الشاشة */
+        .hero-center { 
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            height: 100%;
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; 
+            pointer-events: none;
+            z-index: 2;
+        }
         
-        /* يمين: متسنتر عمودياً */
-        .hero-right { 
-            flex: 1; 
+        .bg-logo-huge {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(600px, 80vw, 1100px); 
+            z-index: 1; 
+            pointer-events: none;
+            opacity: 1; 
+        }
+
+        .hero-portrait {
+            max-height: 88dvh; 
+            width: auto;
+            z-index: 3; 
+            position: relative;
+            bottom: -5dvh; 
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
+            animation: floatPortrait 8s ease-in-out infinite;
+        }
+
+        @keyframes floatPortrait { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+        /* جانب اليمين - متسنتر عمودياً */
+        .hero-action-right { 
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex; 
             flex-direction: column; 
-            justify-content: center; 
             align-items: flex-start; 
-            padding: 0 8%; 
-            z-index: 4; 
+            z-index: 10; 
         }
         
         .availability-badge { 
@@ -240,52 +283,20 @@
             gap: 10px;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 10px 30px rgba(37, 109, 150, 0.4);
+            cursor: pointer !important;
         }
         .btn-primary:hover { background: var(--accent-gold); color: #000; transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5); }
         .btn-primary:active { transform: scale(0.95); }
 
-        /* وسط: متسنتر 100% بالمللي */
-        .hero-center { 
-            flex: 1.2; 
-            display: flex; 
-            justify-content: center; 
-            align-items: flex-end; 
-            height: 100%; 
-            position: relative; 
-        }
-        
-        .bg-logo-huge {
+        /* جانب اليسار - متسنتر عمودياً بنفس المقاس */
+        .hero-action-left { 
             position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: clamp(600px, 140%, 1200px); 
-            z-index: 1; 
-            pointer-events: none;
-            opacity: 1; 
-        }
-
-        .hero-portrait {
-            max-height: 88dvh; 
-            width: auto;
-            z-index: 3; 
-            position: relative;
-            bottom: -5dvh; 
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
-            animation: floatPortrait 8s ease-in-out infinite;
-        }
-
-        @keyframes floatPortrait { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-
-        /* شمال: متسنتر عمودياً */
-        .hero-left { 
-            flex: 1; 
+            left: 8%;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex; 
-            justify-content: flex-end; 
             align-items: center; 
-            padding: 0 8%; 
-            z-index: 4; 
+            z-index: 10; 
         }
         
         .btn-secondary {
@@ -301,6 +312,7 @@
             align-items: center;
             gap: 10px;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer !important;
         }
         .btn-secondary:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); transform: translateY(-5px) scale(1.05); }
         .btn-secondary:active { transform: scale(0.95); }
@@ -411,33 +423,35 @@
             .menu-toggle { display: flex; }
             
             .hero-layout { 
+                display: flex;
                 flex-direction: column; 
                 justify-content: space-between; 
                 padding-top: 65px; 
-                padding-bottom: 30px;
+                padding-bottom: 25px;
             }
             
-            .hero-right { 
-                flex: none; 
-                order: 1; 
-                padding: 0 5%; 
+            .hero-action-right { 
+                position: static;
+                transform: none;
                 width: 100%; 
                 align-items: center; 
                 text-align: center; 
-                margin-top: 0;
+                padding: 0 5%;
+                order: 1;
             }
-            .availability-badge { margin-bottom: 12px; }
+            .availability-badge { margin-bottom: 10px; }
             
             .hero-center { 
+                position: relative;
+                left: auto;
+                transform: none;
                 flex: 1; 
-                order: 2; 
-                height: auto; 
                 width: 100%; 
                 align-items: center; 
+                order: 2;
             }
             .hero-portrait { max-height: 48dvh; bottom: 0; }
             
-            /* اللوجو الخلفي بالموبايل: Fit كامل وواضح 100% بدون أي قص */
             .bg-logo-huge { 
                 width: 90vw; 
                 max-width: 380px; 
@@ -445,16 +459,17 @@
                 opacity: 1; 
             }
             
-            .hero-left { 
-                flex: none; 
-                order: 3; 
-                padding: 0 5% 10px 5%; 
+            .hero-action-left { 
+                position: static;
+                transform: none;
                 width: 100%; 
                 justify-content: center; 
+                padding: 0 5%;
+                order: 3;
                 margin-top: 10px;
             }
 
-            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 14px; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 13px; }
             
             #showcase { padding: 100px 5%; }
             .bento-grid { grid-template-columns: 1fr; }
@@ -494,10 +509,67 @@
                 <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
             </svg>
         </a>
+        <ul class="nav-links">
+            <li><a href="#" onclick="goToSlide(0); return false;" data-i18n="nav_about">عني</a></li>
+            <li><a href="#" onclick="goToSlide(1); return false;" data-i18n="nav_work">الأعمال</a></li>
+            <li><a href="#" onclick="openCVModal(event)" data-i18n="nav_cv">السيرة الذاتية</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="menuIcon">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="mobile-dropdown" id="mobileDropdown">
+            <a href="#" onclick="goToSlide(0); toggleMobileMenu(); return false;" data-i18n="nav_about">عني</a>
+            <a href="#" onclick="goToSlide(1); toggleMobileMenu(); return false;" data-i18n="nav_work">الأعمال</a>
+            <a href="#" onclick="openCVModal(event); toggleMobileMenu(); return false;" data-i18n="nav_cv">السيرة الذاتية</a>
+        </div>
+    </header>
+
+    <!-- Slide 1 (Hero) -->
+    <hero class="slide" id="slide-hero">
+        <div class="hero-layout">
+            
+            <!-- أزرار اليمين (استعراض الأعمال والبادج) -->
+            <div class="hero-action-right">
+                <div class="availability-badge">
+                    <div class="status-dot"></div>
+                    <span data-i18n="hero_status">متاح لفرص عمل Full-Time</span>
+                </div>
+                <a href="#" onclick="goToSlide(1); return false;" class="btn-primary">
+                    <span data-i18n="btn_explore">استعراض الأعمال</span>
+                    <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- المنتصف (صورتك واللوجو الخلفي متسنترين بالمللي) -->
+            <div class="hero-center">
+                <svg class="bg-logo-huge" viewBox="0 0 3151.75 871.39">
+                    <path class="animated-path" pathLength="1" d="M876.79,213.75c-2.96,2.95-10.34,0-16.25-6.65-5.91-5.91-8.13-14.04-5.17-16.99,2.95-2.22,5.17-7.39,5.91-12.56,1.48-8.86,0-19.2-6.65-29.54-5.91-10.34-16.99-20.68-33.98-31.02-121.88-68.69-361.94-8.86-480.86,46.54-56.88,26.59-196.48,105.63-158.07,186.88,17.73,38.41,79.77,59.83,140.34,80.51,34.72,12.56,69.43,24.38,98.24,40.63,209.04,117.45-51.71,370.06-257.05,373.76C88.65,848.99,1.49,813.53.01,738.93c-.74-33.98,25.85-78.3,91.59-130.74,2.96-2.96,10.34.74,16.25,7.39,5.91,5.91,8.13,14.03,4.43,16.25-63.52,50.97-88.64,92.33-87.9,122.62.74,47.27,82.73,52.44,115.23,50.97,179.49-4.43,438.02-225.29,283.64-312.45-25.85-14.03-59.09-25.85-93.07-37.67-70.17-24.38-141.82-48.75-169.89-108.58-45.06-96.76,84.21-180.97,155.12-214.21,127.05-59.09,372.28-110.8,502.28-36.93,26.59,15.51,45.06,33.98,55.4,52.44,11.08,17.73,14.03,34.72,12.56,47.27-1.48,8.12-4.43,14.77-8.86,18.47Z" />
+                    <path class="animated-path" pathLength="1" d="M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                    <path class="animated-path" pathLength="1" d="M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z" />
+                    <path class="animated-path" pathLength="1" d="M953.61,386.59c-2.22-1.48-4.43-4.43-5.91-6.65-4.43-6.65-3.69-12.56,1.48-13.3,7.39,0,27.33-19.94,47.27-45.06l5.91-5.91c12.56-19.94,23.64-36.93,31.76-50.23,8.86-14.77,15.51-25.12,20.68-30.29.74-2.96,2.95-3.69,6.65-2.96h.74c14.77,4.43,19.94,12.56,16.25,25.85-2.96,11.08-28.07,48.01-53.92,79.77-14.04,21.42-31.02,45.8-49.49,71.65-22.16,31.02-56.14,80.51-92.33,132.96,31.02.74,82.73,2.96,135.17-36.19,2.96-2.22,6.65-8.12,11.82-1.48,5.91,6.65,8.12,14.04,4.43,16.25-72.39,53.92-137.39,49.49-166.2,43.58l-5.17,6.65c1.48,17.73.74,48.01-9.6,93.81-7.39,34.72-23.64,60.57-42.1,79.77-25.11,25.85-54.66,38.41-70.91,36.93l-.74-.74c-1.48,0-2.22,0-3.69-.74l-1.48-.74c-16.99-8.12-18.47-24.38-8.86-45.06,6.65-13.3,16.99-31.76,29.55-53.18,22.16-36.93,52.44-83.47,83.47-129.26-.74-5.17-1.48-7.39-1.48-7.39-2.22-6.65.74-11.08,6.65-8.86h.74s1.48.74,4.43,1.48c39.89-59.09,79.77-115.23,104.15-149.95l.74-.74ZM836.17,611.88c-22.16,33.24-42.1,65-58.35,91.59-11.08,17.73-19.94,33.98-25.85,45.8,11.82-5.17,25.11-14.77,37.67-27.33,16.99-18.47,32.5-42.84,39.89-75.34,2.95-13.29,5.17-24.38,6.65-34.72Z" />
+                    <path class="animated-path" pathLength="1" d="M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z" />
+                <path class="animated-path" pathLength="1" d="M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z" />
+                <path class="animated-path" pathLength="1" d="M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z" />
+                <path class="animated-path" pathLength="1" d="M2710.13,512.9c-34.72,17.73-73.86,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.62-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.63,40.63ZM2657.68,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.12,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
+            </svg>
+        </a>
         <img src="me.webp" alt="Seif Ahmed" class="hero-portrait">
             </div>
 
-            <div class="hero-left">
+            <!-- أزرار اليسار (السيرة الذاتية متسنترة قصاد زرار الأعمال بالضبط) -->
+            <div class="hero-action-left">
                 <a href="#" onclick="openCVModal(event)" class="btn-secondary">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
