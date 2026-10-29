@@ -13,19 +13,19 @@
     
     <style>
         :root {
-            /* درجات الخلفيات الكحلي الليلي المأخوذة من روح الـ CV */
+            /* درجات الخلفيات الكحلي الليلي */
             --bg-color: #05080f; 
             --surface-color: #0b111a;
             --surface-glass: rgba(11, 17, 26, 0.85);
-            --border-color: rgba(37, 109, 150, 0.2); /* حدود زرقاء خفيفة */
+            --border-color: rgba(37, 109, 150, 0.2); 
             
             --text-main: #f4f4f6;
             --text-muted: #9ba1a6;
             
             /* الألوان الرئيسية من السيرة الذاتية */
-            --accent-blue: #256d96; /* الأزرق البترولي (اللون الطاغي) */
+            --accent-blue: #256d96; 
             --accent-blue-glow: rgba(37, 109, 150, 0.15);
-            --accent-gold: #d4af37; /* الأصفر الذهبي (اللون الثانوي للمسات) */
+            --accent-gold: #d4af37; 
             --accent-gold-glow: rgba(212, 175, 55, 0.15);
             
             --font-ar: 'Cairo', sans-serif;
@@ -52,7 +52,7 @@
             font-family: var(--font-en);
         }
 
-        /* Custom Cursor Animation (الذهبي) */
+        /* Custom Cursor Animation */
         .cursor-dot, .cursor-circle {
             position: fixed;
             top: 0;
@@ -77,7 +77,7 @@
             background-color: rgba(212, 175, 55, 0.05);
         }
 
-        /* Mesh Background (زرقاء عشان تدي عمق للموقع) */
+        /* Mesh Background */
         .mesh-bg {
             position: fixed;
             top: 0;
@@ -99,7 +99,7 @@
         .blob-1 {
             width: 450px;
             height: 450px;
-            background: rgba(37, 109, 150, 0.15); /* أزرق */
+            background: rgba(37, 109, 150, 0.15); 
             top: -10%;
             right: -10%;
         }
@@ -107,7 +107,7 @@
         .blob-2 {
             width: 500px;
             height: 500px;
-            background: rgba(18, 55, 80, 0.2); /* كحلي غامق */
+            background: rgba(18, 55, 80, 0.2); 
             bottom: -15%;
             left: -10%;
             animation-delay: -5s;
@@ -238,7 +238,6 @@
             margin-bottom: 25px;
         }
 
-        /* تدرج لوني أزرق أنيق في العنوان */
         h1 span {
             background: linear-gradient(135deg, #fff 20%, var(--accent-blue) 100%);
             -webkit-background-clip: text;
@@ -269,7 +268,6 @@
             transition: var(--transition);
         }
 
-        /* الزر الرئيسي أزرق، ولما تقف عليه يقلب ذهبي */
         .btn-primary {
             background: var(--accent-blue);
             color: #fff;
@@ -474,7 +472,7 @@
             align-items: flex-start;
         }
 
-        /* --- السكرول بار الأزرق مع لمسة ذهبية في الهوفر --- */
+        /* --- Custom Scrollbar --- */
         .cv-scroll-area::-webkit-scrollbar {
             width: 14px;
             height: 14px;
@@ -640,7 +638,7 @@
         </div>
     </section>
 
-    <!-- High-End Interactive CV Modal Preview Overlay -->
+    <!-- High-End Interactive CV Modal -->
     <div class="cv-modal" id="cvModal">
         <div class="cv-modal-content">
             <div class="cv-modal-header">
@@ -649,7 +647,8 @@
                     <span data-i18n="modal_title">معاينة السيرة الذاتية</span>
                 </h3>
                 <div class="cv-modal-actions">
-                    <a href="https://drive.google.com/uc?export=download&id=1HJ3cjeDbtTHyPumOFUX6tVKEPjehrrsv" class="btn-download-cv" target="_blank">
+                    <!-- الزر هنا أصبح يوجه لملف PDF للتحميل المباشر -->
+                    <a href="cv.pdf" download="Seif_Ahmed_CV.pdf" class="btn-download-cv">
                         <i class="fa-solid fa-download"></i>
                         <span data-i18n="download_btn">تحميل PDF</span>
                     </a>
@@ -665,8 +664,8 @@
                 </div>
                 
                 <div class="cv-scroll-area" id="cvScrollArea">
-                    <!-- الصورة هنا هي الـ CV بتاعك بجودة عالية -->
-                    <img src="cv.pdf" alt="CV Preview" class="cv-image-preview" id="cvImagePreview">
+                    <!-- الصورة هنا هي الـ CV بتاعك بجودة عالية للمعاينة التفاعلية -->
+                    <img src="cv.jpg" alt="CV Preview" class="cv-image-preview" id="cvImagePreview">
                 </div>
             </div>
             
