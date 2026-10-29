@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seif Ahmed</title>
+    <title>Seif Ahmed | Lead Graphic Designer & Multimedia Specialist</title>
     <!-- Google Fonts: Cairo & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +13,7 @@
     
     <style>
         :root {
-            /* درجات الخلفيات الكحلي الليلي */
-            --bg-color: #05080f; 
+            var(--bg-color): #05080f; 
             --surface-color: #0b111a;
             --surface-glass: rgba(11, 17, 26, 0.85);
             --border-color: rgba(37, 109, 150, 0.2); 
@@ -22,7 +21,6 @@
             --text-main: #f4f4f6;
             --text-muted: #9ba1a6;
             
-            /* الألوان الرئيسية من السيرة الذاتية */
             --accent-blue: #256d96; 
             --accent-blue-glow: rgba(37, 109, 150, 0.15);
             --accent-gold: #d4af37; 
@@ -41,7 +39,7 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: #05080f;
             color: var(--text-main);
             font-family: var(--font-ar);
             overflow-x: hidden;
@@ -52,7 +50,7 @@
             font-family: var(--font-en);
         }
 
-        /* Custom Cursor Animation */
+        /* Custom Cursor */
         .cursor-dot, .cursor-circle {
             position: fixed;
             top: 0;
@@ -63,13 +61,11 @@
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, background-color 0.3s;
         }
-
         .cursor-dot {
             width: 8px;
             height: 8px;
             background-color: var(--accent-gold);
         }
-
         .cursor-circle {
             width: 36px;
             height: 36px;
@@ -77,45 +73,25 @@
             background-color: rgba(212, 175, 55, 0.05);
         }
 
-        /* Mesh Background */
-        .mesh-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            opacity: 0.5;
-        }
-
-        .mesh-blob {
+        /* Hero Moving Blur Light */
+        .hero-light {
             position: absolute;
-            filter: blur(120px);
+            width: 70vw;
+            height: 70vh;
+            background: radial-gradient(circle, rgba(37, 109, 150, 0.25) 0%, rgba(5, 8, 15, 0) 60%);
             border-radius: 50%;
-            animation: floatBlob 15s infinite alternate ease-in-out;
+            filter: blur(90px);
+            z-index: -1;
+            top: 10%;
+            left: 15%;
+            pointer-events: none;
+            animation: floatLight 12s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .blob-1 {
-            width: 450px;
-            height: 450px;
-            background: rgba(37, 109, 150, 0.15); 
-            top: -10%;
-            right: -10%;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 500px;
-            background: rgba(18, 55, 80, 0.2); 
-            bottom: -15%;
-            left: -10%;
-            animation-delay: -5s;
-        }
-
-        @keyframes floatBlob {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, 60px) scale(1.1); }
+        @keyframes floatLight {
+            0% { transform: translate(0, 0) scale(1); background: radial-gradient(circle, rgba(37, 109, 150, 0.25) 0%, rgba(5, 8, 15, 0) 60%); }
+            50% { transform: translate(-15vw, 15vh) scale(1.2); background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(5, 8, 15, 0) 60%); }
+            100% { transform: translate(15vw, 5vh) scale(0.9); background: radial-gradient(circle, rgba(37, 109, 150, 0.3) 0%, rgba(5, 8, 15, 0) 60%); }
         }
 
         /* Navbar */
@@ -133,7 +109,6 @@
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
         }
-
         .logo {
             font-weight: 900;
             font-size: 1.3rem;
@@ -142,18 +117,14 @@
             align-items: center;
             gap: 10px;
         }
-
-        .logo span {
-            color: var(--accent-gold);
-        }
-
+        .logo span { color: var(--accent-gold); }
+        
         .nav-links {
             display: flex;
             gap: 30px;
             list-style: none;
             align-items: center;
         }
-
         .nav-links a {
             text-decoration: none;
             color: var(--text-muted);
@@ -161,17 +132,13 @@
             font-size: 0.95rem;
             transition: var(--transition);
         }
-
-        .nav-links a:hover {
-            color: var(--text-main);
-        }
-
+        .nav-links a:hover { color: var(--text-main); }
+        
         .nav-actions {
             display: flex;
             gap: 15px;
             align-items: center;
         }
-
         .lang-btn, .cta-nav {
             background: var(--surface-color);
             border: 1px solid var(--border-color);
@@ -182,18 +149,15 @@
             font-weight: 600;
             transition: var(--transition);
         }
-
         .lang-btn:hover, .cta-nav:hover {
             border-color: var(--accent-blue);
             background: var(--accent-blue-glow);
         }
-
         .cta-nav {
             background: var(--text-main);
-            color: var(--bg-color);
+            color: #05080f;
             border: none;
         }
-
         .cta-nav:hover {
             background: var(--accent-blue);
             color: #fff;
@@ -201,14 +165,15 @@
 
         /* Hero Section */
         hero {
+            position: relative;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 0 10%;
             padding-top: 80px;
+            z-index: 1;
         }
-
         .availability-badge {
             display: inline-flex;
             align-items: center;
@@ -221,7 +186,6 @@
             margin-bottom: 25px;
             width: fit-content;
         }
-
         .status-dot {
             width: 8px;
             height: 8px;
@@ -229,7 +193,6 @@
             border-radius: 50%;
             box-shadow: 0 0 10px var(--accent-blue);
         }
-
         h1 {
             font-size: clamp(3rem, 6vw, 6rem);
             font-weight: 900;
@@ -237,13 +200,11 @@
             letter-spacing: -2px;
             margin-bottom: 25px;
         }
-
         h1 span {
             background: linear-gradient(135deg, #fff 20%, var(--accent-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .hero-desc {
             font-size: clamp(1rem, 1.5vw, 1.25rem);
             color: var(--text-muted);
@@ -251,12 +212,10 @@
             margin-bottom: 40px;
             line-height: 1.6;
         }
-
         .hero-btns {
             display: flex;
             gap: 20px;
         }
-
         .btn-primary, .btn-secondary {
             padding: 14px 28px;
             border-radius: 35px;
@@ -267,26 +226,22 @@
             gap: 10px;
             transition: var(--transition);
         }
-
         .btn-primary {
             background: var(--accent-blue);
             color: #fff;
             border: 1px solid var(--accent-blue);
         }
-
         .btn-primary:hover {
             background: var(--accent-gold);
             border-color: var(--accent-gold);
             color: #000;
             transform: translateY(-3px);
         }
-
         .btn-secondary {
             background: var(--surface-color);
             color: var(--text-main);
             border: 1px solid var(--border-color);
         }
-
         .btn-secondary:hover {
             border-color: var(--accent-blue);
             background: var(--accent-blue-glow);
@@ -294,23 +249,19 @@
         }
 
         /* Sections */
-        section {
-            padding: 100px 10%;
-        }
-
+        section { padding: 100px 10%; position: relative; z-index: 2; }
+        
         .section-title {
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 50px;
             letter-spacing: -1px;
         }
-
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
-
         .bento-card {
             background: var(--surface-color);
             border: 1px solid var(--border-color);
@@ -318,30 +269,24 @@
             padding: 35px;
             transition: var(--transition);
         }
-
         .bento-card:hover {
             border-color: rgba(37, 109, 150, 0.6);
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-
-        .bento-card.large {
-            grid-column: span 2;
-        }
-
+        .bento-card.large { grid-column: span 2; }
         .bento-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
             font-weight: 700;
         }
-
         .bento-card p {
             color: var(--text-muted);
             line-height: 1.6;
             font-size: 0.95rem;
         }
 
-        /* High-End CV Modal */
+        /* CV Modal */
         .cv-modal {
             position: fixed;
             top: 0;
@@ -358,12 +303,10 @@
             pointer-events: none;
             transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .cv-modal.active {
             opacity: 1;
             pointer-events: auto;
         }
-
         .cv-modal-content {
             background: var(--surface-color);
             border: 1px solid rgba(37, 109, 150, 0.4);
@@ -378,21 +321,17 @@
             transform: scale(0.92);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .cv-modal.active .cv-modal-content {
-            transform: scale(1);
-        }
-
+        .cv-modal.active .cv-modal-content { transform: scale(1); }
+        
         .cv-modal-header {
             padding: 22px 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            background: var(--bg-color);
+            background: #05080f;
             z-index: 10;
         }
-
         .cv-modal-header h3 {
             font-size: 1.25rem;
             font-weight: 700;
@@ -400,17 +339,13 @@
             align-items: center;
             gap: 10px;
         }
-
-        .cv-modal-header h3 i {
-            color: var(--accent-gold);
-        }
-
+        .cv-modal-header h3 i { color: var(--accent-gold); }
+        
         .cv-modal-actions {
             display: flex;
             gap: 15px;
             align-items: center;
         }
-
         .btn-download-cv {
             background: var(--accent-blue);
             color: #fff;
@@ -424,14 +359,12 @@
             gap: 8px;
             transition: var(--transition);
         }
-
         .btn-download-cv:hover {
             background: var(--accent-gold);
             color: #000;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
-
         .close-modal {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
@@ -445,14 +378,13 @@
             font-size: 1.2rem;
             transition: var(--transition);
         }
-
         .close-modal:hover {
             background: rgba(255, 255, 255, 0.12);
             border-color: var(--accent-blue);
             color: var(--accent-blue);
         }
 
-        /* Custom Interactive Viewer Area */
+        /* CV Viewer */
         .cv-viewer-area {
             position: relative;
             flex-grow: 1;
@@ -461,7 +393,6 @@
             overflow: hidden;
             display: flex;
         }
-
         .cv-scroll-area {
             width: 100%;
             height: 100%;
@@ -471,28 +402,16 @@
             justify-content: center;
             align-items: flex-start;
         }
-
-        /* --- Custom Scrollbar --- */
-        .cv-scroll-area::-webkit-scrollbar {
-            width: 14px;
-            height: 14px;
-        }
-        .cv-scroll-area::-webkit-scrollbar-track {
-            background: var(--bg-color);
-            border-radius: 10px;
-        }
+        .cv-scroll-area::-webkit-scrollbar { width: 14px; height: 14px; }
+        .cv-scroll-area::-webkit-scrollbar-track { background: #05080f; border-radius: 10px; }
         .cv-scroll-area::-webkit-scrollbar-thumb {
             background: var(--accent-blue); 
             border-radius: 10px;
-            border: 3px solid var(--bg-color);
+            border: 3px solid #05080f;
             background-clip: padding-box;
         }
-        .cv-scroll-area::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-gold);
-        }
-        .cv-scroll-area::-webkit-scrollbar-corner {
-            background: var(--bg-color);
-        }
+        .cv-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
+        .cv-scroll-area::-webkit-scrollbar-corner { background: #05080f; }
 
         .cv-image-preview {
             width: 100%;
@@ -504,7 +423,6 @@
             border-radius: 4px;
         }
 
-        /* Floating Zoom Controls */
         .zoom-controls {
             position: absolute;
             bottom: 30px;
@@ -520,7 +438,6 @@
             z-index: 50;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-
         .zoom-controls button {
             background: transparent;
             border: none;
@@ -534,31 +451,53 @@
             font-size: 1.1rem;
             transition: var(--transition);
         }
-
         .zoom-controls button:hover {
             background: var(--accent-blue-glow);
             color: var(--accent-blue);
         }
 
-        /* Responsive */
+        /* 📱 PERFECT MOBILE RESPONSIVE UI */
         @media(max-width: 900px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
+            /* إيقاف الماوس المخصص تماماً في التاتش لتجنب التهنيج */
+            @media (pointer: coarse) {
+                .cursor-dot, .cursor-circle { display: none !important; }
+                * { cursor: auto !important; }
             }
-            .bento-card.large {
-                grid-column: span 1;
+
+            header { padding: 15px 5%; }
+            .nav-links { display: none; } /* إخفاء الروابط في الموبايل للتبسيط */
+            .lang-btn, .cta-nav { padding: 8px 14px; font-size: 0.8rem; }
+            
+            hero {
+                padding-top: 100px;
+                text-align: center;
+                align-items: center;
             }
-            .nav-links {
-                display: none;
+            .availability-badge { margin: 0 auto 25px auto; }
+            .hero-desc { margin: 0 auto 40px auto; font-size: 1rem; }
+            .hero-btns {
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
             }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                padding: 16px;
+            }
+
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.large { grid-column: span 1; }
+            
             .cv-modal-content {
                 width: 95%;
-                height: 95vh;
+                height: 90vh;
             }
-            .zoom-controls {
-                right: 15px;
-                bottom: 15px;
-            }
+            .cv-modal-header { padding: 15px 20px; }
+            .cv-modal-header h3 { font-size: 1rem; }
+            .btn-download-cv { padding: 8px 15px; font-size: 0.8rem; }
+            .zoom-controls { right: 15px; bottom: 15px; }
+            .cv-scroll-area { padding: 15px; }
         }
     </style>
 </head>
@@ -567,11 +506,6 @@
     <!-- Custom Animated Cursors -->
     <div class="cursor-dot"></div>
     <div class="cursor-circle"></div>
-
-    <div class="mesh-bg">
-        <div class="mesh-blob blob-1"></div>
-        <div class="mesh-blob blob-2"></div>
-    </div>
 
     <!-- Header / Navbar -->
     <header>
@@ -591,7 +525,10 @@
     </header>
 
     <!-- Hero Section -->
-    <hero>
+    <hero id="about">
+        <!-- ضوء البلور المتحرك الخاص بأول سلايد -->
+        <div class="hero-light"></div>
+        
         <div class="availability-badge">
             <div class="status-dot"></div>
             <span data-i18n="hero_status">متاح لفرص عمل Full-Time</span>
@@ -601,7 +538,7 @@
             <span data-i18n="hero_title_2">& Multimedia Specialist.</span>
         </h1>
         <p class="hero-desc" data-i18n="hero_desc">
-            خبرة أكثر من 7 سنوات في صياغة الهويات البصرية المبتكرة، المونتاج الاحترافي، وهندسة الوسائط الرقمية بدقة وصياغة راقية.
+            خبرة أكثر من 6 سنوات في صياغة الهويات البصرية المبتكرة، المونتاج الاحترافي، وهندسة الوسائط الرقمية بدقة وصياغة راقية.
         </p>
         <div class="hero-btns">
             <a href="#showcase" class="btn-primary">
@@ -647,7 +584,6 @@
                     <span data-i18n="modal_title">معاينة السيرة الذاتية</span>
                 </h3>
                 <div class="cv-modal-actions">
-                    <!-- الزر هنا أصبح يوجه لملف PDF للتحميل المباشر -->
                     <a href="cv.pdf" download="Seif_Ahmed_CV.pdf" class="btn-download-cv">
                         <i class="fa-solid fa-download"></i>
                         <span data-i18n="download_btn">تحميل PDF</span>
@@ -664,11 +600,9 @@
                 </div>
                 
                 <div class="cv-scroll-area" id="cvScrollArea">
-                    <!-- الصورة هنا هي الـ CV بتاعك بجودة عالية للمعاينة التفاعلية -->
                     <img src="cv.jpg" alt="CV Preview" class="cv-image-preview" id="cvImagePreview">
                 </div>
             </div>
-            
         </div>
     </div>
 
@@ -679,15 +613,11 @@
         const cursorCircle = document.querySelector('.cursor-circle');
 
         window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
             cursorCircle.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
+                left: `${e.clientX}px`,
+                top: `${e.clientY}px`
             }, { duration: 100, fill: 'forwards' });
         });
 
@@ -705,7 +635,63 @@
             });
         });
 
-        // Interactive CV Viewer Logic (Zoom & Pan)
+        // ---------------------------------------------------------
+        // 1. Idle Auto-Scroll Logic (5 seconds on Hero Section)
+        // ---------------------------------------------------------
+        let idleTimer;
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
+            // لو المستخدم لسه في أول الصفحة (Hero Section)
+            if (window.scrollY < window.innerHeight * 0.3) {
+                idleTimer = setTimeout(() => {
+                    const showcase = document.getElementById('showcase');
+                    if(showcase) showcase.scrollIntoView({ behavior: 'smooth' });
+                }, 5000); // 5 ثواني
+            }
+        }
+        // الاستماع لأي حركة أو تفاعل لتصفير العداد
+        ['mousemove', 'scroll', 'keydown', 'click', 'touchstart'].forEach(evt => {
+            window.addEventListener(evt, resetIdleTimer);
+        });
+        resetIdleTimer(); // تشغيل العداد أول ما الموقع يفتح
+
+        // ---------------------------------------------------------
+        // 2. Edge Scrolling (تمرير الصفحة عند وضع الماوس بالأسفل)
+        // ---------------------------------------------------------
+        let edgeScrollAnimation;
+        let isHoveringBottom = false;
+
+        function edgeScroll() {
+            if (isHoveringBottom) {
+                window.scrollBy(0, 7); // سرعة النزول
+                edgeScrollAnimation = requestAnimationFrame(edgeScroll);
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            // تعطيل الخاصية دي في الموبايلات لتجنب مشاكل التاتش
+            if (window.innerWidth <= 900) return; 
+            
+            const threshold = 60; // 60 بيكسل من أسفل الشاشة
+            if (window.innerHeight - e.clientY < threshold) {
+                if (!isHoveringBottom) {
+                    isHoveringBottom = true;
+                    edgeScrollAnimation = requestAnimationFrame(edgeScroll);
+                }
+            } else {
+                isHoveringBottom = false;
+                cancelAnimationFrame(edgeScrollAnimation);
+            }
+        });
+        
+        window.addEventListener('mouseleave', () => {
+            isHoveringBottom = false;
+            cancelAnimationFrame(edgeScrollAnimation);
+        });
+
+        // ---------------------------------------------------------
+        // CV Viewer Logic (Zoom & Pan)
+        // ---------------------------------------------------------
         let cvScale = 1;
         const cvImage = document.getElementById('cvImagePreview');
         const cvScrollArea = document.getElementById('cvScrollArea');
@@ -731,28 +717,20 @@
             startY = e.pageY - cvScrollArea.offsetTop;
             scrollLeft = cvScrollArea.scrollLeft;
             scrollTop = cvScrollArea.scrollTop;
-            
             cursorCircle.style.transform = 'translate(-50%, -50%) scale(0.8)';
             cursorCircle.style.borderColor = 'var(--accent-blue)';
         });
-
-        cvScrollArea.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
+        cvScrollArea.addEventListener('mouseleave', () => { isDragging = false; });
         cvScrollArea.addEventListener('mouseup', () => {
             isDragging = false;
             cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
             cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
         });
-
         cvScrollArea.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             e.preventDefault();
-            const x = e.pageX - cvScrollArea.offsetLeft;
-            const y = e.pageY - cvScrollArea.offsetTop;
-            const walkX = (x - startX) * 1.5;
-            const walkY = (y - startY) * 1.5;
+            const walkX = ((e.pageX - cvScrollArea.offsetLeft) - startX) * 1.5;
+            const walkY = ((e.pageY - cvScrollArea.offsetTop) - startY) * 1.5;
             cvScrollArea.scrollLeft = scrollLeft - walkX;
             cvScrollArea.scrollTop = scrollTop - walkY;
         });
@@ -769,9 +747,7 @@
 
         window.addEventListener('click', (e) => {
             const modal = document.getElementById('cvModal');
-            if (e.target === modal) {
-                closeCVModal();
-            }
+            if (e.target === modal) closeCVModal();
         });
 
         // Localization Dictionary
@@ -841,9 +817,7 @@
 
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[currentLang][key]) {
-                    el.innerText = translations[currentLang][key];
-                }
+                if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
             });
         }
     </script>
