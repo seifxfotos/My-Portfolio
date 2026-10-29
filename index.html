@@ -12,24 +12,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ==========================================================
+           Seif Ahmed | Portfolio  —  style.css
+           ========================================================== */
         :root {
-            --bg-color: #020408; 
+            --bg-color: #020408;
             --surface-color: #0b111a;
-            --surface-glass: rgba(11, 17, 26, 0.85);
-            --border-color: rgba(37, 109, 150, 0.3); 
-            
+            --surface-glass: rgba(11, 17, 26, 0.7);
+            --border-color: rgba(37, 109, 150, 0.3);
+
             --text-main: #f4f4f6;
             --text-muted: #9ba1a6;
-            
-            --accent-blue: #256d96; 
+
+            --accent-blue: #256d96;
             --accent-blue-glow: rgba(37, 109, 150, 0.15);
-            --accent-gold: #d4af37; 
+            --accent-gold: #d4af37;
             --accent-gold-glow: rgba(212, 175, 55, 0.15);
-            
-            --font-ar: 'Cairo', sans-serif;
-            --font-en: 'Outfit', sans-serif;
+
+            --font-ar: 'Cairo', system-ui, sans-serif;
+            --font-en: 'Outfit', system-ui, sans-serif;
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            
+
             --safe-top: env(safe-area-inset-top, 0px);
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             --header-h: 85px;
@@ -39,7 +42,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none !important;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -47,11 +49,10 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-ar);
-            overflow-x: hidden; 
-            overflow-y: hidden;
             width: 100%;
             height: 100vh;
             height: 100dvh;
+            overflow: hidden;
             overscroll-behavior: none;
             touch-action: manipulation;
             -webkit-text-size-adjust: 100%;
@@ -90,7 +91,6 @@
         .mesh-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; background-color: var(--bg-color); pointer-events: none; }
         .mesh-blob { position: absolute; border-radius: 50%; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1); will-change: transform; pointer-events: none; }
 
-        /* INCREASED OPACITY FOR DESKTOP */
         .blob-1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(37, 109, 150, 0.85) 0%, rgba(37, 109, 150, 0) 70%); top: -15%; left: -15%; animation: float1 4s infinite alternate ease-in-out; }
         .blob-2 { width: 550px; height: 550px; background: radial-gradient(circle, rgba(37, 109, 150, 0.65) 0%, rgba(37, 109, 150, 0) 70%); bottom: 5%; left: 5%; animation: float2 3.5s infinite alternate-reverse ease-in-out; }
         .blob-3 { width: 750px; height: 750px; background: radial-gradient(circle, rgba(212, 175, 55, 0.65) 0%, rgba(212, 175, 55, 0) 70%); bottom: -15%; right: -15%; animation: float3 4.5s infinite alternate ease-in-out; }
@@ -140,9 +140,8 @@
 
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; transition: var(--transition); }
-        
         .nav-actions { display: flex; gap: 15px; align-items: center; }
-        .lang-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; font-family: inherit; min-height: 38px; transition: var(--transition); cursor: pointer !important; }
+        .lang-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; font-family: inherit; min-height: 38px; transition: var(--transition); }
         
         @media (hover: hover) {
             .nav-links a:hover { color: var(--text-main); }
@@ -220,7 +219,7 @@
         }
 
         /* ---------- HERO (slide 1) ---------- */
-        #slide-hero { z-index: 1; overflow: hidden; transform-origin: center center; }
+        #slide-hero { z-index: 1; padding-top: 80px; overflow: hidden; transform-origin: center center; }
 
         #slide-hero.slide-out {
             transform: perspective(1200px) scale(0.85) translateY(-8%) rotateX(8deg);
@@ -229,7 +228,7 @@
             pointer-events: none;
         }
 
-        .hero-layout { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; position: relative; z-index: 2; padding-top: var(--header-h); }
+        .hero-layout { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; position: relative; z-index: 2; }
 
         .hero-right { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 8%; z-index: 4; }
 
@@ -272,7 +271,7 @@
             width: clamp(600px, 140%, 1200px);
             z-index: 1;
             pointer-events: none;
-            opacity: 1;
+            opacity: 1; /* التعديل المطلوب: أوبستي 100% للكمبيوتر */
         }
 
         .hero-portrait {
@@ -450,8 +449,8 @@
             .menu-toggle { display: flex; }
 
             /* lighter background on phones */
-            .blob-1 { width: 120vw; height: 120vw; background: radial-gradient(circle, rgba(37, 109, 150, 0.65) 0%, rgba(37, 109, 150, 0) 70%); }
-            .blob-3 { width: 130vw; height: 130vw; background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0) 70%); }
+            .blob-1 { width: 120vw; height: 120vw; }
+            .blob-3 { width: 130vw; height: 130vw; }
             .blob-2, .blob-4 { display: none; }
 
             #slide-hero { padding-top: 0; }
@@ -466,9 +465,10 @@
                     "desc    desc"
                     "photo   photo"
                     "primary cv";
-                row-gap: 14px;
-                column-gap: 10px;
-                padding: calc(var(--safe-top) + var(--header-h) + 8px) 20px calc(var(--safe-bottom) + 20px);
+                row-gap: 10px;
+                column-gap: 12px;
+                /* قللنا الـ padding من فوق وزودناه من تحت عشان يرفع كل العناصر لفوق */
+                padding: calc(var(--safe-top) + var(--header-h) + 5px) 20px calc(var(--safe-bottom) + 55px);
             }
             .hero-right, .hero-left { display: contents; }
 
@@ -483,7 +483,7 @@
                 text-wrap: balance;
             }
 
-            .hero-center { grid-area: photo; position: relative; height: auto; min-height: 0; margin: 0 -20px; }
+            .hero-center { grid-area: photo; position: relative; height: auto; min-height: 0; margin: 0 -20px; z-index: 1; }
             .hero-portrait {
                 position: absolute;
                 inset: 0;
@@ -493,14 +493,15 @@
                 bottom: 0;
                 object-fit: contain;
                 object-position: center bottom;
+                z-index: 3;
             }
             
-            /* FIT BACKGROUND LOGO INSIDE MOBILE VIEW WITH 100% OPACITY */
+            /* التعديل المطلوب: اللوجو الخلفي كامل بوضوح تام و 100% أوبستي */
             .bg-logo-huge { 
-                width: 90vw; 
-                max-width: 400px;
+                width: 170vw; 
+                max-width: 500px;
                 min-width: 0; 
-                top: 45%; 
+                top: 48%; 
                 opacity: 1;
             }
 
@@ -511,6 +512,7 @@
                 font-size: 0.92rem;
                 white-space: nowrap;
                 gap: 8px;
+                z-index: 5;
             }
             .btn-primary { grid-area: primary; box-shadow: 0 8px 22px rgba(37, 109, 150, 0.4); }
             .btn-secondary { grid-area: cv; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
@@ -967,6 +969,11 @@
             root.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
             $('langToggle').textContent = currentLang === 'ar' ? 'EN' : 'AR';
             
+            const arrow = $('btn-arrow');
+            if (arrow) {
+                arrow.className = currentLang === 'en' ? "fa-solid fa-arrow-right-long" : "fa-solid fa-arrow-left-long";
+            }
+
             document.querySelectorAll('[data-i18n]').forEach((el) => {
                 const text = translations[currentLang][el.getAttribute('data-i18n')];
                 if (text) el.textContent = text;
