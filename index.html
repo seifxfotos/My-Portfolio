@@ -206,6 +206,7 @@
 
         .hero-layout { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; position: relative; z-index: 2; }
         
+        /* جعل محتوى اليمين متسنتر عمودياً ومماثل لليسار */
         .hero-right { 
             flex: 1; 
             display: flex; 
@@ -216,18 +217,19 @@
             z-index: 4; 
         }
         
-        .availability-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(11, 17, 26, 0.5); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; margin-bottom: 30px; }
-        .status-dot { width: 8px; height: 8px; background-color: var(--accent-blue); border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); }
-        
-        .hero-desc {
-            font-size: clamp(1.2rem, 2vw, 1.8rem);
-            font-weight: 700;
-            color: #fff;
-            max-width: 500px;
-            margin-bottom: 40px;
-            line-height: 1.6;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        .availability-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            background: rgba(11, 17, 26, 0.5); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid var(--border-color); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 0.85rem; 
+            margin-bottom: 16px; 
         }
+        .status-dot { width: 8px; height: 8px; background-color: var(--accent-blue); border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); }
 
         .btn-primary {
             background: var(--accent-blue);
@@ -247,6 +249,7 @@
 
         .hero-center { flex: 1.2; display: flex; justify-content: center; align-items: flex-end; height: 100%; position: relative; }
         
+        /* اللوجو الخلفي 100% أوبستي في الديسكتوب */
         .bg-logo-huge {
             position: absolute;
             top: 45%;
@@ -255,7 +258,6 @@
             width: clamp(600px, 140%, 1200px); 
             z-index: 1; 
             pointer-events: none;
-            /* أوبستي عالية وظاهرة تماماً وراء الرأس والجسد */
             opacity: 1; 
         }
 
@@ -265,7 +267,6 @@
             z-index: 3; 
             position: relative;
             bottom: -5dvh; 
-            /* ماسك من فوق ومن تحت لضمان نعومة القص تماماً */
             -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
             mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
             animation: floatPortrait 8s ease-in-out infinite;
@@ -401,38 +402,27 @@
             @media (pointer: coarse) { .cursor-dot, .cursor-circle { display: none !important; } * { cursor: auto !important; } }
             header { padding: 15px 5%; }
             
-            /* إخفاء القايمة التقليدية وإظهار الـ Burger Menu */
             .nav-links { display: none; } 
             .menu-toggle { display: flex; }
             
             .hero-layout { 
                 flex-direction: column; 
                 justify-content: space-between; 
-                padding-top: 45px; 
-                padding-bottom: 50px;
+                padding-top: 65px; 
+                padding-bottom: 30px;
             }
             
-            /* رفع النص لفوق ومسافة آمنة بعيدة عن الرأس */
-.hero-right {
-    position: absolute !important;
-    top: 12% !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 10px !important;
-    z-index: 10 !important;
-    padding: 0 !important;
-}
-.hero-right .availability-badge {
-    margin-bottom: 0 !important;
-}
-.hero-right .availability-badge {
-    margin-bottom: 0;
-}
-            .hero-desc { display: none !important; }            
+            .hero-right { 
+                flex: none; 
+                order: 1; 
+                padding: 0 5%; 
+                width: 100%; 
+                align-items: center; 
+                text-align: center; 
+                margin-top: 0;
+            }
+            .availability-badge { margin-bottom: 12px; }
+            
             .hero-center { 
                 flex: 1; 
                 order: 2; 
@@ -440,17 +430,23 @@
                 width: 100%; 
                 align-items: center; 
             }
-            .hero-portrait { max-height: 44dvh; bottom: 0; }
+            .hero-portrait { max-height: 48dvh; bottom: 0; }
             
-            /* ضبط اللوجو الخلفي بالموبايل عشان يظهر كامل وواضح ومظبوط */
-            .bg-logo-huge { width: 85vw; max-width: 360px; top: 40%; opacity: 1; }
+            /* اللوجو الخلفي بالموبايل: Fit على كامل عرض الشاشة وبدون أي قص وبـ Opacity 100% */
+            .bg-logo-huge { 
+                width: 90vw; 
+                max-width: 380px; 
+                top: 42%; 
+                opacity: 1; 
+            }
             
             .hero-left { 
                 flex: none; 
                 order: 3; 
-                padding: 0 5% 25px 5%; 
+                padding: 0 5% 10px 5%; 
                 width: 100%; 
                 justify-content: center; 
+                margin-top: 10px;
             }
 
             .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 14px; }
@@ -523,6 +519,7 @@
                 <div class="availability-badge">
                     <div class="status-dot"></div>
                     <span data-i18n="hero_status">متاح لفرص عمل Full-Time</span>
+                </div>
                 <a href="#" onclick="goToSlide(1); return false;" class="btn-primary">
                     <span data-i18n="btn_explore">استعراض الأعمال</span>
                     <i class="fa-solid fa-arrow-left-long" id="btn-arrow"></i>
@@ -617,43 +614,52 @@
 
     <!-- JavaScript -->
     <script>
+        const $ = (id) => document.getElementById(id);
+
+        const hasFinePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const hasTouch = matchMedia('(pointer: coarse)').matches;
+        const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const heroSlide = $('slide-hero');
+        const showcaseSlide = $('showcase');
+        const meshBg = $('meshBg');
+        const cvModal = $('cvModal');
+        const secTitle = document.querySelector('.section-title');
+        const bentoCards = document.querySelectorAll('.bento-card');
+
+        const isModalOpen = () => cvModal.classList.contains('active');
+
         // Custom Cursor Logic
-        const cursorDot = document.getElementById('customCursorDot');
-        const cursorCircle = document.getElementById('customCursorCircle');
-        const cvViewerArea = document.querySelector('.cv-viewer-area');
+        if (hasFinePointer) {
+            const dot = $('customCursorDot');
+            const circle = $('customCursorCircle');
+            let mx = -100, my = -100, cx = -100, cy = -100, scale = 1, targetScale = 1, ticking = false;
 
-        if (window.matchMedia("(pointer: fine)").matches) {
-            window.addEventListener('mousemove', (e) => {
-                cursorDot.style.left = `${e.clientX}px`;
-                cursorDot.style.top = `${e.clientY}px`;
-                cursorCircle.animate({
-                    left: `${e.clientX}px`,
-                    top: `${e.clientY}px`
-                }, { duration: 100, fill: 'forwards' });
-            });
+            const paint = () => {
+                cx += (mx - cx) * 0.22;
+                cy += (my - cy) * 0.22;
+                scale += (targetScale - scale) * 0.2;
+                dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+                circle.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${scale})`;
+                const settled = Math.abs(mx - cx) < 0.1 && Math.abs(my - cy) < 0.1 && Math.abs(targetScale - scale) < 0.01;
+                if (settled) { ticking = false; return; }
+                requestAnimationFrame(paint);
+            };
+            const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
 
-            cvViewerArea.addEventListener('mouseenter', () => {
-                cursorDot.style.opacity = '0';
-                cursorCircle.style.opacity = '0';
-            });
-            cvViewerArea.addEventListener('mouseleave', () => {
-                cursorDot.style.opacity = '1';
-                cursorCircle.style.opacity = '1';
-            });
+            window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; kick(); }, { passive: true });
 
-            const interactables = document.querySelectorAll('a, button, .bento-card, .logo-svg');
-            interactables.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorCircle.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                    cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-                    cursorCircle.style.borderColor = 'var(--accent-gold)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
-                    cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
-                    cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
-                });
+            document.addEventListener('mouseover', (e) => {
+                const overViewer = !!e.target.closest('.cv-viewer-area');
+                dot.classList.toggle('is-hidden', overViewer);
+                circle.classList.toggle('is-hidden', overViewer);
+                const hot = !!e.target.closest('a, button, .bento-card, .logo-svg');
+                circle.classList.toggle('is-hover', hot);
+                targetScale = hot ? 1.8 : 1;
+                kick();
             });
+            document.documentElement.addEventListener('mouseleave', () => { dot.classList.add('is-hidden'); circle.classList.add('is-hidden'); });
+            document.documentElement.addEventListener('mouseenter', () => { dot.classList.remove('is-hidden'); circle.classList.remove('is-hidden'); });
         }
 
         // Mobile Menu Toggle Logic
@@ -673,152 +679,124 @@
         const totalSlides = 2;
         let isAnimating = false;
         let hasAutoScrolled = false;
-
-        const heroSlide = document.getElementById('slide-hero');
-        const showcaseSlide = document.getElementById('showcase');
-        const meshBg = document.getElementById('meshBg');
-        
-        const secTitle = document.querySelector('.section-title');
-        const bentoCards = document.querySelectorAll('.bento-card');
+        let lastShowcaseScroll = 0;
 
         function goToSlide(index) {
-            if (isAnimating || index < 0 || index >= totalSlides) return;
+            if (isAnimating || index < 0 || index >= totalSlides || index === currentSlide) return;
             isAnimating = true;
             currentSlide = index;
 
             if (currentSlide === 1) {
-                hasAutoScrolled = true; 
+                hasAutoScrolled = true;
                 heroSlide.classList.add('slide-out');
                 showcaseSlide.classList.add('slide-in');
                 meshBg.classList.add('slide-2-active');
-                
-                setTimeout(() => {
-                    secTitle.classList.add('reveal');
-                }, 400);
-                
-                bentoCards.forEach((card, i) => {
-                    setTimeout(() => {
-                        card.classList.add('reveal');
-                    }, 500 + (i * 100)); 
-                });
 
+                setTimeout(() => secTitle.classList.add('reveal'), 400);
+                bentoCards.forEach((card, i) => setTimeout(() => card.classList.add('reveal'), 500 + i * 100));
             } else {
                 heroSlide.classList.remove('slide-out');
                 showcaseSlide.classList.remove('slide-in');
                 meshBg.classList.remove('slide-2-active');
-                
+
                 secTitle.classList.remove('reveal');
-                bentoCards.forEach(card => card.classList.remove('reveal'));
+                bentoCards.forEach((card) => card.classList.remove('reveal'));
+                setTimeout(() => { showcaseSlide.scrollTop = 0; }, 1200);
             }
-            
-            setTimeout(() => { isAnimating = false; }, 1200);
+
+            setTimeout(() => { isAnimating = false; }, prefersReducedMotion ? 50 : 1200);
         }
 
-        window.addEventListener('wheel', (e) => {
-            if (document.getElementById('cvModal').classList.contains('active')) return;
-            if (e.deltaY > 50) {
-                goToSlide(currentSlide + 1);
-            } else if (e.deltaY < -50) {
-                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) {
-                    goToSlide(currentSlide - 1);
-                }
-            }
-        });
+        showcaseSlide.addEventListener('scroll', () => { lastShowcaseScroll = performance.now(); }, { passive: true });
 
-        let touchStartY = 0;
+        // Wheel Events
+        window.addEventListener('wheel', (e) => {
+            if (isModalOpen()) return;
+            if (e.deltaY > 50) {
+                goToSlide(1);
+            } else if (e.deltaY < -50 && currentSlide === 1 && showcaseSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) {
+                goToSlide(0);
+            }
+        }, { passive: true });
+
+        // Touch Events
+        let tStartY = 0, tStartX = 0, tStartScroll = 0, tTrack = false;
         window.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, {passive: true});
+            if (isModalOpen()) { tTrack = false; return; }
+            tTrack = true;
+            tStartY = e.touches[0].clientY;
+            tStartX = e.touches[0].clientX;
+            tStartScroll = showcaseSlide.scrollTop;
+        }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
-            if (document.getElementById('cvModal').classList.contains('active')) return;
-            let touchEndY = e.changedTouches[0].clientY;
-            let swipeDistance = touchStartY - touchEndY;
+            if (!tTrack || isModalOpen()) return;
+            tTrack = false;
+            const t = e.changedTouches[0];
+            const dy = tStartY - t.clientY;
+            const dx = tStartX - t.clientX;
+            if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.2) return;
 
-            if (swipeDistance > 50) {
-                goToSlide(currentSlide + 1); 
-            } else if (swipeDistance < -50) {
-                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) {
-                    goToSlide(currentSlide - 1); 
-                }
+            if (dy > 0) {
+                goToSlide(1);
+            } else if (currentSlide === 1 && tStartScroll <= 0 && showcaseSlide.scrollTop <= 0) {
+                goToSlide(0);
             }
+        }, { passive: true });
+
+        // Keyboard Events
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isModalOpen()) { closeCVModal(); return; }
+            if (isModalOpen()) return;
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') goToSlide(1);
+            if ((e.key === 'ArrowUp' || e.key === 'PageUp') && showcaseSlide.scrollTop <= 0) goToSlide(0);
         });
 
         // Edge Scrolling Engine
-        let edgeScrollAnimation;
-        let hoverZone = 'none'; 
-        
-        function performEdgeAction() {
-            if (document.getElementById('cvModal').classList.contains('active')) {
-                hoverZone = 'none';
-                return;
-            }
+        if (hasFinePointer) {
+            let edgeRAF;
+            let hoverZone = 'none';
 
-            if (hoverZone === 'bottom') {
-                if (currentSlide === 0) {
-                    goToSlide(1);
-                    hoverZone = 'none';
-                } else if (currentSlide === 1) {
-                    showcaseSlide.scrollBy(0, 12);
-                }
-            } else if (hoverZone === 'top') {
-                if (currentSlide === 1) {
-                    if (showcaseSlide.scrollTop > 0) {
-                        showcaseSlide.scrollBy(0, -12);
-                    } else {
-                        goToSlide(0);
-                        hoverZone = 'none';
-                    }
-                }
-            }
+            const performEdgeAction = () => {
+                if (isModalOpen()) { hoverZone = 'none'; return; }
 
-            if (hoverZone !== 'none') {
-                edgeScrollAnimation = requestAnimationFrame(performEdgeAction);
-            }
+                if (hoverZone === 'bottom') {
+                    if (currentSlide === 0) { goToSlide(1); hoverZone = 'none'; }
+                    else showcaseSlide.scrollBy(0, 12);
+                } else if (hoverZone === 'top' && currentSlide === 1) {
+                    if (showcaseSlide.scrollTop > 0) showcaseSlide.scrollBy(0, -12);
+                    else { goToSlide(0); hoverZone = 'none'; }
+                }
+                if (hoverZone !== 'none') edgeRAF = requestAnimationFrame(performEdgeAction);
+            };
+
+            window.addEventListener('mousemove', (e) => {
+                if (window.innerWidth <= 900) return;
+                let zone = 'none';
+                if (e.clientY >= window.innerHeight - 60) zone = 'bottom';
+                else if (e.clientY <= 24) zone = 'top';
+
+                if (zone !== hoverZone) {
+                    hoverZone = zone;
+                    cancelAnimationFrame(edgeRAF);
+                    if (zone !== 'none') edgeRAF = requestAnimationFrame(performEdgeAction);
+                }
+            }, { passive: true });
+
+            document.documentElement.addEventListener('mouseleave', () => { hoverZone = 'none'; cancelAnimationFrame(edgeRAF); });
         }
-
-        window.addEventListener('mousemove', (e) => {
-            if (window.innerWidth <= 900) return; 
-            
-            const bottomThreshold = window.innerHeight - 60; 
-            const topThreshold = 100; 
-            
-            let newZone = 'none';
-            if (e.clientY >= bottomThreshold) {
-                newZone = 'bottom';
-            } else if (e.clientY <= topThreshold) {
-                newZone = 'top';
-            }
-
-            if (newZone !== hoverZone) {
-                hoverZone = newZone;
-                cancelAnimationFrame(edgeScrollAnimation);
-                if (hoverZone !== 'none') {
-                    edgeScrollAnimation = requestAnimationFrame(performEdgeAction);
-                }
-            }
-        });
-        
-        window.addEventListener('mouseleave', () => {
-            hoverZone = 'none';
-            cancelAnimationFrame(edgeScrollAnimation);
-        });
 
         // Idle Auto-Scroll Logic
         let idleTimer;
         function resetIdleTimer() {
             clearTimeout(idleTimer);
-            if (currentSlide === 0 && !document.getElementById('cvModal').classList.contains('active') && !hasAutoScrolled) {
-                idleTimer = setTimeout(() => {
-                    goToSlide(1);
-                    hasAutoScrolled = true;
-                }, 5000); 
-            }
+            if (hasTouch || hasAutoScrolled || currentSlide !== 0 || isModalOpen()) return;
+            idleTimer = setTimeout(() => { goToSlide(1); hasAutoScrolled = true; }, 5000);
         }
         ['mousemove', 'touchstart', 'wheel', 'keydown'].forEach(evt => {
-            window.addEventListener(evt, resetIdleTimer);
+            window.addEventListener(evt, resetIdleTimer, { passive: true });
         });
-        resetIdleTimer(); 
+        resetIdleTimer();
 
         // CV Viewer Drag Logic
         let cvScale = 1;
@@ -854,7 +832,7 @@
 
         const onDrag = (e) => {
             if (!isDragging) return;
-            e.preventDefault(); 
+            e.preventDefault();
             const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
             const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
             const walkX = (pageX - cvScrollArea.offsetLeft) - startX;
@@ -874,7 +852,7 @@
         function openCVModal(event) {
             event.preventDefault();
             document.getElementById('cvModal').classList.add('active');
-            resetZoomCV(); 
+            resetZoomCV();
         }
 
         function closeCVModal() {
@@ -894,7 +872,6 @@
                 nav_work: "الأعمال",
                 nav_cv: "السيرة الذاتية",
                 hero_status: "متاح لفرص عمل Full-Time",
-                hero_desc: "خبرة أكثر من 7 سنوات في مجال الجرافيك ديزاين والمونتاج والتصوير، مع رؤية إبداعية في تصميم واجهات الويب وبناء تجارب رقمية متكاملة.",
                 btn_explore: "استعراض الأعمال",
                 btn_cv: "السيرة الذاتية",
                 section_work_title: "أبرز الأعمال والمشاريع",
@@ -918,7 +895,6 @@
                 nav_work: "Portfolio",
                 nav_cv: "CV",
                 hero_status: "Available for Full-Time",
-                hero_desc: "Over 7 years of expertise in Graphic Design, Video Editing, and Photography, with a creative vision in UI/UX web design to build integrated digital experiences.",
                 btn_explore: "Explore Work",
                 btn_cv: "View CV",
                 section_work_title: "Featured Works & Projects",
@@ -947,10 +923,8 @@
             document.getElementById('langToggle').innerText = currentLang === 'ar' ? 'EN' : 'AR';
             
             const arrow = document.getElementById('btn-arrow');
-            if (currentLang === 'en') {
-                arrow.className = "fa-solid fa-arrow-right-long";
-            } else {
-                arrow.className = "fa-solid fa-arrow-left-long";
+            if (arrow) {
+                arrow.className = currentLang === 'en' ? "fa-solid fa-arrow-right-long" : "fa-solid fa-arrow-left-long";
             }
 
             document.querySelectorAll('[data-i18n]').forEach(el => {
