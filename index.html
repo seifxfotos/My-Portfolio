@@ -29,6 +29,10 @@
             --font-ar: 'Cairo', sans-serif;
             --font-en: 'Outfit', sans-serif;
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+            --header-h: 85px;
         }
 
         * {
@@ -36,6 +40,7 @@
             padding: 0;
             box-sizing: border-box;
             cursor: none !important;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html, body {
@@ -45,87 +50,104 @@
             overflow-x: hidden; 
             overflow-y: hidden;
             width: 100%;
+            height: 100vh;
             height: 100dvh;
-            perspective: 1200px; 
-            position: relative;
+            overscroll-behavior: none;
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
         }
 
-        html[lang="en"] body {
-            font-family: var(--font-en);
-        }
+        html[lang="en"] body { font-family: var(--font-en); }
 
-        /* Custom Cursor */
+        /* ---------- Custom cursor (desktop mouse only) ---------- */
         .cursor-dot, .cursor-circle {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             pointer-events: none;
             z-index: 99999;
             border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s, opacity 0.2s;
+            will-change: transform;
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.2s;
         }
         .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-gold); }
         .cursor-circle { width: 36px; height: 36px; border: 1px solid rgba(212, 175, 55, 0.6); background-color: rgba(212, 175, 55, 0.05); }
+        .cursor-circle.is-hover { background-color: rgba(212, 175, 55, 0.1); border-color: var(--accent-gold); }
+        .cursor-dot.is-hidden, .cursor-circle.is-hidden { opacity: 0; }
 
-        /* ✨ HIGH-END SMOOTH LIGHTING */
-        .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; z-index: 0; overflow: hidden; background-color: var(--bg-color); pointer-events: none; }
-        .mesh-blob { position: absolute; border-radius: 50%; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), background 1.2s ease; will-change: transform; pointer-events: none; }
-        
-        .blob-1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(37, 109, 150, 0.65) 0%, rgba(37, 109, 150, 0) 70%); top: -15%; left: -15%; animation: float1 4s infinite alternate ease-in-out; }
-        .blob-2 { width: 550px; height: 550px; background: radial-gradient(circle, rgba(37, 109, 150, 0.45) 0%, rgba(37, 109, 150, 0) 70%); bottom: 5%; left: 5%; animation: float2 3.5s infinite alternate-reverse ease-in-out; }
-        .blob-3 { width: 750px; height: 750px; background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0) 70%); bottom: -15%; right: -15%; animation: float3 4.5s infinite alternate ease-in-out; }
-        .blob-4 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, rgba(212, 175, 55, 0) 70%); top: 5%; right: 5%; animation: float4 3s infinite alternate-reverse ease-in-out; }
+        @media (hover: hover) and (pointer: fine) {
+            .cursor-dot, .cursor-circle { display: block; }
+            * { cursor: none !important; }
+            .cv-scroll-area { cursor: grab !important; }
+            .cv-scroll-area.dragging { cursor: grabbing !important; }
+            .zoom-controls, .zoom-controls button { cursor: pointer !important; }
+        }
+
+        /* ---------- Background lighting ---------- */
+        .mesh-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; background-color: var(--bg-color); pointer-events: none; }
+        .mesh-blob { position: absolute; border-radius: 50%; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1); will-change: transform; pointer-events: none; }
+
+        /* INCREASED OPACITY FOR DESKTOP */
+        .blob-1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(37, 109, 150, 0.85) 0%, rgba(37, 109, 150, 0) 70%); top: -15%; left: -15%; animation: float1 4s infinite alternate ease-in-out; }
+        .blob-2 { width: 550px; height: 550px; background: radial-gradient(circle, rgba(37, 109, 150, 0.65) 0%, rgba(37, 109, 150, 0) 70%); bottom: 5%; left: 5%; animation: float2 3.5s infinite alternate-reverse ease-in-out; }
+        .blob-3 { width: 750px; height: 750px; background: radial-gradient(circle, rgba(212, 175, 55, 0.65) 0%, rgba(212, 175, 55, 0) 70%); bottom: -15%; right: -15%; animation: float3 4.5s infinite alternate ease-in-out; }
+        .blob-4 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(212, 175, 55, 0.55) 0%, rgba(212, 175, 55, 0) 70%); top: 5%; right: 5%; animation: float4 3s infinite alternate-reverse ease-in-out; }
 
         @keyframes float1 { 0% { transform: translate(0, 0); } 100% { transform: translate(50px, 40px); } }
         @keyframes float2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-40px, -50px); } }
         @keyframes float3 { 0% { transform: translate(0, 0); } 100% { transform: translate(-50px, -30px); } }
         @keyframes float4 { 0% { transform: translate(0, 0); } 100% { transform: translate(40px, 60px); } }
 
-        .mesh-bg.slide-2-active .blob-1 { transform: translate(-10vw, -10vh) scale(0.8) !important; background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0) 70%); }
-        .mesh-bg.slide-2-active .blob-2 { transform: translate(-5vw, 15vh) scale(1.2) !important; background: radial-gradient(circle, rgba(37, 109, 150, 0.65) 0%, rgba(37, 109, 150, 0) 70%); }
-        .mesh-bg.slide-2-active .blob-3 { transform: translate(15vw, 10vh) scale(0.9) !important; background: radial-gradient(circle, rgba(37, 109, 150, 0.55) 0%, rgba(37, 109, 150, 0) 70%); }
-        .mesh-bg.slide-2-active .blob-4 { transform: translate(10vw, -15vh) scale(1.3) !important; background: radial-gradient(circle, rgba(212, 175, 55, 0.5) 0%, rgba(212, 175, 55, 0) 70%); }
+        .mesh-bg.slide-2-active .blob-1 { transform: translate(-10vw, -10vh) scale(0.8) !important; }
+        .mesh-bg.slide-2-active .blob-2 { transform: translate(-5vw, 15vh) scale(1.2) !important; }
+        .mesh-bg.slide-2-active .blob-3 { transform: translate(15vw, 10vh) scale(0.9) !important; }
+        .mesh-bg.slide-2-active .blob-4 { transform: translate(10vw, -15vh) scale(1.3) !important; }
 
-        /* Header & Animated SVG Logo */
+        /* ---------- Header & animated logo ---------- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 5%;
+            padding: calc(var(--safe-top) + 20px) 5% 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(2,4,8,0.9) 0%, rgba(2,4,8,0) 100%);
+            background: linear-gradient(to bottom, rgba(2, 4, 8, 0.9) 0%, rgba(2, 4, 8, 0) 100%);
             z-index: 1000;
         }
-        
+
         .logo-svg { display: flex; align-items: center; transition: var(--transition); }
-        .logo-svg svg { height: 45px; width: auto; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3)); transition: var(--transition); }
-        
+        .logo-svg svg { height: 45px; width: auto; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3)); }
+
         .animated-path {
             fill: transparent;
             stroke: #fff;
-            stroke-width: 15px; 
+            stroke-width: 15px;
             stroke-dasharray: 1;
             stroke-dashoffset: 1;
             animation: drawAndFill 3.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
         }
         @keyframes drawAndFill {
-            0% { stroke-dashoffset: 1; fill: transparent; stroke: #fff; }
-            60% { stroke-dashoffset: 0; fill: transparent; stroke: #fff; }
-            100% { stroke-dashoffset: 0; fill: #fff; stroke: transparent; }
+            0%   { stroke-dashoffset: 1; fill: transparent; stroke: #fff; }
+            60%  { stroke-dashoffset: 0; fill: transparent; stroke: #fff; }
+            100% { stroke-dashoffset: 0; fill: var(--logo-fill, #fff); stroke: transparent; }
         }
-        .logo-svg:hover svg .animated-path { fill: var(--accent-gold); transition: fill 0.3s ease; }
-        
+        @media (hover: hover) { .logo-svg:hover { --logo-fill: var(--accent-gold); } }
+
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
-        .nav-links a:hover { color: var(--text-main); }
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; transition: var(--transition); }
         
         .nav-actions { display: flex; gap: 15px; align-items: center; }
-        .lang-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; transition: var(--transition); cursor: pointer !important; }
-        .lang-btn:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); }
+        .lang-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; font-family: inherit; min-height: 38px; transition: var(--transition); cursor: pointer !important; }
+        
+        @media (hover: hover) {
+            .nav-links a:hover { color: var(--text-main); }
+            .lang-btn:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); }
+        }
 
         /* Burger Menu (Hidden on Desktop) */
         .menu-toggle {
@@ -142,7 +164,9 @@
             transition: var(--transition);
             cursor: pointer !important;
         }
-        .menu-toggle:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); }
+        @media (hover: hover) {
+            .menu-toggle:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); }
+        }
 
         /* Dropdown Menu for Mobile */
         .mobile-dropdown {
@@ -152,6 +176,7 @@
             right: 5%;
             background: var(--surface-glass);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 20px;
@@ -182,43 +207,35 @@
         }
         .mobile-dropdown a:hover { background: var(--accent-blue-glow); color: var(--accent-gold); }
 
-        /* Slide Engine Structure */
+        /* ---------- Slide engine ---------- */
         .slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
+            height: 100vh;
             height: 100dvh;
             transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.7, 0, 0.2, 1), filter 1.2s ease;
             will-change: transform, opacity;
-            transform-style: preserve-3d;
         }
 
-        /* 🔥 HERO LAYOUT 🔥 */
-        hero { z-index: 1; padding-top: 80px; transform-origin: center center; }
-        
-        hero.slide-out {
-            transform: scale(0.8) translateY(-10%) rotateX(10deg);
+        /* ---------- HERO (slide 1) ---------- */
+        #slide-hero { z-index: 1; overflow: hidden; transform-origin: center center; }
+
+        #slide-hero.slide-out {
+            transform: perspective(1200px) scale(0.85) translateY(-8%) rotateX(8deg);
             opacity: 0;
-            filter: blur(15px);
+            filter: blur(12px);
             pointer-events: none;
         }
 
-        .hero-layout { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; position: relative; z-index: 2; }
-        
-        .hero-right { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: flex-start; 
-            padding: 0 8%; 
-            z-index: 4; 
-        }
-        
-        .availability-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(11, 17, 26, 0.5); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; margin-bottom: 30px; }
-        .status-dot { width: 8px; height: 8px; background-color: var(--accent-blue); border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); }
-        
+        .hero-layout { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; position: relative; z-index: 2; padding-top: var(--header-h); }
+
+        .hero-right { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 8%; z-index: 4; }
+
+        .availability-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(11, 17, 26, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; margin-bottom: 30px; }
+        .status-dot { width: 8px; height: 8px; background-color: var(--accent-blue); border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); flex: none; }
+
         .hero-desc {
             font-size: clamp(1.2rem, 2vw, 1.8rem);
             font-weight: 700;
@@ -226,7 +243,7 @@
             max-width: 500px;
             margin-bottom: 40px;
             line-height: 1.6;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
         }
 
         .btn-primary {
@@ -239,52 +256,43 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            min-height: 48px;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 10px 30px rgba(37, 109, 150, 0.4);
         }
-        .btn-primary:hover { background: var(--accent-gold); color: #000; transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5); }
         .btn-primary:active { transform: scale(0.95); }
 
         .hero-center { flex: 1.2; display: flex; justify-content: center; align-items: flex-end; height: 100%; position: relative; }
-        
+
         .bg-logo-huge {
             position: absolute;
             top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: clamp(600px, 140%, 1200px); 
-            z-index: 1; 
+            width: clamp(600px, 140%, 1200px);
+            z-index: 1;
             pointer-events: none;
-            /* أوبستي عالية وظاهرة تماماً وراء الرأس والجسد */
-            opacity: 0.55; 
+            opacity: 1;
         }
 
         .hero-portrait {
-            max-height: 88dvh; 
+            max-height: 88dvh;
             width: auto;
-            z-index: 3; 
+            z-index: 3;
             position: relative;
-            bottom: -5dvh; 
-            /* ماسك من فوق ومن تحت لضمان نعومة القص تماماً */
+            bottom: -5dvh;
             -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
             mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
             animation: floatPortrait 8s ease-in-out infinite;
         }
-
         @keyframes floatPortrait { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-        .hero-left { 
-            flex: 1; 
-            display: flex; 
-            justify-content: flex-end; 
-            align-items: center; 
-            padding: 0 8%; 
-            z-index: 4; 
-        }
-        
+        .hero-left { flex: 1; display: flex; justify-content: flex-end; align-items: center; padding: 0 8%; z-index: 4; }
+
         .btn-secondary {
             background: rgba(11, 17, 26, 0.6);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: var(--text-main);
             border: 1px solid var(--border-color);
             padding: 14px 28px;
@@ -294,168 +302,258 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            min-height: 48px;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .btn-secondary:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); transform: translateY(-5px) scale(1.05); }
         .btn-secondary:active { transform: scale(0.95); }
 
-        /* Slide 2 (Showcase) */
+        @media (hover: hover) {
+            .btn-primary:hover { background: var(--accent-gold); color: #000; transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5); }
+            .btn-secondary:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); transform: translateY(-5px) scale(1.05); }
+        }
+
+        /* ---------- Slide 2 (showcase) ---------- */
         #showcase {
-            z-index: 5; 
-            background-color: var(--surface-color); 
-            transform: translateY(100dvh); 
+            z-index: 5;
+            background-color: var(--surface-color);
+            transform: translateY(100vh);
+            transform: translateY(100dvh);
             padding: 100px 10%;
-            overflow-y: auto; 
+            overflow-y: auto;
             overflow-x: hidden;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
             border-top: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 -40px 100px rgba(0,0,0, 0.9); 
-            perspective: 1500px;
+            box-shadow: 0 -40px 100px rgba(0, 0, 0, 0.9);
         }
         #showcase.slide-in { transform: translateY(0); }
         #showcase::-webkit-scrollbar { display: none; }
-        
-        .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .section-title { font-size: clamp(1.7rem, 6.5vw, 2.5rem); font-weight: 800; margin-bottom: clamp(28px, 6vw, 50px); opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        html[lang="en"] .section-title { letter-spacing: -0.02em; }
         .section-title.reveal { opacity: 1; transform: translateY(0); }
 
         .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding-bottom: 50px; width: 100%; }
         .bento-card {
-            background: rgba(255, 255, 255, 0.03); 
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             border-radius: 24px;
             padding: 35px;
             opacity: 0;
-            transform: translateY(120px) scale(0.7) rotateX(25deg);
-            transform-style: preserve-3d;
-            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: perspective(1000px) translateY(100px) scale(0.8) rotateX(20deg);
+            transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.7s ease, border-color 0.3s, background 0.3s, box-shadow 0.3s;
         }
-        .bento-card.reveal { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
-        .bento-card.reveal:hover { border-color: rgba(37, 109, 150, 0.6); transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.5); background: rgba(255, 255, 255, 0.06); }
+        .bento-card.reveal { opacity: 1; transform: perspective(1000px) translateY(0) scale(1) rotateX(0deg); }
+        @media (hover: hover) {
+            .bento-card.reveal:hover { border-color: rgba(37, 109, 150, 0.6); transform: perspective(1000px) translateY(-6px) scale(1.02) rotateX(0deg); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); background: rgba(255, 255, 255, 0.06); }
+        }
         .bento-card.large { grid-column: span 2; }
         .bento-card h3 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 700; }
-        .bento-card p { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+        .bento-card p { color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; }
 
-        /* CV Modal */
+        /* ---------- CV modal ---------- */
         .cv-modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            inset: 0;
+            height: 100vh;
             height: 100dvh;
             background: rgba(2, 4, 8, 0.95);
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 10000;
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
-            perspective: 1500px;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0s 0.4s;
         }
-        .cv-modal.active { opacity: 1; pointer-events: auto; }
-        
+        .cv-modal.active { opacity: 1; pointer-events: auto; visibility: visible; transition: opacity 0.4s ease, visibility 0s; }
+
         .cv-modal-content {
             background: var(--surface-color);
             border: 1px solid rgba(37, 109, 150, 0.4);
             width: 95%;
             max-width: 1200px;
+            height: 92vh;
             height: 92dvh;
             border-radius: 28px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 35px 70px rgba(0,0,0,0.9);
-            transform: scale(0.5) translateY(200px) rotateX(-20deg);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.9);
+            transform: perspective(1500px) scale(0.6) translateY(160px) rotateX(-15deg);
             opacity: 0;
             transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
         }
-        .cv-modal.active .cv-modal-content { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; }
-        
-        .cv-modal-header { padding: 22px 35px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background: var(--bg-color); z-index: 10; }
+        .cv-modal.active .cv-modal-content { transform: perspective(1500px) scale(1) translateY(0) rotateX(0deg); opacity: 1; }
+
+        .cv-modal-header { padding: 22px 35px; display: flex; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); background: var(--bg-color); z-index: 10; flex: none; }
         .cv-modal-header h3 { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .cv-modal-header h3 i { color: var(--accent-gold); }
-        .cv-modal-actions { display: flex; gap: 15px; align-items: center; }
-        
-        .btn-download-cv { background: var(--accent-blue); color: #fff; padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 0.88rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); }
-        .btn-download-cv:hover { background: var(--accent-gold); color: #000; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
-        
-        .close-modal { cursor: pointer !important; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: var(--transition); }
-        .close-modal:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--accent-blue); color: var(--accent-blue); }
+        .cv-modal-actions { display: flex; gap: 12px; align-items: center; }
 
-        /* CV Viewer Area */
-        .cv-viewer-area { position: relative; flex-grow: 1; width: 100%; background: #05080f; overflow: hidden; display: flex; }
-        .cv-scroll-area { width: 100%; height: 100%; overflow: auto; padding: 30px; display: flex; justify-content: center; align-items: flex-start; user-select: none; -webkit-user-drag: none; cursor: grab !important; will-change: scroll-position; }
-        .cv-scroll-area:active { cursor: grabbing !important; }
+        .btn-download-cv { background: var(--accent-blue); color: #fff; padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 0.88rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; min-height: 42px; white-space: nowrap; transition: var(--transition); }
+        .close-modal { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); width: 42px; height: 42px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; line-height: 1; transition: var(--transition); cursor: pointer !important; }
+        @media (hover: hover) {
+            .btn-download-cv:hover { background: var(--accent-gold); color: #000; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
+            .close-modal:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--accent-blue); color: var(--accent-blue); }
+        }
+
+        /* CV viewer: width-based zoom */
+        .cv-viewer-area { position: relative; flex: 1; min-height: 0; width: 100%; background: #05080f; overflow: hidden; display: flex; }
+        .cv-scroll-area {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            direction: ltr;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            user-select: none;
+            -webkit-user-select: none;
+        }
         .cv-scroll-area::-webkit-scrollbar { width: 14px; height: 14px; }
         .cv-scroll-area::-webkit-scrollbar-track { background: #05080f; border-radius: 10px; }
         .cv-scroll-area::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 10px; border: 3px solid #05080f; background-clip: padding-box; }
         .cv-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
-        .cv-image-preview { max-width: 100%; max-height: 75vh; width: auto; height: auto; object-fit: contain; transform-origin: top center; pointer-events: none; user-select: none; -webkit-user-drag: none; transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 15px 40px rgba(0,0,0,0.8); border-radius: 4px; will-change: transform; }
+        .cv-image-preview {
+            flex: none;
+            display: block;
+            margin: 0 auto;
+            width: min(100%, 420px);
+            max-width: none;
+            height: auto;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            border-radius: 4px;
+            transition: width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
 
-        .zoom-controls { position: absolute; bottom: 30px; right: 40px; background: var(--surface-glass); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; display: flex; flex-direction: column; gap: 5px; padding: 6px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .zoom-controls { position: absolute; bottom: 30px; right: 40px; background: var(--surface-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; display: flex; flex-direction: column; gap: 5px; padding: 6px; z-index: 50; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); }
         .zoom-controls button { background: transparent; border: none; color: var(--text-main); width: 45px; height: 45px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: var(--transition); cursor: pointer !important; }
-        .zoom-controls button:hover { background: var(--accent-blue-glow); color: var(--accent-blue); }
+        @media (hover: hover) { .zoom-controls button:hover { background: var(--accent-blue-glow); color: var(--accent-blue); } }
 
-        /* 🔥 MOBILE UI - BURGER MENU & PERFECT ALIGNMENT 🔥 */
-        @media(max-width: 900px) {
-            @media (pointer: coarse) { .cursor-dot, .cursor-circle { display: none !important; } * { cursor: auto !important; } }
-            header { padding: 15px 5%; }
-            
-            /* إخفاء القايمة التقليدية وإظهار الـ Burger Menu */
-            .nav-links { display: none; } 
+        /* ==========================================================
+           MOBILE  (≤ 900px)
+           ========================================================== */
+        @media (max-width: 900px) {
+            :root { --header-h: 62px; }
+
+            header { padding: calc(var(--safe-top) + 12px) 20px 12px; }
+            .logo-svg svg { height: 34px; }
+            .nav-links { display: none; }
             .menu-toggle { display: flex; }
-            
-            .hero-layout { 
-                flex-direction: column; 
-                justify-content: space-between; 
-                padding-top: 75px; 
+
+            /* lighter background on phones */
+            .blob-1 { width: 120vw; height: 120vw; background: radial-gradient(circle, rgba(37, 109, 150, 0.65) 0%, rgba(37, 109, 150, 0) 70%); }
+            .blob-3 { width: 130vw; height: 130vw; background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0) 70%); }
+            .blob-2, .blob-4 { display: none; }
+
+            #slide-hero { padding-top: 0; }
+            #slide-hero.slide-out { filter: none; transform: scale(0.92) translateY(-6%); }
+
+            .hero-layout {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto minmax(0, 1fr) auto;
+                grid-template-areas:
+                    "badge   badge"
+                    "desc    desc"
+                    "photo   photo"
+                    "primary cv";
+                row-gap: 14px;
+                column-gap: 10px;
+                padding: calc(var(--safe-top) + var(--header-h) + 8px) 20px calc(var(--safe-bottom) + 20px);
             }
-            
-            /* رفع النص لفوق ومسافة آمنة بعيدة عن الرأس */
-            .hero-right { 
-                flex: none; 
-                order: 1; 
-                padding: 0 5%; 
-                width: 100%; 
-                align-items: center; 
-                text-align: center; 
-                margin-top: 5px;
-            }
-            .hero-desc { font-size: 1rem; margin-bottom: 12px; }
-            
-            .hero-center { 
-                flex: 1; 
-                order: 2; 
-                height: auto; 
-                width: 100%; 
-                align-items: center; 
-            }
-            .hero-portrait { max-height: 44dvh; bottom: 0; }
-            
-            /* ضبط اللوجو الخلفي بالموبايل عشان يظهر كامل وواضح ومظبوط */
-            .bg-logo-huge { width: 170vw; top: 38%; opacity: 0.55; }
-            
-            .hero-left { 
-                flex: none; 
-                order: 3; 
-                padding: 0 5% 25px 5%; 
-                width: 100%; 
-                justify-content: center; 
+            .hero-right, .hero-left { display: contents; }
+
+            .availability-badge { grid-area: badge; justify-self: center; margin: 0; font-size: 0.8rem; padding: 5px 12px; }
+            .hero-desc {
+                grid-area: desc;
+                max-width: none;
+                margin: 0;
+                text-align: center;
+                font-size: clamp(0.95rem, 3.9vw, 1.1rem);
+                line-height: 1.7;
+                text-wrap: balance;
             }
 
-            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 14px; }
+            .hero-center { grid-area: photo; position: relative; height: auto; min-height: 0; margin: 0 -20px; }
+            .hero-portrait {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                max-height: none;
+                bottom: 0;
+                object-fit: contain;
+                object-position: center bottom;
+            }
             
-            #showcase { padding: 100px 5%; }
-            .bento-grid { grid-template-columns: 1fr; }
+            /* FIT BACKGROUND LOGO INSIDE MOBILE VIEW WITH 100% OPACITY */
+            .bg-logo-huge { 
+                width: 90vw; 
+                max-width: 400px;
+                min-width: 0; 
+                top: 45%; 
+                opacity: 1;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                padding: 13px 10px;
+                font-size: 0.92rem;
+                white-space: nowrap;
+                gap: 8px;
+            }
+            .btn-primary { grid-area: primary; box-shadow: 0 8px 22px rgba(37, 109, 150, 0.4); }
+            .btn-secondary { grid-area: cv; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+
+            /* slide 2 */
+            #showcase { padding: calc(var(--safe-top) + var(--header-h) + 24px) 20px calc(var(--safe-bottom) + 40px); }
+            .bento-grid { grid-template-columns: 1fr; gap: 14px; padding-bottom: 20px; }
             .bento-card.large { grid-column: span 1; }
-            .cv-modal-content { width: 100%; height: 100dvh; border-radius: 0; border: none; transform: scale(0.9) translateY(100px); }
-            .cv-modal-header { padding: 15px 20px; border-radius: 0; }
+            .bento-card { padding: 24px; border-radius: 20px; transform: perspective(800px) translateY(60px) scale(0.92); }
+            .bento-card.reveal { transform: perspective(800px) translateY(0) scale(1); }
+            .bento-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+
+            /* CV modal */
+            .cv-modal-content { width: 100%; max-width: none; height: 100vh; height: 100dvh; border-radius: 0; border: none; transform: translateY(40px) scale(0.97); }
+            .cv-modal.active .cv-modal-content { transform: none; }
+            .cv-modal-header { padding: calc(var(--safe-top) + 12px) 16px 12px; }
             .cv-modal-header h3 { font-size: 1rem; }
-            .btn-download-cv { padding: 8px 15px; font-size: 0.8rem; }
-            .cv-scroll-area { padding: 10px; }
-            .cv-image-preview { max-height: 80dvh; }
-            .zoom-controls { flex-direction: row; bottom: 25px; right: 50%; transform: translateX(50%); padding: 4px; border-radius: 50px; }
-            .zoom-controls button { width: 40px; height: 40px; border-radius: 50px; }
+            .btn-download-cv { padding: 8px 14px; font-size: 0.8rem; }
+            .cv-scroll-area { padding: 12px; }
+            .zoom-controls { flex-direction: row; bottom: calc(var(--safe-bottom) + 20px); right: 50%; transform: translateX(50%); padding: 4px; border-radius: 50px; }
+            .zoom-controls button { width: 44px; height: 44px; border-radius: 50px; }
+        }
+
+        /* short phones */
+        @media (max-width: 900px) and (max-height: 640px) {
+            .availability-badge { display: none; }
+            .hero-desc { font-size: 0.9rem; line-height: 1.55; }
+            .hero-layout { row-gap: 10px; }
+        }
+        @media (max-width: 900px) and (max-height: 520px) {
+            .hero-desc { display: none; }
+        }
+        @media (min-width: 901px) and (max-height: 520px) {
+            .hero-portrait { max-height: 78dvh; }
+            .hero-desc { font-size: 1.05rem; margin-bottom: 20px; }
+            .availability-badge { margin-bottom: 14px; }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .mesh-blob, .hero-portrait { animation: none !important; }
+            .animated-path { animation: none !important; fill: #fff; stroke: transparent; stroke-dashoffset: 0; }
+            .slide, .bento-card, .section-title, .cv-modal-content { transition-duration: 0.01ms !important; }
         }
     </style>
 </head>
@@ -476,59 +574,6 @@
                 <path class="animated-path" pathLength="1" d="M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
                 <path class="animated-path" pathLength="1" d="M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z" />
                 <path class="animated-path" pathLength="1" d="M953.61,386.59c-2.22-1.48-4.43-4.43-5.91-6.65-4.43-6.65-3.69-12.56,1.48-13.3,7.39,0,27.33-19.94,47.27-45.06l5.91-5.91c12.56-19.94,23.64-36.93,31.76-50.23,8.86-14.77,15.51-25.12,20.68-30.29.74-2.96,2.95-3.69,6.65-2.96h.74c14.77,4.43,19.94,12.56,16.25,25.85-2.96,11.08-28.07,48.01-53.92,79.77-14.04,21.42-31.02,45.8-49.49,71.65-22.16,31.02-56.14,80.51-92.33,132.96,31.02.74,82.73,2.96,135.17-36.19,2.96-2.22,6.65-8.12,11.82-1.48,5.91,6.65,8.12,14.04,4.43,16.25-72.39,53.92-137.39,49.49-166.2,43.58l-5.17,6.65c1.48,17.73.74,48.01-9.6,93.81-7.39,34.72-23.64,60.57-42.1,79.77-25.11,25.85-54.66,38.41-70.91,36.93l-.74-.74c-1.48,0-2.22,0-3.69-.74l-1.48-.74c-16.99-8.12-18.47-24.38-8.86-45.06,6.65-13.3,16.99-31.76,29.55-53.18,22.16-36.93,52.44-83.47,83.47-129.26-.74-5.17-1.48-7.39-1.48-7.39-2.22-6.65.74-11.08,6.65-8.86h.74s1.48.74,4.43,1.48c39.89-59.09,79.77-115.23,104.15-149.95l.74-.74ZM836.17,611.88c-22.16,33.24-42.1,65-58.35,91.59-11.08,17.73-19.94,33.98-25.85,45.8,11.82-5.17,25.11-14.77,37.67-27.33,16.99-18.47,32.5-42.84,39.89-75.34,2.95-13.29,5.17-24.38,6.65-34.72Z" />
-                <path class="animated-path" pathLength="1" d="M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z" />
-                <path class="animated-path" pathLength="1" d="M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z" />
-                <path class="animated-path" pathLength="1" d="M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z" />
-                <path class="animated-path" pathLength="1" d="M2710.13,512.9c-34.72,17.73-73.86,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.62-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.63,40.63ZM2657.68,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.12,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
-                <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
-            </svg>
-        </a>
-        
-        <ul class="nav-links">
-            <li><a href="#" onclick="goToSlide(0); return false;" data-i18n="nav_about">عني</a></li>
-            <li><a href="#" onclick="goToSlide(1); return false;" data-i18n="nav_work">الأعمال</a></li>
-            <li><a href="#" onclick="openCVModal(event)" data-i18n="nav_cv">السيرة الذاتية</a></li>
-        </ul>
-
-        <div class="nav-actions">
-            <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
-            <button class="menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
-                <i class="fa-solid fa-bars" id="menuIcon"></i>
-            </button>
-        </div>
-
-        <!-- القايمة المنسدلة للموبايل -->
-        <div class="mobile-dropdown" id="mobileDropdown">
-            <a href="#" onclick="goToSlide(0); toggleMobileMenu(); return false;" data-i18n="nav_about">عني</a>
-            <a href="#" onclick="goToSlide(1); toggleMobileMenu(); return false;" data-i18n="nav_work">الأعمال</a>
-            <a href="#" onclick="openCVModal(event); toggleMobileMenu(); return false;" data-i18n="nav_cv">السيرة الذاتية</a>
-        </div>
-    </header>
-
-    <!-- Slide 1 (Hero) -->
-    <hero class="slide" id="slide-hero">
-        <div class="hero-layout">
-            
-            <div class="hero-right">
-                <div class="availability-badge">
-                    <div class="status-dot"></div>
-                    <span data-i18n="hero_status">متاح لفرص عمل Full-Time</span>
-                </div>
-                <p class="hero-desc" data-i18n="hero_desc">
-                    خبرة أكثر من 7 سنوات في مجال الجرافيك ديزاين والمونتاج والتصوير، مع رؤية إبداعية في تصميم واجهات الويب وبناء تجارب رقمية متكاملة.
-                </p>
-                <a href="#" onclick="goToSlide(1); return false;" class="btn-primary">
-                    <span data-i18n="btn_explore">استعراض الأعمال</span>
-                    <i class="fa-solid fa-arrow-left-long" id="btn-arrow"></i>
-                </a>
-            </div>
-
-            <div class="hero-center">
-                <svg class="bg-logo-huge" viewBox="0 0 3151.75 871.39">
-                    <path class="animated-path" pathLength="1" d="M876.79,213.75c-2.96,2.95-10.34,0-16.25-6.65-5.91-5.91-8.13-14.04-5.17-16.99,2.95-2.22,5.17-7.39,5.91-12.56,1.48-8.86,0-19.2-6.65-29.54-5.91-10.34-16.99-20.68-33.98-31.02-121.88-68.69-361.94-8.86-480.86,46.54-56.88,26.59-196.48,105.63-158.07,186.88,17.73,38.41,79.77,59.83,140.34,80.51,34.72,12.56,69.43,24.38,98.24,40.63,209.04,117.45-51.71,370.06-257.05,373.76C88.65,848.99,1.49,813.53.01,738.93c-.74-33.98,25.85-78.3,91.59-130.74,2.96-2.96,10.34.74,16.25,7.39,5.91,5.91,8.13,14.03,4.43,16.25-63.52,50.97-88.64,92.33-87.9,122.62.74,47.27,82.73,52.44,115.23,50.97,179.49-4.43,438.02-225.29,283.64-312.45-25.85-14.03-59.09-25.85-93.07-37.67-70.17-24.38-141.82-48.75-169.89-108.58-45.06-96.76,84.21-180.97,155.12-214.21,127.05-59.09,372.28-110.8,502.28-36.93,26.59,15.51,45.06,33.98,55.4,52.44,11.08,17.73,14.03,34.72,12.56,47.27-1.48,8.12-4.43,14.77-8.86,18.47Z" />
-                    <path class="animated-path" pathLength="1" d="M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
-                    <path class="animated-path" pathLength="1" d="M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z" />
-                    <path class="animated-path" pathLength="1" d="M953.61,386.59c-2.22-1.48-4.43-4.43-5.91-6.65-4.43-6.65-3.69-12.56,1.48-13.3,7.39,0,27.33-19.94,47.27-45.06l5.91-5.91c12.56-19.94,23.64-36.93,31.76-50.23,8.86-14.77,15.51-25.12,20.68-30.29.74-2.96,2.95-3.69,6.65-2.96h.74c14.77,4.43,19.94,12.56,16.25,25.85-2.96,11.08-28.07,48.01-53.92,79.77-14.04,21.42-31.02,45.8-49.49,71.65-22.16,31.02-56.14,80.51-92.33,132.96,31.02.74,82.73,2.96,135.17-36.19,2.96-2.22,6.65-8.12,11.82-1.48,5.91,6.65,8.12,14.04,4.43,16.25-72.39,53.92-137.39,49.49-166.2,43.58l-5.17,6.65c1.48,17.73.74,48.01-9.6,93.81-7.39,34.72-23.64,60.57-42.1,79.77-25.11,25.85-54.66,38.41-70.91,36.93l-.74-.74c-1.48,0-2.22,0-3.69-.74l-1.48-.74c-16.99-8.12-18.47-24.38-8.86-45.06,6.65-13.3,16.99-31.76,29.55-53.18,22.16-36.93,52.44-83.47,83.47-129.26-.74-5.17-1.48-7.39-1.48-7.39-2.22-6.65.74-11.08,6.65-8.86h.74s1.48.74,4.43,1.48c39.89-59.09,79.77-115.23,104.15-149.95l.74-.74ZM836.17,611.88c-22.16,33.24-42.1,65-58.35,91.59-11.08,17.73-19.94,33.98-25.85,45.8,11.82-5.17,25.11-14.77,37.67-27.33,16.99-18.47,32.5-42.84,39.89-75.34,2.95-13.29,5.17-24.38,6.65-34.72Z" />
                     <path class="animated-path" pathLength="1" d="M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z" />
                     <path class="animated-path" pathLength="1" d="M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z" />
                     <path class="animated-path" pathLength="1" d="M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z" />
@@ -611,49 +656,58 @@
 
     <!-- JavaScript -->
     <script>
+        const $ = (id) => document.getElementById(id);
+
+        const hasFinePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const hasTouch = matchMedia('(pointer: coarse)').matches;
+        const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const heroSlide = $('slide-hero');
+        const showcaseSlide = $('showcase');
+        const meshBg = $('meshBg');
+        const cvModal = $('cvModal');
+        const secTitle = document.querySelector('.section-title');
+        const bentoCards = document.querySelectorAll('.bento-card');
+
+        const isModalOpen = () => cvModal.classList.contains('active');
+
         // Custom Cursor Logic
-        const cursorDot = document.getElementById('customCursorDot');
-        const cursorCircle = document.getElementById('customCursorCircle');
-        const cvViewerArea = document.querySelector('.cv-viewer-area');
+        if (hasFinePointer) {
+            const dot = $('customCursorDot');
+            const circle = $('customCursorCircle');
+            let mx = -100, my = -100, cx = -100, cy = -100, scale = 1, targetScale = 1, ticking = false;
 
-        if (window.matchMedia("(pointer: fine)").matches) {
-            window.addEventListener('mousemove', (e) => {
-                cursorDot.style.left = `${e.clientX}px`;
-                cursorDot.style.top = `${e.clientY}px`;
-                cursorCircle.animate({
-                    left: `${e.clientX}px`,
-                    top: `${e.clientY}px`
-                }, { duration: 100, fill: 'forwards' });
-            });
+            const paint = () => {
+                cx += (mx - cx) * 0.22;
+                cy += (my - cy) * 0.22;
+                scale += (targetScale - scale) * 0.2;
+                dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+                circle.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${scale})`;
+                const settled = Math.abs(mx - cx) < 0.1 && Math.abs(my - cy) < 0.1 && Math.abs(targetScale - scale) < 0.01;
+                if (settled) { ticking = false; return; }
+                requestAnimationFrame(paint);
+            };
+            const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
 
-            cvViewerArea.addEventListener('mouseenter', () => {
-                cursorDot.style.opacity = '0';
-                cursorCircle.style.opacity = '0';
-            });
-            cvViewerArea.addEventListener('mouseleave', () => {
-                cursorDot.style.opacity = '1';
-                cursorCircle.style.opacity = '1';
-            });
+            window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; kick(); }, { passive: true });
 
-            const interactables = document.querySelectorAll('a, button, .bento-card, .logo-svg');
-            interactables.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorCircle.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                    cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-                    cursorCircle.style.borderColor = 'var(--accent-gold)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
-                    cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
-                    cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
-                });
+            document.addEventListener('mouseover', (e) => {
+                const overViewer = !!e.target.closest('.cv-viewer-area');
+                dot.classList.toggle('is-hidden', overViewer);
+                circle.classList.toggle('is-hidden', overViewer);
+                const hot = !!e.target.closest('a, button, .bento-card, .logo-svg');
+                circle.classList.toggle('is-hover', hot);
+                targetScale = hot ? 1.8 : 1;
+                kick();
             });
+            document.documentElement.addEventListener('mouseleave', () => { dot.classList.add('is-hidden'); circle.classList.add('is-hidden'); });
+            document.documentElement.addEventListener('mouseenter', () => { dot.classList.remove('is-hidden'); circle.classList.remove('is-hidden'); });
         }
 
         // Mobile Menu Toggle Logic
         function toggleMobileMenu() {
-            const dropdown = document.getElementById('mobileDropdown');
-            const menuIcon = document.getElementById('menuIcon');
+            const dropdown = $('mobileDropdown');
+            const menuIcon = $('menuIcon');
             dropdown.classList.toggle('active');
             if (dropdown.classList.contains('active')) {
                 menuIcon.className = "fa-solid fa-xmark";
@@ -667,219 +721,191 @@
         const totalSlides = 2;
         let isAnimating = false;
         let hasAutoScrolled = false;
-
-        const heroSlide = document.getElementById('slide-hero');
-        const showcaseSlide = document.getElementById('showcase');
-        const meshBg = document.getElementById('meshBg');
-        
-        const secTitle = document.querySelector('.section-title');
-        const bentoCards = document.querySelectorAll('.bento-card');
+        let lastShowcaseScroll = 0;
 
         function goToSlide(index) {
-            if (isAnimating || index < 0 || index >= totalSlides) return;
+            if (isAnimating || index < 0 || index >= totalSlides || index === currentSlide) return;
             isAnimating = true;
             currentSlide = index;
 
             if (currentSlide === 1) {
-                hasAutoScrolled = true; 
+                hasAutoScrolled = true;
                 heroSlide.classList.add('slide-out');
                 showcaseSlide.classList.add('slide-in');
                 meshBg.classList.add('slide-2-active');
-                
-                setTimeout(() => {
-                    secTitle.classList.add('reveal');
-                }, 400);
-                
-                bentoCards.forEach((card, i) => {
-                    setTimeout(() => {
-                        card.classList.add('reveal');
-                    }, 500 + (i * 100)); 
-                });
 
+                setTimeout(() => secTitle.classList.add('reveal'), 400);
+                bentoCards.forEach((card, i) => setTimeout(() => card.classList.add('reveal'), 500 + i * 100));
             } else {
                 heroSlide.classList.remove('slide-out');
                 showcaseSlide.classList.remove('slide-in');
                 meshBg.classList.remove('slide-2-active');
-                
+
                 secTitle.classList.remove('reveal');
-                bentoCards.forEach(card => card.classList.remove('reveal'));
+                bentoCards.forEach((card) => card.classList.remove('reveal'));
+                setTimeout(() => { showcaseSlide.scrollTop = 0; }, 1200);
             }
-            
-            setTimeout(() => { isAnimating = false; }, 1200);
+
+            setTimeout(() => { isAnimating = false; }, prefersReducedMotion ? 50 : 1200);
         }
 
-        window.addEventListener('wheel', (e) => {
-            if (document.getElementById('cvModal').classList.contains('active')) return;
-            if (e.deltaY > 50) {
-                goToSlide(currentSlide + 1);
-            } else if (e.deltaY < -50) {
-                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) {
-                    goToSlide(currentSlide - 1);
-                }
-            }
-        });
+        showcaseSlide.addEventListener('scroll', () => { lastShowcaseScroll = performance.now(); }, { passive: true });
 
-        let touchStartY = 0;
+        // Wheel Events
+        window.addEventListener('wheel', (e) => {
+            if (isModalOpen()) return;
+            if (e.deltaY > 50) {
+                goToSlide(1);
+            } else if (e.deltaY < -50 && currentSlide === 1 && showcaseSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) {
+                goToSlide(0);
+            }
+        }, { passive: true });
+
+        // Touch Events
+        let tStartY = 0, tStartX = 0, tStartScroll = 0, tTrack = false;
         window.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, {passive: true});
+            if (isModalOpen()) { tTrack = false; return; }
+            tTrack = true;
+            tStartY = e.touches[0].clientY;
+            tStartX = e.touches[0].clientX;
+            tStartScroll = showcaseSlide.scrollTop;
+        }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
-            if (document.getElementById('cvModal').classList.contains('active')) return;
-            let touchEndY = e.changedTouches[0].clientY;
-            let swipeDistance = touchStartY - touchEndY;
+            if (!tTrack || isModalOpen()) return;
+            tTrack = false;
+            const t = e.changedTouches[0];
+            const dy = tStartY - t.clientY;
+            const dx = tStartX - t.clientX;
+            if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.2) return;
 
-            if (swipeDistance > 50) {
-                goToSlide(currentSlide + 1); 
-            } else if (swipeDistance < -50) {
-                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) {
-                    goToSlide(currentSlide - 1); 
-                }
+            if (dy > 0) {
+                goToSlide(1);
+            } else if (currentSlide === 1 && tStartScroll <= 0 && showcaseSlide.scrollTop <= 0) {
+                goToSlide(0);
             }
+        }, { passive: true });
+
+        // Keyboard Events
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isModalOpen()) { closeCVModal(); return; }
+            if (isModalOpen()) return;
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') goToSlide(1);
+            if ((e.key === 'ArrowUp' || e.key === 'PageUp') && showcaseSlide.scrollTop <= 0) goToSlide(0);
         });
 
-        // Edge Scrolling Engine
-        let edgeScrollAnimation;
-        let hoverZone = 'none'; 
-        
-        function performEdgeAction() {
-            if (document.getElementById('cvModal').classList.contains('active')) {
-                hoverZone = 'none';
-                return;
-            }
+        // Edge Scrolling Engine (Desktop Only)
+        if (hasFinePointer) {
+            let edgeRAF;
+            let hoverZone = 'none';
 
-            if (hoverZone === 'bottom') {
-                if (currentSlide === 0) {
-                    goToSlide(1);
-                    hoverZone = 'none';
-                } else if (currentSlide === 1) {
-                    showcaseSlide.scrollBy(0, 12);
-                }
-            } else if (hoverZone === 'top') {
-                if (currentSlide === 1) {
-                    if (showcaseSlide.scrollTop > 0) {
-                        showcaseSlide.scrollBy(0, -12);
-                    } else {
-                        goToSlide(0);
-                        hoverZone = 'none';
-                    }
-                }
-            }
+            const performEdgeAction = () => {
+                if (isModalOpen()) { hoverZone = 'none'; return; }
 
-            if (hoverZone !== 'none') {
-                edgeScrollAnimation = requestAnimationFrame(performEdgeAction);
-            }
+                if (hoverZone === 'bottom') {
+                    if (currentSlide === 0) { goToSlide(1); hoverZone = 'none'; }
+                    else showcaseSlide.scrollBy(0, 12);
+                } else if (hoverZone === 'top' && currentSlide === 1) {
+                    if (showcaseSlide.scrollTop > 0) showcaseSlide.scrollBy(0, -12);
+                    else { goToSlide(0); hoverZone = 'none'; }
+                }
+                if (hoverZone !== 'none') edgeRAF = requestAnimationFrame(performEdgeAction);
+            };
+
+            window.addEventListener('mousemove', (e) => {
+                if (window.innerWidth <= 900) return;
+                let zone = 'none';
+                if (e.clientY >= window.innerHeight - 60) zone = 'bottom';
+                else if (e.clientY <= 24) zone = 'top';
+
+                if (zone !== hoverZone) {
+                    hoverZone = zone;
+                    cancelAnimationFrame(edgeRAF);
+                    if (zone !== 'none') edgeRAF = requestAnimationFrame(performEdgeAction);
+                }
+            }, { passive: true });
+
+            document.documentElement.addEventListener('mouseleave', () => { hoverZone = 'none'; cancelAnimationFrame(edgeRAF); });
         }
-
-        window.addEventListener('mousemove', (e) => {
-            if (window.innerWidth <= 900) return; 
-            
-            const bottomThreshold = window.innerHeight - 60; 
-            const topThreshold = 100; 
-            
-            let newZone = 'none';
-            if (e.clientY >= bottomThreshold) {
-                newZone = 'bottom';
-            } else if (e.clientY <= topThreshold) {
-                newZone = 'top';
-            }
-
-            if (newZone !== hoverZone) {
-                hoverZone = newZone;
-                cancelAnimationFrame(edgeScrollAnimation);
-                if (hoverZone !== 'none') {
-                    edgeScrollAnimation = requestAnimationFrame(performEdgeAction);
-                }
-            }
-        });
-        
-        window.addEventListener('mouseleave', () => {
-            hoverZone = 'none';
-            cancelAnimationFrame(edgeScrollAnimation);
-        });
 
         // Idle Auto-Scroll Logic
         let idleTimer;
         function resetIdleTimer() {
             clearTimeout(idleTimer);
-            if (currentSlide === 0 && !document.getElementById('cvModal').classList.contains('active') && !hasAutoScrolled) {
-                idleTimer = setTimeout(() => {
-                    goToSlide(1);
-                    hasAutoScrolled = true;
-                }, 5000); 
-            }
+            if (hasTouch || hasAutoScrolled || currentSlide !== 0 || isModalOpen()) return;
+            idleTimer = setTimeout(() => { goToSlide(1); hasAutoScrolled = true; }, 6000);
         }
-        ['mousemove', 'touchstart', 'wheel', 'keydown'].forEach(evt => {
-            window.addEventListener(evt, resetIdleTimer);
-        });
-        resetIdleTimer(); 
+        ['mousemove', 'touchstart', 'wheel', 'keydown'].forEach((evt) => window.addEventListener(evt, resetIdleTimer, { passive: true }));
+        resetIdleTimer();
 
-        // CV Viewer Drag Logic
+        // CV Viewer Drag & Zoom Logic
+        const cvImage = $('cvImagePreview');
+        const cvScrollArea = $('cvScrollArea');
         let cvScale = 1;
-        const cvImage = document.getElementById('cvImagePreview');
-        const cvScrollArea = document.getElementById('cvScrollArea');
+        let cvBase = 0;
+
+        function applyCVSize() {
+            if (cvBase) cvImage.style.width = `${cvBase * cvScale}px`;
+        }
+
+        function fitCV() {
+            if (!cvImage.naturalWidth) return;
+            const cs = getComputedStyle(cvScrollArea);
+            const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+            const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+            const ratio = cvImage.naturalWidth / cvImage.naturalHeight;
+            const availW = cvScrollArea.clientWidth - padX;
+            const availH = cvScrollArea.clientHeight - padY;
+            cvBase = Math.max(120, Math.min(availW, availH * ratio));
+            applyCVSize();
+        }
+        cvImage.addEventListener('load', fitCV);
+        window.addEventListener('resize', () => { if (isModalOpen()) fitCV(); });
 
         function zoomCV(step) {
-            cvScale += step;
-            if (cvScale < 0.5) cvScale = 0.5;
-            if (cvScale > 3.5) cvScale = 3.5;
-            cvImage.style.transform = `scale(${cvScale})`;
+            cvScale = Math.min(3.5, Math.max(0.5, cvScale + step));
+            applyCVSize();
         }
-
+        
         function resetZoomCV() {
             cvScale = 1;
-            cvImage.style.transform = `scale(1)`;
+            fitCV();
+            cvScrollArea.scrollTo({ left: 0, top: 0 });
         }
 
-        let isDragging = false;
-        let startX, startY, scrollLeft, scrollTop;
-
-        const startDrag = (e) => {
-            isDragging = true;
-            const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
-            const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
-            startX = pageX - cvScrollArea.offsetLeft;
-            startY = pageY - cvScrollArea.offsetTop;
-            scrollLeft = cvScrollArea.scrollLeft;
-            scrollTop = cvScrollArea.scrollTop;
-        };
-
-        const stopDrag = () => { isDragging = false; };
-
-        const onDrag = (e) => {
-            if (!isDragging) return;
-            e.preventDefault(); 
-            const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
-            const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
-            const walkX = (pageX - cvScrollArea.offsetLeft) - startX;
-            const walkY = (pageY - cvScrollArea.offsetTop) - startY;
-            cvScrollArea.scrollLeft = scrollLeft - walkX;
-            cvScrollArea.scrollTop = scrollTop - walkY;
-        };
-
-        cvScrollArea.addEventListener('mousedown', startDrag);
-        cvScrollArea.addEventListener('touchstart', startDrag, {passive: false});
-        cvScrollArea.addEventListener('mouseleave', stopDrag);
-        cvScrollArea.addEventListener('mouseup', stopDrag);
-        cvScrollArea.addEventListener('touchend', stopDrag);
-        cvScrollArea.addEventListener('mousemove', onDrag);
-        cvScrollArea.addEventListener('touchmove', onDrag, {passive: false});
+        let dragging = false, dX = 0, dY = 0, dL = 0, dT = 0;
+        cvScrollArea.addEventListener('pointerdown', (e) => {
+            if (e.pointerType !== 'mouse') return;
+            dragging = true;
+            dX = e.clientX; dY = e.clientY;
+            dL = cvScrollArea.scrollLeft; dT = cvScrollArea.scrollTop;
+            cvScrollArea.classList.add('dragging');
+            cvScrollArea.setPointerCapture(e.pointerId);
+        });
+        cvScrollArea.addEventListener('pointermove', (e) => {
+            if (!dragging) return;
+            cvScrollArea.scrollLeft = dL - (e.clientX - dX);
+            cvScrollArea.scrollTop = dT - (e.clientY - dY);
+        });
+        const endDrag = () => { dragging = false; cvScrollArea.classList.remove('dragging'); };
+        cvScrollArea.addEventListener('pointerup', endDrag);
+        cvScrollArea.addEventListener('pointercancel', endDrag);
 
         function openCVModal(event) {
-            event.preventDefault();
-            document.getElementById('cvModal').classList.add('active');
-            resetZoomCV(); 
+            if (event) event.preventDefault();
+            cvModal.classList.add('active');
+            cvScale = 1;
+            fitCV();
+            cvScrollArea.scrollTo({ left: 0, top: 0 });
+            clearTimeout(idleTimer);
         }
 
         function closeCVModal() {
-            document.getElementById('cvModal').classList.remove('active');
+            cvModal.classList.remove('active');
             resetIdleTimer();
         }
 
-        window.addEventListener('click', (e) => {
-            const modal = document.getElementById('cvModal');
-            if (e.target === modal) closeCVModal();
-        });
+        cvModal.addEventListener('click', (e) => { if (e.target === cvModal) closeCVModal(); });
 
         // Localization Dictionary
         const translations = {
@@ -936,20 +962,14 @@
         let currentLang = 'ar';
         function toggleLanguage() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            document.documentElement.setAttribute('lang', currentLang);
-            document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
-            document.getElementById('langToggle').innerText = currentLang === 'ar' ? 'EN' : 'AR';
+            const root = document.documentElement;
+            root.setAttribute('lang', currentLang);
+            root.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            $('langToggle').textContent = currentLang === 'ar' ? 'EN' : 'AR';
             
-            const arrow = document.getElementById('btn-arrow');
-            if (currentLang === 'en') {
-                arrow.className = "fa-solid fa-arrow-right-long";
-            } else {
-                arrow.className = "fa-solid fa-arrow-left-long";
-            }
-
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                const text = translations[currentLang][el.getAttribute('data-i18n')];
+                if (text) el.textContent = text;
             });
         }
     </script>
