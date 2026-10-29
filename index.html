@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Seif Ahmed | Portfolio</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,14 +38,17 @@
             cursor: none !important;
         }
 
-        body {
+        /* إصلاح جذري للتمدد العرضي في الموبايل */
+        html, body {
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-ar);
-            overflow: hidden; 
-            width: 100vw;
-            height: 100vh;
+            overflow-x: hidden; 
+            overflow-y: hidden;
+            width: 100%;
+            height: 100dvh; /* استخدام dvh لضبط الطول مع الموبايل الديناميكي */
             perspective: 1200px; 
+            position: relative;
         }
 
         html[lang="en"] body {
@@ -63,37 +66,13 @@
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, background-color 0.3s, opacity 0.2s;
         }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-gold);
-        }
-        .cursor-circle {
-            width: 36px;
-            height: 36px;
-            border: 1px solid rgba(212, 175, 55, 0.6);
-            background-color: rgba(212, 175, 55, 0.05);
-        }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-gold); }
+        .cursor-circle { width: 36px; height: 36px; border: 1px solid rgba(212, 175, 55, 0.6); background-color: rgba(212, 175, 55, 0.05); }
 
         /* ✨ HIGH-END SMOOTH LIGHTING (BOOSTED OPACITY) */
-        .mesh-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            overflow: hidden;
-            background-color: var(--bg-color); 
-        }
-        .mesh-blob {
-            position: absolute;
-            border-radius: 50%;
-            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), background 1.2s ease;
-            will-change: transform;
-        }
+        .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; z-index: 0; overflow: hidden; background-color: var(--bg-color); pointer-events: none; }
+        .mesh-blob { position: absolute; border-radius: 50%; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), background 1.2s ease; will-change: transform; pointer-events: none; }
         
-        /* تم رفع درجة الوضوح والأوبستي للإضاءات عشان تنطق */
         .blob-1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(37, 109, 150, 0.65) 0%, rgba(37, 109, 150, 0) 70%); top: -15%; left: -15%; animation: float1 4s infinite alternate ease-in-out; }
         .blob-2 { width: 550px; height: 550px; background: radial-gradient(circle, rgba(37, 109, 150, 0.45) 0%, rgba(37, 109, 150, 0) 70%); bottom: 5%; left: 5%; animation: float2 3.5s infinite alternate-reverse ease-in-out; }
         .blob-3 { width: 750px; height: 750px; background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0) 70%); bottom: -15%; right: -15%; animation: float3 4.5s infinite alternate ease-in-out; }
@@ -104,7 +83,6 @@
         @keyframes float3 { 0% { transform: translate(0, 0); } 100% { transform: translate(-50px, -30px); } }
         @keyframes float4 { 0% { transform: translate(0, 0); } 100% { transform: translate(40px, 60px); } }
 
-        /* تغيير ألوان الإضاءة في السلايد التاني بدرجات قوية */
         .mesh-bg.slide-2-active .blob-1 { transform: translate(-10vw, -10vh) scale(0.8) !important; background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0) 70%); }
         .mesh-bg.slide-2-active .blob-2 { transform: translate(-5vw, 15vh) scale(1.2) !important; background: radial-gradient(circle, rgba(37, 109, 150, 0.65) 0%, rgba(37, 109, 150, 0) 70%); }
         .mesh-bg.slide-2-active .blob-3 { transform: translate(15vw, 10vh) scale(0.9) !important; background: radial-gradient(circle, rgba(37, 109, 150, 0.55) 0%, rgba(37, 109, 150, 0) 70%); }
@@ -151,11 +129,11 @@
 
         /* Slide Engine Structure */
         .slide {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100dvh; /* Dynamic Height */
             transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.7, 0, 0.2, 1), filter 1.2s ease;
             will-change: transform, opacity;
             transform-style: preserve-3d;
@@ -168,36 +146,22 @@
             transform: scale(0.8) translateY(-10%) rotateX(10deg);
             opacity: 0;
             filter: blur(15px);
+            pointer-events: none;
         }
 
         .hero-layout { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; position: relative; z-index: 2; }
         
-        /* 
-           حلينا أزمة الـ LTR/RTL بوضع padding من اليمين والشمال 
-           كده المحتوى هيتسنتر ومفيش حاجة هتلزق في الأطراف
-        */
         .hero-right { 
             flex: 1; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
             align-items: flex-start; 
-            padding: 0 8%; /* هنا الحل الدائم للأطراف */
+            padding: 0 8%; 
             z-index: 4; 
         }
         
-        .availability-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(11, 17, 26, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            margin-bottom: 30px;
-        }
+        .availability-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(11, 17, 26, 0.5); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; margin-bottom: 30px; }
         .status-dot { width: 8px; height: 8px; background-color: var(--accent-blue); border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); }
         
         .hero-desc {
@@ -223,34 +187,31 @@
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 10px 30px rgba(37, 109, 150, 0.4);
         }
-        .btn-primary:hover {
-            background: var(--accent-gold);
-            color: #000;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5);
-        }
-        .btn-primary:active { transform: scale(0.9); }
+        .btn-primary:hover { background: var(--accent-gold); color: #000; transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5); }
+        .btn-primary:active { transform: scale(0.95); }
 
-        .hero-center { flex: 1.2; display: flex; justify-content: center; align-items: flex-end; height: 100vh; position: relative; }
+        .hero-center { flex: 1.2; display: flex; justify-content: center; align-items: flex-end; height: 100%; position: relative; }
         
+        /* إصلاح اللوجو الضخم وتجاوبه */
         .bg-logo-huge {
             position: absolute;
             top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 140%; 
-            min-width: 900px;
+            /* دالة حسابية تضمن إن اللوجو ميكبرش عن حده وميبوظش العرض */
+            width: clamp(600px, 140%, 1200px); 
+            min-width: unset; /* ده اللي كان مبوظ الدنيا وتم حذفه */
             z-index: 1; 
             pointer-events: none;
-            opacity: 0.15; /* زودنا الإضاءة بتاعتها سيكا */
+            opacity: 0.15; 
         }
 
         .hero-portrait {
-            max-height: 88vh; 
+            max-height: 88dvh; 
             width: auto;
             z-index: 3; 
             position: relative;
-            bottom: -5vh; 
+            bottom: -5dvh; 
             -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
             mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 55%, transparent 95%);
             animation: floatPortrait 8s ease-in-out infinite;
@@ -258,13 +219,12 @@
 
         @keyframes floatPortrait { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-        /* حل المسافات هنا بردو لزرار السيرة الذاتية */
         .hero-left { 
             flex: 1; 
             display: flex; 
             justify-content: flex-end; 
             align-items: center; 
-            padding: 0 8%; /* هنا الحل الدائم للأطراف */
+            padding: 0 8%; 
             z-index: 4; 
         }
         
@@ -282,20 +242,17 @@
             gap: 10px;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .btn-secondary:hover {
-            border-color: var(--accent-blue);
-            background: var(--accent-blue-glow);
-            transform: translateY(-5px) scale(1.05);
-        }
-        .btn-secondary:active { transform: scale(0.9); }
+        .btn-secondary:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); transform: translateY(-5px) scale(1.05); }
+        .btn-secondary:active { transform: scale(0.95); }
 
         /* Slide 2 (Showcase) */
         #showcase {
             z-index: 5; 
             background-color: var(--surface-color); 
-            transform: translateY(100vh); 
+            transform: translateY(100dvh); 
             padding: 100px 10%;
             overflow-y: auto; 
+            overflow-x: hidden;
             border-top: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 -40px 100px rgba(0,0,0, 0.9); 
             perspective: 1500px;
@@ -306,7 +263,7 @@
         .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .section-title.reveal { opacity: 1; transform: translateY(0); }
 
-        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding-bottom: 50px; }
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding-bottom: 50px; width: 100%; }
         .bento-card {
             background: rgba(255, 255, 255, 0.03); 
             border: 1px solid var(--border-color);
@@ -328,8 +285,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100dvh;
             background: rgba(2, 4, 8, 0.95);
             backdrop-filter: blur(25px);
             z-index: 10000;
@@ -348,7 +305,7 @@
             border: 1px solid rgba(37, 109, 150, 0.4);
             width: 95%;
             max-width: 1200px;
-            height: 92vh;
+            height: 92dvh;
             border-radius: 28px;
             display: flex;
             flex-direction: column;
@@ -385,28 +342,67 @@
         .zoom-controls button { background: transparent; border: none; color: var(--text-main); width: 45px; height: 45px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: var(--transition); cursor: pointer !important; }
         .zoom-controls button:hover { background: var(--accent-blue-glow); color: var(--accent-blue); }
 
-        /* 📱 Mobile UI */
+        /* 🔥 MOBILE UI - THE ULTIMATE FIX 🔥 */
         @media(max-width: 900px) {
             @media (pointer: coarse) { .cursor-dot, .cursor-circle { display: none !important; } * { cursor: auto !important; } }
             header { padding: 15px 5%; }
             .nav-links { display: none; } 
             
-            .hero-layout { flex-direction: column; justify-content: flex-start; padding-top: 40px; gap: 20px; }
-            .hero-right { padding: 0 5%; align-items: center; text-align: center; order: 1; flex: none; }
-            .hero-center { order: 2; height: 45vh; }
-            .hero-left { order: 3; padding: 0; justify-content: center; flex: none; margin-bottom: 30px; }
-            .hero-portrait { max-height: 50vh; }
-            .bg-logo-huge { width: 300%; }
+            /* إعادة هندسة فليكس بوكس للموبايل عشان كل حاجة تتسنتر بدقة */
+            .hero-layout { 
+                flex-direction: column; 
+                justify-content: space-between; 
+                padding-top: 80px; /* مسافة من الهيدر */
+            }
             
+            /* النص والزرار فوق متسنترين تماماً */
+            .hero-right { 
+                flex: none; 
+                order: 1; 
+                padding: 0 5%; 
+                width: 100%; 
+                align-items: center; 
+                text-align: center; 
+                margin-top: 15px;
+            }
+            .hero-desc { font-size: 1.1rem; margin-bottom: 20px; }
+            
+            /* الصورة تتوسط الشاشة وتملا المساحة بشكل متجاوب */
+            .hero-center { 
+                flex: 1; 
+                order: 2; 
+                height: auto; 
+                width: 100%; 
+                align-items: center; 
+            }
+            /* تقليص حجم الصورة عشان متدمرش الزراير */
+            .hero-portrait { max-height: 48dvh; bottom: 0; }
+            
+            /* اللوجو الخلفي ياخد حجم ديناميكي (vw) بدل الثابت عشان ميخرجش بره الشاشة */
+            .bg-logo-huge { width: 200vw; top: 45%; }
+            
+            /* زرار السيرة الذاتية تحت متسنتر */
+            .hero-left { 
+                flex: none; 
+                order: 3; 
+                padding: 0 5% 30px 5%; 
+                width: 100%; 
+                justify-content: center; 
+            }
+
+            /* تكبير الزراير عشان تناسب اللمس وتملأ العرض المتاح بشياكة */
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 15px; }
+            
+            /* تظبيطات السلايد التاني والمودال للموبايل */
             #showcase { padding: 100px 5%; }
             .bento-grid { grid-template-columns: 1fr; }
             .bento-card.large { grid-column: span 1; }
-            .cv-modal-content { width: 100%; height: 100vh; border-radius: 0; border: none; }
+            .cv-modal-content { width: 100%; height: 100dvh; border-radius: 0; border: none; transform: scale(0.9) translateY(100px); }
             .cv-modal-header { padding: 15px 20px; border-radius: 0; }
             .cv-modal-header h3 { font-size: 1rem; }
             .btn-download-cv { padding: 8px 15px; font-size: 0.8rem; }
             .cv-scroll-area { padding: 10px; }
-            .cv-image-preview { max-height: 80vh; }
+            .cv-image-preview { max-height: 80dvh; }
             .zoom-controls { flex-direction: row; bottom: 25px; right: 50%; transform: translateX(50%); padding: 4px; border-radius: 50px; }
             .zoom-controls button { width: 40px; height: 40px; border-radius: 50px; }
         }
