@@ -13,7 +13,7 @@
     
     <style>
         :root {
-            var(--bg-color): #05080f; 
+            --bg-color: #05080f; 
             --surface-color: #0b111a;
             --surface-glass: rgba(11, 17, 26, 0.85);
             --border-color: rgba(37, 109, 150, 0.2); 
@@ -39,7 +39,7 @@
         }
 
         body {
-            background-color: #05080f;
+            background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-ar);
             overflow-x: hidden;
@@ -155,7 +155,7 @@
         }
         .cta-nav {
             background: var(--text-main);
-            color: #05080f;
+            color: var(--bg-color);
             border: none;
         }
         .cta-nav:hover {
@@ -286,7 +286,7 @@
             font-size: 0.95rem;
         }
 
-        /* CV Modal */
+        /* High-End CV Modal */
         .cv-modal {
             position: fixed;
             top: 0;
@@ -329,7 +329,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            background: #05080f;
+            background: var(--bg-color);
             z-index: 10;
         }
         .cv-modal-header h3 {
@@ -403,20 +403,23 @@
             align-items: flex-start;
         }
         .cv-scroll-area::-webkit-scrollbar { width: 14px; height: 14px; }
-        .cv-scroll-area::-webkit-scrollbar-track { background: #05080f; border-radius: 10px; }
+        .cv-scroll-area::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 10px; }
         .cv-scroll-area::-webkit-scrollbar-thumb {
             background: var(--accent-blue); 
             border-radius: 10px;
-            border: 3px solid #05080f;
+            border: 3px solid var(--bg-color);
             background-clip: padding-box;
         }
         .cv-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
-        .cv-scroll-area::-webkit-scrollbar-corner { background: #05080f; }
+        .cv-scroll-area::-webkit-scrollbar-corner { background: var(--bg-color); }
 
+        /* Fit CV Magic */
         .cv-image-preview {
-            width: 100%;
-            max-width: 950px; 
+            max-width: 100%;
+            max-height: 75vh; /* يضمن فتحها بمقاس الشاشة بالظبط دون اقتصاص */
+            width: auto;
             height: auto;
+            object-fit: contain;
             transform-origin: top center;
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
@@ -465,7 +468,7 @@
             }
 
             header { padding: 15px 5%; }
-            .nav-links { display: none; } /* إخفاء الروابط في الموبايل للتبسيط */
+            .nav-links { display: none; } 
             .lang-btn, .cta-nav { padding: 8px 14px; font-size: 0.8rem; }
             
             hero {
@@ -489,15 +492,39 @@
             .bento-grid { grid-template-columns: 1fr; }
             .bento-card.large { grid-column: span 1; }
             
+            /* Native App Feel for Mobile Modal */
             .cv-modal-content {
-                width: 95%;
-                height: 90vh;
+                width: 100%;
+                height: 100vh; /* شاشة كاملة */
+                border-radius: 0;
+                border: none;
             }
-            .cv-modal-header { padding: 15px 20px; }
+            .cv-modal-header { 
+                padding: 15px 20px; 
+                border-radius: 0;
+            }
             .cv-modal-header h3 { font-size: 1rem; }
             .btn-download-cv { padding: 8px 15px; font-size: 0.8rem; }
-            .zoom-controls { right: 15px; bottom: 15px; }
-            .cv-scroll-area { padding: 15px; }
+            
+            .cv-scroll-area { padding: 10px; }
+            .cv-image-preview {
+                max-height: 80vh; /* ملء الشاشة في الموبايل */
+            }
+
+            /* شريط زوم أفقي عائم في أسفل منتصف الشاشة */
+            .zoom-controls { 
+                flex-direction: row; 
+                bottom: 25px; 
+                right: 50%;
+                transform: translateX(50%);
+                padding: 4px;
+                border-radius: 50px;
+            }
+            .zoom-controls button {
+                width: 40px;
+                height: 40px;
+                border-radius: 50px;
+            }
         }
     </style>
 </head>
@@ -526,7 +553,6 @@
 
     <!-- Hero Section -->
     <hero id="about">
-        <!-- ضوء البلور المتحرك الخاص بأول سلايد -->
         <div class="hero-light"></div>
         
         <div class="availability-badge">
@@ -600,6 +626,7 @@
                 </div>
                 
                 <div class="cv-scroll-area" id="cvScrollArea">
+                    <!-- الصورة واخده Fit مثالي ومناسبة للشاشة بالكامل -->
                     <img src="cv.jpg" alt="CV Preview" class="cv-image-preview" id="cvImagePreview">
                 </div>
             </div>
@@ -608,71 +635,65 @@
 
     <!-- JavaScript -->
     <script>
-        // Custom Cursor movement
+        // Custom Cursor movement (Desktop Only)
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorCircle = document.querySelector('.cursor-circle');
 
-        window.addEventListener('mousemove', (e) => {
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
-            cursorCircle.animate({
-                left: `${e.clientX}px`,
-                top: `${e.clientY}px`
-            }, { duration: 100, fill: 'forwards' });
-        });
-
-        const interactables = document.querySelectorAll('a, button, .bento-card');
-        interactables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorCircle.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-                cursorCircle.style.borderColor = 'var(--accent-gold)';
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', (e) => {
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+                cursorCircle.animate({
+                    left: `${e.clientX}px`,
+                    top: `${e.clientY}px`
+                }, { duration: 100, fill: 'forwards' });
             });
-            el.addEventListener('mouseleave', () => {
-                cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
-                cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
-            });
-        });
 
-        // ---------------------------------------------------------
-        // 1. Idle Auto-Scroll Logic (5 seconds on Hero Section)
-        // ---------------------------------------------------------
+            const interactables = document.querySelectorAll('a, button, .bento-card');
+            interactables.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorCircle.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                    cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
+                    cursorCircle.style.borderColor = 'var(--accent-gold)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+                    cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
+                });
+            });
+        }
+
+        // 1. Idle Auto-Scroll Logic
         let idleTimer;
         function resetIdleTimer() {
             clearTimeout(idleTimer);
-            // لو المستخدم لسه في أول الصفحة (Hero Section)
             if (window.scrollY < window.innerHeight * 0.3) {
                 idleTimer = setTimeout(() => {
                     const showcase = document.getElementById('showcase');
                     if(showcase) showcase.scrollIntoView({ behavior: 'smooth' });
-                }, 5000); // 5 ثواني
+                }, 5000); 
             }
         }
-        // الاستماع لأي حركة أو تفاعل لتصفير العداد
         ['mousemove', 'scroll', 'keydown', 'click', 'touchstart'].forEach(evt => {
             window.addEventListener(evt, resetIdleTimer);
         });
-        resetIdleTimer(); // تشغيل العداد أول ما الموقع يفتح
+        resetIdleTimer(); 
 
-        // ---------------------------------------------------------
-        // 2. Edge Scrolling (تمرير الصفحة عند وضع الماوس بالأسفل)
-        // ---------------------------------------------------------
+        // 2. Edge Scrolling
         let edgeScrollAnimation;
         let isHoveringBottom = false;
 
         function edgeScroll() {
             if (isHoveringBottom) {
-                window.scrollBy(0, 7); // سرعة النزول
+                window.scrollBy(0, 7); 
                 edgeScrollAnimation = requestAnimationFrame(edgeScroll);
             }
         }
 
         window.addEventListener('mousemove', (e) => {
-            // تعطيل الخاصية دي في الموبايلات لتجنب مشاكل التاتش
             if (window.innerWidth <= 900) return; 
-            
-            const threshold = 60; // 60 بيكسل من أسفل الشاشة
+            const threshold = 60; 
             if (window.innerHeight - e.clientY < threshold) {
                 if (!isHoveringBottom) {
                     isHoveringBottom = true;
@@ -689,9 +710,7 @@
             cancelAnimationFrame(edgeScrollAnimation);
         });
 
-        // ---------------------------------------------------------
-        // CV Viewer Logic (Zoom & Pan)
-        // ---------------------------------------------------------
+        // 3. CV Viewer Logic (Zoom & Pan)
         let cvScale = 1;
         const cvImage = document.getElementById('cvImagePreview');
         const cvScrollArea = document.getElementById('cvScrollArea');
@@ -708,32 +727,53 @@
             cvImage.style.transform = `scale(1)`;
         }
 
+        // Drag functionality (Desktop & Mobile)
         let isDragging = false;
         let startX, startY, scrollLeft, scrollTop;
 
-        cvScrollArea.addEventListener('mousedown', (e) => {
+        const startDrag = (e) => {
             isDragging = true;
-            startX = e.pageX - cvScrollArea.offsetLeft;
-            startY = e.pageY - cvScrollArea.offsetTop;
+            const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+            const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
+            startX = pageX - cvScrollArea.offsetLeft;
+            startY = pageY - cvScrollArea.offsetTop;
             scrollLeft = cvScrollArea.scrollLeft;
             scrollTop = cvScrollArea.scrollTop;
-            cursorCircle.style.transform = 'translate(-50%, -50%) scale(0.8)';
-            cursorCircle.style.borderColor = 'var(--accent-blue)';
-        });
-        cvScrollArea.addEventListener('mouseleave', () => { isDragging = false; });
-        cvScrollArea.addEventListener('mouseup', () => {
+            
+            if (window.matchMedia("(pointer: fine)").matches) {
+                cursorCircle.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                cursorCircle.style.borderColor = 'var(--accent-blue)';
+            }
+        };
+
+        const stopDrag = () => {
             isDragging = false;
-            cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
-        });
-        cvScrollArea.addEventListener('mousemove', (e) => {
+            if (window.matchMedia("(pointer: fine)").matches) {
+                cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
+            }
+        };
+
+        const onDrag = (e) => {
             if (!isDragging) return;
             e.preventDefault();
-            const walkX = ((e.pageX - cvScrollArea.offsetLeft) - startX) * 1.5;
-            const walkY = ((e.pageY - cvScrollArea.offsetTop) - startY) * 1.5;
+            const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+            const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
+            const walkX = ((pageX - cvScrollArea.offsetLeft) - startX) * 1.5;
+            const walkY = ((pageY - cvScrollArea.offsetTop) - startY) * 1.5;
             cvScrollArea.scrollLeft = scrollLeft - walkX;
             cvScrollArea.scrollTop = scrollTop - walkY;
-        });
+        };
+
+        cvScrollArea.addEventListener('mousedown', startDrag);
+        cvScrollArea.addEventListener('touchstart', startDrag, {passive: false});
+        
+        cvScrollArea.addEventListener('mouseleave', stopDrag);
+        cvScrollArea.addEventListener('mouseup', stopDrag);
+        cvScrollArea.addEventListener('touchend', stopDrag);
+        
+        cvScrollArea.addEventListener('mousemove', onDrag);
+        cvScrollArea.addEventListener('touchmove', onDrag, {passive: false});
 
         function openCVModal(event) {
             event.preventDefault();
