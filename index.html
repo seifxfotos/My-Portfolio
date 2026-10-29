@@ -35,6 +35,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* الماوس العادي مخفي في كل الموقع */
             cursor: none !important;
         }
 
@@ -42,8 +43,9 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-ar);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            overflow: hidden; 
+            width: 100vw;
+            height: 100vh;
         }
 
         html[lang="en"] body {
@@ -59,7 +61,7 @@
             z-index: 99999;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            transition: width 0.3s, height 0.3s, background-color 0.3s, opacity 0.2s;
         }
         .cursor-dot {
             width: 8px;
@@ -73,25 +75,54 @@
             background-color: rgba(212, 175, 55, 0.05);
         }
 
-        /* Hero Moving Blur Light */
-        .hero-light {
+        /* Mesh Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.85; 
+            transition: opacity 1s ease;
+        }
+        .mesh-blob {
             position: absolute;
-            width: 70vw;
-            height: 70vh;
-            background: radial-gradient(circle, rgba(37, 109, 150, 0.25) 0%, rgba(5, 8, 15, 0) 60%);
+            filter: blur(140px); 
             border-radius: 50%;
-            filter: blur(90px);
-            z-index: -1;
-            top: 10%;
-            left: 15%;
-            pointer-events: none;
-            animation: floatLight 12s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            animation: floatBlob 15s infinite alternate ease-in-out;
+            transition: background 1.5s cubic-bezier(0.7, 0, 0.3, 1), transform 1.5s ease;
+            will-change: transform, background;
+        }
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: rgba(37, 109, 150, 0.3); 
+            top: -10%;
+            right: -10%;
+        }
+        .blob-2 {
+            width: 650px;
+            height: 650px;
+            background: rgba(212, 175, 55, 0.15); 
+            bottom: -15%;
+            left: -10%;
+            animation-delay: -5s;
         }
 
-        @keyframes floatLight {
-            0% { transform: translate(0, 0) scale(1); background: radial-gradient(circle, rgba(37, 109, 150, 0.25) 0%, rgba(5, 8, 15, 0) 60%); }
-            50% { transform: translate(-15vw, 15vh) scale(1.2); background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(5, 8, 15, 0) 60%); }
-            100% { transform: translate(15vw, 5vh) scale(0.9); background: radial-gradient(circle, rgba(37, 109, 150, 0.3) 0%, rgba(5, 8, 15, 0) 60%); }
+        .mesh-bg.slide-2-active .blob-1 {
+            background: rgba(212, 175, 55, 0.25);
+            transform: translate(-20vw, 20vh);
+        }
+        .mesh-bg.slide-2-active .blob-2 {
+            background: rgba(37, 109, 150, 0.4);
+            transform: translate(20vw, -20vh);
+        }
+
+        @keyframes floatBlob {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         /* Navbar */
@@ -163,17 +194,47 @@
             color: #fff;
         }
 
-        /* Hero Section */
-        hero {
-            position: relative;
-            min-height: 100vh;
+        /* Slide Engine Structure */
+        .slide {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.7, 0, 0.2, 1), filter 1.2s ease;
+            will-change: transform, opacity;
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        /* Slide 1 */
+        hero {
+            z-index: 1;
             padding: 0 10%;
             padding-top: 80px;
-            z-index: 1;
+            transform-origin: center top;
         }
+        hero.slide-out {
+            transform: scale(0.85) translateY(-5%);
+            opacity: 0.2;
+            filter: blur(8px);
+        }
+
+        /* Slide 2 */
+        #showcase {
+            z-index: 2;
+            background-color: var(--bg-color); 
+            transform: translateY(100vh); 
+            padding: 100px 10%;
+            overflow-y: auto; 
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.5); 
+        }
+        #showcase.slide-in {
+            transform: translateY(0);
+        }
+        #showcase::-webkit-scrollbar { display: none; }
+        
         .availability-badge {
             display: inline-flex;
             align-items: center;
@@ -248,9 +309,6 @@
             transform: translateY(-3px);
         }
 
-        /* Sections */
-        section { padding: 100px 10%; position: relative; z-index: 2; }
-        
         .section-title {
             font-size: 2.5rem;
             font-weight: 800;
@@ -261,9 +319,11 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
+            padding-bottom: 50px;
         }
         .bento-card {
-            background: var(--surface-color);
+            background: rgba(11, 17, 26, 0.7);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
             border-radius: 24px;
             padding: 35px;
@@ -366,6 +426,8 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
         .close-modal {
+            /* تفعيل الماوس الطبيعي فوق الزرار فقط */
+            cursor: pointer !important;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
             color: var(--text-main);
@@ -384,7 +446,9 @@
             color: var(--accent-blue);
         }
 
-        /* CV Viewer */
+        /* ------------------------------------------- */
+        /* High-End CV Viewer Area (Hardware Accelerated) */
+        /* ------------------------------------------- */
         .cv-viewer-area {
             position: relative;
             flex-grow: 1;
@@ -393,6 +457,8 @@
             overflow: hidden;
             display: flex;
         }
+
+        /* إعدادات السحب (الماوس يقلب إيد وتسحب بسلاسة) */
         .cv-scroll-area {
             width: 100%;
             height: 100%;
@@ -401,7 +467,19 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            /* منع النسخ والتحديد لعدم إعاقة السحب */
+            user-select: none;
+            -webkit-user-drag: none;
+            /* تشغيل علامة اليد الخاصة بالسحب (Native) */
+            cursor: grab !important;
+            will-change: scroll-position;
         }
+        
+        .cv-scroll-area:active {
+            cursor: grabbing !important;
+        }
+
+        /* السكرول بار */
         .cv-scroll-area::-webkit-scrollbar { width: 14px; height: 14px; }
         .cv-scroll-area::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 10px; }
         .cv-scroll-area::-webkit-scrollbar-thumb {
@@ -413,19 +491,25 @@
         .cv-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
         .cv-scroll-area::-webkit-scrollbar-corner { background: var(--bg-color); }
 
-        /* Fit CV Magic */
         .cv-image-preview {
             max-width: 100%;
-            max-height: 75vh; /* يضمن فتحها بمقاس الشاشة بالظبط دون اقتصاص */
+            max-height: 75vh; 
             width: auto;
             height: auto;
             object-fit: contain;
             transform-origin: top center;
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            /* منع تفاعل المتصفح الافتراضي مع الصورة تماماً */
+            pointer-events: none; 
+            user-select: none;
+            -webkit-user-drag: none;
+            /* تحريك أنيق وسريع للزوم بس */
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
             border-radius: 4px;
+            will-change: transform;
         }
 
+        /* Zoom Controls */
         .zoom-controls {
             position: absolute;
             bottom: 30px;
@@ -453,65 +537,41 @@
             justify-content: center;
             font-size: 1.1rem;
             transition: var(--transition);
+            cursor: pointer !important;
         }
         .zoom-controls button:hover {
             background: var(--accent-blue-glow);
             color: var(--accent-blue);
         }
 
-        /* 📱 PERFECT MOBILE RESPONSIVE UI */
+        /* 📱 Mobile UI */
         @media(max-width: 900px) {
-            /* إيقاف الماوس المخصص تماماً في التاتش لتجنب التهنيج */
             @media (pointer: coarse) {
                 .cursor-dot, .cursor-circle { display: none !important; }
                 * { cursor: auto !important; }
             }
-
             header { padding: 15px 5%; }
             .nav-links { display: none; } 
             .lang-btn, .cta-nav { padding: 8px 14px; font-size: 0.8rem; }
-            
             hero {
-                padding-top: 100px;
+                padding-top: 80px;
                 text-align: center;
                 align-items: center;
+                justify-content: flex-start;
             }
             .availability-badge { margin: 0 auto 25px auto; }
             .hero-desc { margin: 0 auto 40px auto; font-size: 1rem; }
-            .hero-btns {
-                flex-direction: column;
-                width: 100%;
-                gap: 15px;
-            }
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                justify-content: center;
-                padding: 16px;
-            }
-
+            .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 16px; }
+            #showcase { padding: 100px 5%; }
             .bento-grid { grid-template-columns: 1fr; }
             .bento-card.large { grid-column: span 1; }
-            
-            /* Native App Feel for Mobile Modal */
-            .cv-modal-content {
-                width: 100%;
-                height: 100vh; /* شاشة كاملة */
-                border-radius: 0;
-                border: none;
-            }
-            .cv-modal-header { 
-                padding: 15px 20px; 
-                border-radius: 0;
-            }
+            .cv-modal-content { width: 100%; height: 100vh; border-radius: 0; border: none; }
+            .cv-modal-header { padding: 15px 20px; border-radius: 0; }
             .cv-modal-header h3 { font-size: 1rem; }
             .btn-download-cv { padding: 8px 15px; font-size: 0.8rem; }
-            
             .cv-scroll-area { padding: 10px; }
-            .cv-image-preview {
-                max-height: 80vh; /* ملء الشاشة في الموبايل */
-            }
-
-            /* شريط زوم أفقي عائم في أسفل منتصف الشاشة */
+            .cv-image-preview { max-height: 80vh; }
             .zoom-controls { 
                 flex-direction: row; 
                 bottom: 25px; 
@@ -520,41 +580,39 @@
                 padding: 4px;
                 border-radius: 50px;
             }
-            .zoom-controls button {
-                width: 40px;
-                height: 40px;
-                border-radius: 50px;
-            }
+            .zoom-controls button { width: 40px; height: 40px; border-radius: 50px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Custom Animated Cursors -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-circle"></div>
+    <div class="cursor-dot" id="customCursorDot"></div>
+    <div class="cursor-circle" id="customCursorCircle"></div>
 
-    <!-- Header / Navbar -->
+    <div class="mesh-bg" id="meshBg">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+    </div>
+
+    <!-- Header -->
     <header>
         <div class="logo">
             <i class="fa-solid fa-bolt"></i>
             <span>Seif Ahmed</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#about" data-i18n="nav_about">عني</a></li>
-            <li><a href="#showcase" data-i18n="nav_work">الأعمال</a></li>
-            <li><a href="#cv" onclick="openCVModal(event)" data-i18n="nav_cv">السيرة الذاتية</a></li>
+            <li><a href="#" onclick="goToSlide(0); return false;" data-i18n="nav_about">عني</a></li>
+            <li><a href="#" onclick="goToSlide(1); return false;" data-i18n="nav_work">الأعمال</a></li>
+            <li><a href="#" onclick="openCVModal(event)" data-i18n="nav_cv">السيرة الذاتية</a></li>
         </ul>
         <div class="nav-actions">
             <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
-            <a href="#showcase" class="cta-nav" data-i18n="nav_cta">تواصل معي</a>
+            <a href="#" onclick="goToSlide(1); return false;" class="cta-nav" data-i18n="nav_cta">تواصل معي</a>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <hero id="about">
-        <div class="hero-light"></div>
-        
+    <!-- Slide 1 -->
+    <hero class="slide" id="slide-hero">
         <div class="availability-badge">
             <div class="status-dot"></div>
             <span data-i18n="hero_status">متاح لفرص عمل Full-Time</span>
@@ -567,19 +625,19 @@
             خبرة أكثر من 6 سنوات في صياغة الهويات البصرية المبتكرة، المونتاج الاحترافي، وهندسة الوسائط الرقمية بدقة وصياغة راقية.
         </p>
         <div class="hero-btns">
-            <a href="#showcase" class="btn-primary">
+            <a href="#" onclick="goToSlide(1); return false;" class="btn-primary">
                 <span data-i18n="btn_explore">استعراض الأعمال</span>
                 <i class="fa-solid fa-arrow-left-long" id="btn-arrow"></i>
             </a>
-            <a href="#cv" onclick="openCVModal(event)" class="btn-secondary">
+            <a href="#" onclick="openCVModal(event)" class="btn-secondary">
                 <i class="fa-solid fa-file-pdf" style="color: var(--accent-blue);"></i>
                 <span data-i18n="btn_cv">السيرة الذاتية</span>
             </a>
         </div>
     </hero>
 
-    <!-- Showcase Section -->
-    <section id="showcase">
+    <!-- Slide 2 -->
+    <section class="slide" id="showcase">
         <h2 class="section-title" data-i18n="section_work_title">أبرز الأعمال والمشاريع</h2>
         <div class="bento-grid">
             <div class="bento-card large">
@@ -598,10 +656,18 @@
                 <h3 data-i18n="card_multimedia_title">Motion & Video Reel</h3>
                 <p data-i18n="card_multimedia_desc">إنتاج وإخراج الفيديوهات الاحترافية باستخدام Adobe Premiere & After Effects مع هندسة صوتية متكاملة.</p>
             </div>
+            <div class="bento-card">
+                <h3>UI/UX Design</h3>
+                <p>تصميم واجهات تطبيقات تفاعلية لتعزيز تجربة المستخدم.</p>
+            </div>
+            <div class="bento-card">
+                <h3>3D Product Rendering</h3>
+                <p>إخراج وتصميم منتجات ثلاثية الأبعاد بدقة واقعية.</p>
+            </div>
         </div>
     </section>
 
-    <!-- High-End Interactive CV Modal -->
+    <!-- CV Modal -->
     <div class="cv-modal" id="cvModal">
         <div class="cv-modal-content">
             <div class="cv-modal-header">
@@ -624,10 +690,9 @@
                     <button onclick="zoomCV(-0.25)" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
                     <button onclick="resetZoomCV()" title="Reset"><i class="fa-solid fa-compress"></i></button>
                 </div>
-                
+                <!-- تم وضع draggable="false" لقتل أي سحب افتراضي مزعج من المتصفح -->
                 <div class="cv-scroll-area" id="cvScrollArea">
-                    <!-- الصورة واخده Fit مثالي ومناسبة للشاشة بالكامل -->
-                    <img src="cv.jpg" alt="CV Preview" class="cv-image-preview" id="cvImagePreview">
+                    <img src="cv.jpg" alt="CV Preview" class="cv-image-preview" id="cvImagePreview" draggable="false">
                 </div>
             </div>
         </div>
@@ -635,9 +700,10 @@
 
     <!-- JavaScript -->
     <script>
-        // Custom Cursor movement (Desktop Only)
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorCircle = document.querySelector('.cursor-circle');
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('customCursorDot');
+        const cursorCircle = document.getElementById('customCursorCircle');
+        const cvViewerArea = document.querySelector('.cv-viewer-area');
 
         if (window.matchMedia("(pointer: fine)").matches) {
             window.addEventListener('mousemove', (e) => {
@@ -647,6 +713,16 @@
                     left: `${e.clientX}px`,
                     top: `${e.clientY}px`
                 }, { duration: 100, fill: 'forwards' });
+            });
+
+            // إخفاء الماوس المخصص تماماً عند الدخول لمنطقة الـ CV للسماح بعلامة السحب (Grab)
+            cvViewerArea.addEventListener('mouseenter', () => {
+                cursorDot.style.opacity = '0';
+                cursorCircle.style.opacity = '0';
+            });
+            cvViewerArea.addEventListener('mouseleave', () => {
+                cursorDot.style.opacity = '1';
+                cursorCircle.style.opacity = '1';
             });
 
             const interactables = document.querySelectorAll('a, button, .bento-card');
@@ -664,53 +740,80 @@
             });
         }
 
-        // 1. Idle Auto-Scroll Logic
+        // Slide Engine
+        let currentSlide = 0;
+        const totalSlides = 2;
+        let isAnimating = false;
+        
+        const heroSlide = document.getElementById('slide-hero');
+        const showcaseSlide = document.getElementById('showcase');
+        const meshBg = document.getElementById('meshBg');
+
+        function goToSlide(index) {
+            if (isAnimating || index < 0 || index >= totalSlides) return;
+            isAnimating = true;
+            currentSlide = index;
+
+            if (currentSlide === 1) {
+                heroSlide.classList.add('slide-out');
+                showcaseSlide.classList.add('slide-in');
+                meshBg.classList.add('slide-2-active');
+            } else {
+                heroSlide.classList.remove('slide-out');
+                showcaseSlide.classList.remove('slide-in');
+                meshBg.classList.remove('slide-2-active');
+            }
+            setTimeout(() => { isAnimating = false; }, 1200);
+        }
+
+        window.addEventListener('wheel', (e) => {
+            if (document.getElementById('cvModal').classList.contains('active')) return;
+            if (e.deltaY > 50) {
+                goToSlide(currentSlide + 1);
+            } else if (e.deltaY < -50) {
+                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) {
+                    goToSlide(currentSlide - 1);
+                }
+            }
+        });
+
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, {passive: true});
+
+        window.addEventListener('touchend', (e) => {
+            if (document.getElementById('cvModal').classList.contains('active')) return;
+            let touchEndY = e.changedTouches[0].clientY;
+            let swipeDistance = touchStartY - touchEndY;
+
+            if (swipeDistance > 50) {
+                goToSlide(currentSlide + 1); 
+            } else if (swipeDistance < -50) {
+                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) {
+                    goToSlide(currentSlide - 1); 
+                }
+            }
+        });
+
+        // Idle Engine
         let idleTimer;
         function resetIdleTimer() {
             clearTimeout(idleTimer);
-            if (window.scrollY < window.innerHeight * 0.3) {
+            if (currentSlide === 0 && !document.getElementById('cvModal').classList.contains('active')) {
                 idleTimer = setTimeout(() => {
-                    const showcase = document.getElementById('showcase');
-                    if(showcase) showcase.scrollIntoView({ behavior: 'smooth' });
+                    goToSlide(1);
                 }, 5000); 
             }
         }
-        ['mousemove', 'scroll', 'keydown', 'click', 'touchstart'].forEach(evt => {
+        ['mousemove', 'touchstart', 'wheel', 'keydown'].forEach(evt => {
             window.addEventListener(evt, resetIdleTimer);
         });
         resetIdleTimer(); 
 
-        // 2. Edge Scrolling
-        let edgeScrollAnimation;
-        let isHoveringBottom = false;
-
-        function edgeScroll() {
-            if (isHoveringBottom) {
-                window.scrollBy(0, 7); 
-                edgeScrollAnimation = requestAnimationFrame(edgeScroll);
-            }
-        }
-
-        window.addEventListener('mousemove', (e) => {
-            if (window.innerWidth <= 900) return; 
-            const threshold = 60; 
-            if (window.innerHeight - e.clientY < threshold) {
-                if (!isHoveringBottom) {
-                    isHoveringBottom = true;
-                    edgeScrollAnimation = requestAnimationFrame(edgeScroll);
-                }
-            } else {
-                isHoveringBottom = false;
-                cancelAnimationFrame(edgeScrollAnimation);
-            }
-        });
-        
-        window.addEventListener('mouseleave', () => {
-            isHoveringBottom = false;
-            cancelAnimationFrame(edgeScrollAnimation);
-        });
-
-        // 3. CV Viewer Logic (Zoom & Pan)
+        // ---------------------------------------------------------
+        // High-End CV Viewer Drag Logic (1:1 Panning & Native Smoothness)
+        // ---------------------------------------------------------
         let cvScale = 1;
         const cvImage = document.getElementById('cvImagePreview');
         const cvScrollArea = document.getElementById('cvScrollArea');
@@ -727,51 +830,44 @@
             cvImage.style.transform = `scale(1)`;
         }
 
-        // Drag functionality (Desktop & Mobile)
         let isDragging = false;
         let startX, startY, scrollLeft, scrollTop;
 
         const startDrag = (e) => {
             isDragging = true;
+            // حساب الإحداثيات الأساسية
             const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
             const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
             startX = pageX - cvScrollArea.offsetLeft;
             startY = pageY - cvScrollArea.offsetTop;
             scrollLeft = cvScrollArea.scrollLeft;
             scrollTop = cvScrollArea.scrollTop;
-            
-            if (window.matchMedia("(pointer: fine)").matches) {
-                cursorCircle.style.transform = 'translate(-50%, -50%) scale(0.8)';
-                cursorCircle.style.borderColor = 'var(--accent-blue)';
-            }
         };
 
         const stopDrag = () => {
             isDragging = false;
-            if (window.matchMedia("(pointer: fine)").matches) {
-                cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
-            }
         };
 
         const onDrag = (e) => {
             if (!isDragging) return;
-            e.preventDefault();
+            e.preventDefault(); // إيقاف أي حدث افتراضي يدمر السحب
+            
             const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
             const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
-            const walkX = ((pageX - cvScrollArea.offsetLeft) - startX) * 1.5;
-            const walkY = ((pageY - cvScrollArea.offsetTop) - startY) * 1.5;
+            
+            // سحب مباشر 1:1 بدون أي مضاعفات سرعة للحفاظ على نعومة وسلاسة الماوس
+            const walkX = (pageX - cvScrollArea.offsetLeft) - startX;
+            const walkY = (pageY - cvScrollArea.offsetTop) - startY;
+            
             cvScrollArea.scrollLeft = scrollLeft - walkX;
             cvScrollArea.scrollTop = scrollTop - walkY;
         };
 
         cvScrollArea.addEventListener('mousedown', startDrag);
         cvScrollArea.addEventListener('touchstart', startDrag, {passive: false});
-        
         cvScrollArea.addEventListener('mouseleave', stopDrag);
         cvScrollArea.addEventListener('mouseup', stopDrag);
         cvScrollArea.addEventListener('touchend', stopDrag);
-        
         cvScrollArea.addEventListener('mousemove', onDrag);
         cvScrollArea.addEventListener('touchmove', onDrag, {passive: false});
 
@@ -783,6 +879,7 @@
 
         function closeCVModal() {
             document.getElementById('cvModal').classList.remove('active');
+            resetIdleTimer();
         }
 
         window.addEventListener('click', (e) => {
@@ -841,7 +938,6 @@
         };
 
         let currentLang = 'ar';
-
         function toggleLanguage() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             document.documentElement.setAttribute('lang', currentLang);
