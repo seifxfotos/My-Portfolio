@@ -54,7 +54,7 @@
             z-index: 99999;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            transition: width 0.3s, height 0.3s, background-color 0.3s, opacity 0.3s;
         }
 
         .cursor-dot {
@@ -446,21 +446,12 @@
             background: #16161c;
             position: relative;
         }
-
-        .cv-iframe-container iframe {
+        
+        /* ضبط إعدادات كائن الـ PDF لملء المساحة بالكامل */
+        .cv-iframe-container embed {
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-        /* طبقة شفافة فوق الـ iframe عشان الماوس المخصص يفضل ظاهر وشغال فوقه */
-        .iframe-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
         }
 
         /* Responsive */
@@ -567,6 +558,7 @@
                     <span data-i18n="modal_title">معاينة السيرة الذاتية</span>
                 </h3>
                 <div class="cv-modal-actions">
+                    <!-- زر التحميل مازال يستخدم رابط Google Drive للتحميل المباشر -->
                     <a href="https://drive.google.com/uc?export=download&id=1HJ3cjeDbtTHyPumOFUX6tVKEPjehrrsv" class="btn-download-cv" target="_blank">
                         <i class="fa-solid fa-download"></i>
                         <span data-i18n="download_btn">تحميل PDF</span>
@@ -574,11 +566,9 @@
                     <button class="close-modal" onclick="closeCVModal()">&times;</button>
                 </div>
             </div>
-            <div class="cv-iframe-container">
-                <!-- تم ضبط معاملات العرض في رابط درايف ليظهر بالكامل -->
-                <iframe src="https://drive.google.com/file/d/1HJ3cjeDbtTHyPumOFUX6tVKEPjehrrsv/preview?usp=drivesdk&rm=minimal" id="cvIframe"></iframe>
-                <!-- طبقة شفافة تحافظ على عمل الماوس المخصص فوق الإطار -->
-                <div class="iframe-overlay"></div>
+            <div class="cv-iframe-container" id="pdfContainer">
+                <!-- عرض الـ PDF من ملف محلي لضمان الحجم الكامل وإخفاء واجهة جوجل -->
+                <embed src="cv.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" />
             </div>
         </div>
     </div>
@@ -588,6 +578,7 @@
         // Custom Cursor movement
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorCircle = document.querySelector('.cursor-circle');
+        const pdfContainer = document.getElementById('pdfContainer');
 
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX;
@@ -612,6 +603,16 @@
                 cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
                 cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.03)';
             });
+        });
+
+        // إخفاء الماوس المخصص عند دخول إطار الـ PDF لتجنب تداخل الماوسين
+        pdfContainer.addEventListener('mouseenter', () => {
+            cursorDot.style.opacity = '0';
+            cursorCircle.style.opacity = '0';
+        });
+        pdfContainer.addEventListener('mouseleave', () => {
+            cursorDot.style.opacity = '1';
+            cursorCircle.style.opacity = '1';
         });
 
         // CV Modal Control Functions
