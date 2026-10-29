@@ -13,14 +13,21 @@
     
     <style>
         :root {
-            --bg-color: #08080a;
-            --surface-color: #121216;
-            --surface-glass: rgba(18, 18, 22, 0.85);
-            --border-color: rgba(255, 255, 255, 0.08);
+            /* درجات الخلفيات الكحلي الليلي المأخوذة من روح الـ CV */
+            --bg-color: #05080f; 
+            --surface-color: #0b111a;
+            --surface-glass: rgba(11, 17, 26, 0.85);
+            --border-color: rgba(37, 109, 150, 0.2); /* حدود زرقاء خفيفة */
+            
             --text-main: #f4f4f6;
             --text-muted: #9ba1a6;
-            --accent: #d4af37; /* Luxury Gold */
-            --accent-glow: rgba(212, 175, 55, 0.15);
+            
+            /* الألوان الرئيسية من السيرة الذاتية */
+            --accent-blue: #256d96; /* الأزرق البترولي (اللون الطاغي) */
+            --accent-blue-glow: rgba(37, 109, 150, 0.15);
+            --accent-gold: #d4af37; /* الأصفر الذهبي (اللون الثانوي للمسات) */
+            --accent-gold-glow: rgba(212, 175, 55, 0.15);
+            
             --font-ar: 'Cairo', sans-serif;
             --font-en: 'Outfit', sans-serif;
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -45,7 +52,7 @@
             font-family: var(--font-en);
         }
 
-        /* Custom Cursor Animation */
+        /* Custom Cursor Animation (الذهبي) */
         .cursor-dot, .cursor-circle {
             position: fixed;
             top: 0;
@@ -54,23 +61,23 @@
             z-index: 99999;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s, opacity 0.3s;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
         }
 
         .cursor-dot {
             width: 8px;
             height: 8px;
-            background-color: var(--accent);
+            background-color: var(--accent-gold);
         }
 
         .cursor-circle {
             width: 36px;
             height: 36px;
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            background-color: rgba(212, 175, 55, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            background-color: rgba(212, 175, 55, 0.05);
         }
 
-        /* Mesh Background */
+        /* Mesh Background (زرقاء عشان تدي عمق للموقع) */
         .mesh-bg {
             position: fixed;
             top: 0;
@@ -79,7 +86,7 @@
             height: 100vh;
             z-index: -1;
             overflow: hidden;
-            opacity: 0.4;
+            opacity: 0.5;
         }
 
         .mesh-blob {
@@ -92,7 +99,7 @@
         .blob-1 {
             width: 450px;
             height: 450px;
-            background: rgba(212, 175, 55, 0.08);
+            background: rgba(37, 109, 150, 0.15); /* أزرق */
             top: -10%;
             right: -10%;
         }
@@ -100,7 +107,7 @@
         .blob-2 {
             width: 500px;
             height: 500px;
-            background: rgba(80, 50, 160, 0.12);
+            background: rgba(18, 55, 80, 0.2); /* كحلي غامق */
             bottom: -15%;
             left: -10%;
             animation-delay: -5s;
@@ -137,7 +144,7 @@
         }
 
         .logo span {
-            color: var(--accent);
+            color: var(--accent-gold);
         }
 
         .nav-links {
@@ -177,8 +184,8 @@
         }
 
         .lang-btn:hover, .cta-nav:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow);
+            border-color: var(--accent-blue);
+            background: var(--accent-blue-glow);
         }
 
         .cta-nav {
@@ -188,7 +195,8 @@
         }
 
         .cta-nav:hover {
-            background: var(--accent);
+            background: var(--accent-blue);
+            color: #fff;
         }
 
         /* Hero Section */
@@ -217,9 +225,9 @@
         .status-dot {
             width: 8px;
             height: 8px;
-            background-color: #22c55e;
+            background-color: var(--accent-blue);
             border-radius: 50%;
-            box-shadow: 0 0 10px #22c55e;
+            box-shadow: 0 0 10px var(--accent-blue);
         }
 
         h1 {
@@ -230,8 +238,9 @@
             margin-bottom: 25px;
         }
 
+        /* تدرج لوني أزرق أنيق في العنوان */
         h1 span {
-            background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+            background: linear-gradient(135deg, #fff 20%, var(--accent-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -260,13 +269,17 @@
             transition: var(--transition);
         }
 
+        /* الزر الرئيسي أزرق، ولما تقف عليه يقلب ذهبي */
         .btn-primary {
-            background: var(--text-main);
-            color: var(--bg-color);
+            background: var(--accent-blue);
+            color: #fff;
+            border: 1px solid var(--accent-blue);
         }
 
         .btn-primary:hover {
-            background: var(--accent);
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #000;
             transform: translateY(-3px);
         }
 
@@ -277,8 +290,8 @@
         }
 
         .btn-secondary:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow);
+            border-color: var(--accent-blue);
+            background: var(--accent-blue-glow);
             transform: translateY(-3px);
         }
 
@@ -309,7 +322,7 @@
         }
 
         .bento-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
+            border-color: rgba(37, 109, 150, 0.6);
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
@@ -330,14 +343,14 @@
             font-size: 0.95rem;
         }
 
-        /* High-End Dark CV Modal Preview Overlay */
+        /* High-End CV Modal */
         .cv-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(8, 8, 10, 0.88);
+            background: rgba(5, 8, 15, 0.9);
             backdrop-filter: blur(25px);
             z-index: 10000;
             display: flex;
@@ -354,11 +367,11 @@
         }
 
         .cv-modal-content {
-            background: #0d0d12;
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            width: 92%;
-            max-width: 1100px;
-            height: 90vh;
+            background: var(--surface-color);
+            border: 1px solid rgba(37, 109, 150, 0.4);
+            width: 95%;
+            max-width: 1200px;
+            height: 92vh;
             border-radius: 28px;
             display: flex;
             flex-direction: column;
@@ -378,7 +391,8 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            background: var(--surface-color);
+            background: var(--bg-color);
+            z-index: 10;
         }
 
         .cv-modal-header h3 {
@@ -390,7 +404,7 @@
         }
 
         .cv-modal-header h3 i {
-            color: var(--accent);
+            color: var(--accent-gold);
         }
 
         .cv-modal-actions {
@@ -400,8 +414,8 @@
         }
 
         .btn-download-cv {
-            background: var(--accent);
-            color: #08080a;
+            background: var(--accent-blue);
+            color: #fff;
             padding: 10px 22px;
             border-radius: 30px;
             font-weight: 700;
@@ -414,7 +428,8 @@
         }
 
         .btn-download-cv:hover {
-            background: #fff;
+            background: var(--accent-gold);
+            color: #000;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
@@ -430,28 +445,101 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            cursor: pointer;
             transition: var(--transition);
         }
 
         .close-modal:hover {
             background: rgba(255, 255, 255, 0.12);
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
         }
 
-        .cv-iframe-container {
+        /* Custom Interactive Viewer Area */
+        .cv-viewer-area {
+            position: relative;
             flex-grow: 1;
             width: 100%;
-            background: #16161c;
-            position: relative;
+            background: #080c14;
+            overflow: hidden;
+            display: flex;
         }
-        
-        /* ضبط إعدادات كائن الـ PDF لملء المساحة بالكامل */
-        .cv-iframe-container embed {
+
+        .cv-scroll-area {
             width: 100%;
             height: 100%;
+            overflow: auto;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* --- السكرول بار الأزرق مع لمسة ذهبية في الهوفر --- */
+        .cv-scroll-area::-webkit-scrollbar {
+            width: 14px;
+            height: 14px;
+        }
+        .cv-scroll-area::-webkit-scrollbar-track {
+            background: var(--bg-color);
+            border-radius: 10px;
+        }
+        .cv-scroll-area::-webkit-scrollbar-thumb {
+            background: var(--accent-blue); 
+            border-radius: 10px;
+            border: 3px solid var(--bg-color);
+            background-clip: padding-box;
+        }
+        .cv-scroll-area::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-gold);
+        }
+        .cv-scroll-area::-webkit-scrollbar-corner {
+            background: var(--bg-color);
+        }
+
+        .cv-image-preview {
+            width: 100%;
+            max-width: 950px; 
+            height: auto;
+            transform-origin: top center;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            border-radius: 4px;
+        }
+
+        /* Floating Zoom Controls */
+        .zoom-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 6px;
+            z-index: 50;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .zoom-controls button {
+            background: transparent;
             border: none;
+            color: var(--text-main);
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .zoom-controls button:hover {
+            background: var(--accent-blue-glow);
+            color: var(--accent-blue);
         }
 
         /* Responsive */
@@ -467,7 +555,11 @@
             }
             .cv-modal-content {
                 width: 95%;
-                height: 92vh;
+                height: 95vh;
+            }
+            .zoom-controls {
+                right: 15px;
+                bottom: 15px;
             }
         }
     </style>
@@ -478,7 +570,6 @@
     <div class="cursor-dot"></div>
     <div class="cursor-circle"></div>
 
-    <!-- Mesh Background Vibe -->
     <div class="mesh-bg">
         <div class="mesh-blob blob-1"></div>
         <div class="mesh-blob blob-2"></div>
@@ -487,7 +578,7 @@
     <!-- Header / Navbar -->
     <header>
         <div class="logo">
-            <i class="fa-solid fa-bolt" style="color: var(--accent);"></i>
+            <i class="fa-solid fa-bolt"></i>
             <span>Seif Ahmed</span>
         </div>
         <ul class="nav-links">
@@ -520,7 +611,7 @@
                 <i class="fa-solid fa-arrow-left-long" id="btn-arrow"></i>
             </a>
             <a href="#cv" onclick="openCVModal(event)" class="btn-secondary">
-                <i class="fa-solid fa-file-pdf" style="color: var(--accent);"></i>
+                <i class="fa-solid fa-file-pdf" style="color: var(--accent-blue);"></i>
                 <span data-i18n="btn_cv">السيرة الذاتية</span>
             </a>
         </div>
@@ -549,7 +640,7 @@
         </div>
     </section>
 
-    <!-- High-End Dark CV Modal Preview Overlay -->
+    <!-- High-End Interactive CV Modal Preview Overlay -->
     <div class="cv-modal" id="cvModal">
         <div class="cv-modal-content">
             <div class="cv-modal-header">
@@ -558,7 +649,6 @@
                     <span data-i18n="modal_title">معاينة السيرة الذاتية</span>
                 </h3>
                 <div class="cv-modal-actions">
-                    <!-- زر التحميل مازال يستخدم رابط Google Drive للتحميل المباشر -->
                     <a href="https://drive.google.com/uc?export=download&id=1HJ3cjeDbtTHyPumOFUX6tVKEPjehrrsv" class="btn-download-cv" target="_blank">
                         <i class="fa-solid fa-download"></i>
                         <span data-i18n="download_btn">تحميل PDF</span>
@@ -566,10 +656,20 @@
                     <button class="close-modal" onclick="closeCVModal()">&times;</button>
                 </div>
             </div>
-            <div class="cv-iframe-container" id="pdfContainer">
-                <!-- عرض الـ PDF من ملف محلي لضمان الحجم الكامل وإخفاء واجهة جوجل -->
-                <embed src="cv.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" />
+            
+            <div class="cv-viewer-area">
+                <div class="zoom-controls">
+                    <button onclick="zoomCV(0.25)" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button onclick="zoomCV(-0.25)" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                    <button onclick="resetZoomCV()" title="Reset"><i class="fa-solid fa-compress"></i></button>
+                </div>
+                
+                <div class="cv-scroll-area" id="cvScrollArea">
+                    <!-- الصورة هنا هي الـ CV بتاعك بجودة عالية -->
+                    <img src="cv.jpg" alt="CV Preview" class="cv-image-preview" id="cvImagePreview">
+                </div>
             </div>
+            
         </div>
     </div>
 
@@ -578,7 +678,6 @@
         // Custom Cursor movement
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorCircle = document.querySelector('.cursor-circle');
-        const pdfContainer = document.getElementById('pdfContainer');
 
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX;
@@ -598,27 +697,71 @@
             el.addEventListener('mouseenter', () => {
                 cursorCircle.style.transform = 'translate(-50%, -50%) scale(1.8)';
                 cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
+                cursorCircle.style.borderColor = 'var(--accent-gold)';
             });
             el.addEventListener('mouseleave', () => {
                 cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.03)';
+                cursorCircle.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+                cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
             });
         });
 
-        // إخفاء الماوس المخصص عند دخول إطار الـ PDF لتجنب تداخل الماوسين
-        pdfContainer.addEventListener('mouseenter', () => {
-            cursorDot.style.opacity = '0';
-            cursorCircle.style.opacity = '0';
-        });
-        pdfContainer.addEventListener('mouseleave', () => {
-            cursorDot.style.opacity = '1';
-            cursorCircle.style.opacity = '1';
+        // Interactive CV Viewer Logic (Zoom & Pan)
+        let cvScale = 1;
+        const cvImage = document.getElementById('cvImagePreview');
+        const cvScrollArea = document.getElementById('cvScrollArea');
+
+        function zoomCV(step) {
+            cvScale += step;
+            if (cvScale < 0.5) cvScale = 0.5;
+            if (cvScale > 3.5) cvScale = 3.5;
+            cvImage.style.transform = `scale(${cvScale})`;
+        }
+
+        function resetZoomCV() {
+            cvScale = 1;
+            cvImage.style.transform = `scale(1)`;
+        }
+
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        cvScrollArea.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - cvScrollArea.offsetLeft;
+            startY = e.pageY - cvScrollArea.offsetTop;
+            scrollLeft = cvScrollArea.scrollLeft;
+            scrollTop = cvScrollArea.scrollTop;
+            
+            cursorCircle.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            cursorCircle.style.borderColor = 'var(--accent-blue)';
         });
 
-        // CV Modal Control Functions
+        cvScrollArea.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+
+        cvScrollArea.addEventListener('mouseup', () => {
+            isDragging = false;
+            cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursorCircle.style.borderColor = 'rgba(212, 175, 55, 0.6)';
+        });
+
+        cvScrollArea.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - cvScrollArea.offsetLeft;
+            const y = e.pageY - cvScrollArea.offsetTop;
+            const walkX = (x - startX) * 1.5;
+            const walkY = (y - startY) * 1.5;
+            cvScrollArea.scrollLeft = scrollLeft - walkX;
+            cvScrollArea.scrollTop = scrollTop - walkY;
+        });
+
         function openCVModal(event) {
             event.preventDefault();
             document.getElementById('cvModal').classList.add('active');
+            resetZoomCV(); 
         }
 
         function closeCVModal() {
@@ -654,7 +797,7 @@
                 card_freelance_desc: "تصميم براندات مثل Motivo، Express Tires، RAM، و E TripleSoft.",
                 card_multimedia_title: "Motion & Video Reel",
                 card_multimedia_desc: "إنتاج وإخراج الفيديوهات الاحترافية باستخدام Adobe Premiere & After Effects مع هندسة صوتية متكاملة.",
-                modal_title: "معاينة السيرة الذاتية (CV Preview)",
+                modal_title: "معاينة السيرة الذاتية",
                 download_btn: "تحميل PDF"
             },
             en: {
@@ -677,7 +820,7 @@
                 card_freelance_desc: "Designing branding assets for Motivo, Express Tires, RAM, and E TripleSoft.",
                 card_multimedia_title: "Motion & Video Reel",
                 card_multimedia_desc: "Producing professional video content using Adobe Premiere & After Effects with sound design.",
-                modal_title: "Curriculum Vitae Preview",
+                modal_title: "CV Preview",
                 download_btn: "Download PDF"
             }
         };
