@@ -726,11 +726,15 @@
             });
         }
 
-        // Slide Engine
+        // ---------------------------------------------------------
+        // Slide Engine (With Auto-Scroll Limiter)
+        // ---------------------------------------------------------
         let currentSlide = 0;
         const totalSlides = 2;
         let isAnimating = false;
         
+        let hasAutoScrolled = false; // المتغير السحري اللي بيمنع تكرار الأوتو-سكرول
+
         const heroSlide = document.getElementById('slide-hero');
         const showcaseSlide = document.getElementById('showcase');
         const meshBg = document.getElementById('meshBg');
@@ -741,6 +745,7 @@
             currentSlide = index;
 
             if (currentSlide === 1) {
+                hasAutoScrolled = true; // بمجرد ما ننزل للسلايد التاني لأي سبب، نلغي الأوتو-سكرول للأبد
                 heroSlide.classList.add('slide-out');
                 showcaseSlide.classList.add('slide-in');
                 meshBg.classList.add('slide-2-active');
@@ -783,13 +788,12 @@
         });
 
         // ---------------------------------------------------------
-        // 🚀 Smart Edge Scrolling Engine (Top & Bottom)
+        // Smart Edge Scrolling Engine (Top & Bottom)
         // ---------------------------------------------------------
         let edgeScrollAnimation;
         let hoverZone = 'none'; 
         
         function performEdgeAction() {
-            // لو المودال بتاع السيرة الذاتية مفتوح، عطل الخاصية فوراً
             if (document.getElementById('cvModal').classList.contains('active')) {
                 hoverZone = 'none';
                 return;
@@ -797,20 +801,16 @@
 
             if (hoverZone === 'bottom') {
                 if (currentSlide === 0) {
-                    // الانتقال لصفحة الأعمال
                     goToSlide(1);
-                    hoverZone = 'none'; // منع التكرار
+                    hoverZone = 'none';
                 } else if (currentSlide === 1) {
-                    // سكرول صفحة الأعمال لتحت
                     showcaseSlide.scrollBy(0, 12);
                 }
             } else if (hoverZone === 'top') {
                 if (currentSlide === 1) {
-                    // سكرول صفحة الأعمال لفوق
                     if (showcaseSlide.scrollTop > 0) {
                         showcaseSlide.scrollBy(0, -12);
                     } else {
-                        // الرجوع للواجهة الرئيسية لو وصلنا لأول صفحة الأعمال
                         goToSlide(0);
                         hoverZone = 'none';
                     }
@@ -823,10 +823,10 @@
         }
 
         window.addEventListener('mousemove', (e) => {
-            if (window.innerWidth <= 900) return; // تعطيل في الموبايل
+            if (window.innerWidth <= 900) return; 
             
-            const bottomThreshold = window.innerHeight - 60; // 60 بيكسل من تحت
-            const topThreshold = 100; // مساحة الشريط اللي فوق بالكامل
+            const bottomThreshold = window.innerHeight - 60; 
+            const topThreshold = 100; 
             
             let newZone = 'none';
             if (e.clientY >= bottomThreshold) {
@@ -850,14 +850,16 @@
         });
 
         // ---------------------------------------------------------
-        // Idle Auto-Scroll Logic
+        // Single-Time Idle Auto-Scroll Logic
         // ---------------------------------------------------------
         let idleTimer;
         function resetIdleTimer() {
             clearTimeout(idleTimer);
-            if (currentSlide === 0 && !document.getElementById('cvModal').classList.contains('active')) {
+            // لو احنا في السلايد الأول، والمودال مقفول، والأوتو-سكرول لسه محصلش ولا مرة
+            if (currentSlide === 0 && !document.getElementById('cvModal').classList.contains('active') && !hasAutoScrolled) {
                 idleTimer = setTimeout(() => {
                     goToSlide(1);
+                    hasAutoScrolled = true; // تم تنفيذ الأوتو-سكرول ومش هيحصل تاني
                 }, 5000); 
             }
         }
