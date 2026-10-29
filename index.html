@@ -35,7 +35,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* الماوس العادي مخفي في كل الموقع */
             cursor: none !important;
         }
 
@@ -426,7 +425,6 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
         .close-modal {
-            /* تفعيل الماوس الطبيعي فوق الزرار فقط */
             cursor: pointer !important;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
@@ -446,9 +444,7 @@
             color: var(--accent-blue);
         }
 
-        /* ------------------------------------------- */
-        /* High-End CV Viewer Area (Hardware Accelerated) */
-        /* ------------------------------------------- */
+        /* CV Viewer Area */
         .cv-viewer-area {
             position: relative;
             flex-grow: 1;
@@ -458,7 +454,6 @@
             display: flex;
         }
 
-        /* إعدادات السحب (الماوس يقلب إيد وتسحب بسلاسة) */
         .cv-scroll-area {
             width: 100%;
             height: 100%;
@@ -467,19 +462,14 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            /* منع النسخ والتحديد لعدم إعاقة السحب */
             user-select: none;
             -webkit-user-drag: none;
-            /* تشغيل علامة اليد الخاصة بالسحب (Native) */
             cursor: grab !important;
             will-change: scroll-position;
         }
         
-        .cv-scroll-area:active {
-            cursor: grabbing !important;
-        }
+        .cv-scroll-area:active { cursor: grabbing !important; }
 
-        /* السكرول بار */
         .cv-scroll-area::-webkit-scrollbar { width: 14px; height: 14px; }
         .cv-scroll-area::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 10px; }
         .cv-scroll-area::-webkit-scrollbar-thumb {
@@ -498,11 +488,9 @@
             height: auto;
             object-fit: contain;
             transform-origin: top center;
-            /* منع تفاعل المتصفح الافتراضي مع الصورة تماماً */
             pointer-events: none; 
             user-select: none;
             -webkit-user-drag: none;
-            /* تحريك أنيق وسريع للزوم بس */
             transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
             border-radius: 4px;
@@ -690,7 +678,6 @@
                     <button onclick="zoomCV(-0.25)" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
                     <button onclick="resetZoomCV()" title="Reset"><i class="fa-solid fa-compress"></i></button>
                 </div>
-                <!-- تم وضع draggable="false" لقتل أي سحب افتراضي مزعج من المتصفح -->
                 <div class="cv-scroll-area" id="cvScrollArea">
                     <img src="cv.jpg" alt="CV Preview" class="cv-image-preview" id="cvImagePreview" draggable="false">
                 </div>
@@ -715,7 +702,6 @@
                 }, { duration: 100, fill: 'forwards' });
             });
 
-            // إخفاء الماوس المخصص تماماً عند الدخول لمنطقة الـ CV للسماح بعلامة السحب (Grab)
             cvViewerArea.addEventListener('mouseenter', () => {
                 cursorDot.style.opacity = '0';
                 cursorCircle.style.opacity = '0';
@@ -796,7 +782,76 @@
             }
         });
 
-        // Idle Engine
+        // ---------------------------------------------------------
+        // 🚀 Smart Edge Scrolling Engine (Top & Bottom)
+        // ---------------------------------------------------------
+        let edgeScrollAnimation;
+        let hoverZone = 'none'; 
+        
+        function performEdgeAction() {
+            // لو المودال بتاع السيرة الذاتية مفتوح، عطل الخاصية فوراً
+            if (document.getElementById('cvModal').classList.contains('active')) {
+                hoverZone = 'none';
+                return;
+            }
+
+            if (hoverZone === 'bottom') {
+                if (currentSlide === 0) {
+                    // الانتقال لصفحة الأعمال
+                    goToSlide(1);
+                    hoverZone = 'none'; // منع التكرار
+                } else if (currentSlide === 1) {
+                    // سكرول صفحة الأعمال لتحت
+                    showcaseSlide.scrollBy(0, 12);
+                }
+            } else if (hoverZone === 'top') {
+                if (currentSlide === 1) {
+                    // سكرول صفحة الأعمال لفوق
+                    if (showcaseSlide.scrollTop > 0) {
+                        showcaseSlide.scrollBy(0, -12);
+                    } else {
+                        // الرجوع للواجهة الرئيسية لو وصلنا لأول صفحة الأعمال
+                        goToSlide(0);
+                        hoverZone = 'none';
+                    }
+                }
+            }
+
+            if (hoverZone !== 'none') {
+                edgeScrollAnimation = requestAnimationFrame(performEdgeAction);
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            if (window.innerWidth <= 900) return; // تعطيل في الموبايل
+            
+            const bottomThreshold = window.innerHeight - 60; // 60 بيكسل من تحت
+            const topThreshold = 100; // مساحة الشريط اللي فوق بالكامل
+            
+            let newZone = 'none';
+            if (e.clientY >= bottomThreshold) {
+                newZone = 'bottom';
+            } else if (e.clientY <= topThreshold) {
+                newZone = 'top';
+            }
+
+            if (newZone !== hoverZone) {
+                hoverZone = newZone;
+                cancelAnimationFrame(edgeScrollAnimation);
+                if (hoverZone !== 'none') {
+                    edgeScrollAnimation = requestAnimationFrame(performEdgeAction);
+                }
+            }
+        });
+        
+        window.addEventListener('mouseleave', () => {
+            hoverZone = 'none';
+            cancelAnimationFrame(edgeScrollAnimation);
+        });
+
+        // ---------------------------------------------------------
+        // Idle Auto-Scroll Logic
+        // ---------------------------------------------------------
         let idleTimer;
         function resetIdleTimer() {
             clearTimeout(idleTimer);
@@ -812,7 +867,7 @@
         resetIdleTimer(); 
 
         // ---------------------------------------------------------
-        // High-End CV Viewer Drag Logic (1:1 Panning & Native Smoothness)
+        // High-End CV Viewer Drag Logic
         // ---------------------------------------------------------
         let cvScale = 1;
         const cvImage = document.getElementById('cvImagePreview');
@@ -835,7 +890,6 @@
 
         const startDrag = (e) => {
             isDragging = true;
-            // حساب الإحداثيات الأساسية
             const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
             const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
             startX = pageX - cvScrollArea.offsetLeft;
@@ -844,21 +898,15 @@
             scrollTop = cvScrollArea.scrollTop;
         };
 
-        const stopDrag = () => {
-            isDragging = false;
-        };
+        const stopDrag = () => { isDragging = false; };
 
         const onDrag = (e) => {
             if (!isDragging) return;
-            e.preventDefault(); // إيقاف أي حدث افتراضي يدمر السحب
-            
+            e.preventDefault(); 
             const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
             const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
-            
-            // سحب مباشر 1:1 بدون أي مضاعفات سرعة للحفاظ على نعومة وسلاسة الماوس
             const walkX = (pageX - cvScrollArea.offsetLeft) - startX;
             const walkY = (pageY - cvScrollArea.offsetTop) - startY;
-            
             cvScrollArea.scrollLeft = scrollLeft - walkX;
             cvScrollArea.scrollTop = scrollTop - walkY;
         };
@@ -887,7 +935,7 @@
             if (e.target === modal) closeCVModal();
         });
 
-        // Localization Dictionary
+        // Localization
         const translations = {
             ar: {
                 nav_about: "عني",
