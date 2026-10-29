@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seif Ahmed | Lead Graphic Designer & Multimedia Specialist</title>
-    <!-- Google Fonts: Cairo & Outfit -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #05080f; 
+            /* تعتيم الخلفية الأساسية عشان النور يبرز */
+            --bg-color: #020408; 
             --surface-color: #0b111a;
-            --surface-glass: rgba(11, 17, 26, 0.85);
-            --border-color: rgba(37, 109, 150, 0.2); 
+            --surface-glass: rgba(11, 17, 26, 0.7);
+            --border-color: rgba(37, 109, 150, 0.3); 
             
             --text-main: #f4f4f6;
             --text-muted: #9ba1a6;
@@ -74,7 +75,9 @@
             background-color: rgba(212, 175, 55, 0.05);
         }
 
-        /* Mesh Background */
+        /* ------------------------------------------------ */
+        /* ✨ HIGH-END ILLUMINATION ENGINE (إضاءة قوية وساطعة) */
+        /* ------------------------------------------------ */
         .mesh-bg {
             position: fixed;
             top: 0;
@@ -83,46 +86,41 @@
             height: 100vh;
             z-index: 0;
             overflow: hidden;
-            opacity: 0.85; 
-            transition: opacity 1s ease;
+            background-color: var(--bg-color); /* خلفية داكنة جداً لدعم التباين */
         }
         .mesh-blob {
             position: absolute;
-            filter: blur(140px); 
+            /* قللنا البلور لـ 70px عشان الضوء يبقى مركز وواضح مش سايح */
+            filter: blur(70px); 
             border-radius: 50%;
-            animation: floatBlob 15s infinite alternate ease-in-out;
-            transition: background 1.5s cubic-bezier(0.7, 0, 0.3, 1), transform 1.5s ease;
-            will-change: transform, background;
+            animation: floatBlob 7s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+            will-change: transform;
         }
         .blob-1 {
-            width: 600px;
-            height: 600px;
-            background: rgba(37, 109, 150, 0.3); 
+            width: 45vw;
+            height: 45vw;
+            /* أزرق ساطع جداً (Opacity 80%) */
+            background: rgba(37, 109, 150, 0.8); 
             top: -10%;
             right: -10%;
         }
         .blob-2 {
-            width: 650px;
-            height: 650px;
-            background: rgba(212, 175, 55, 0.15); 
-            bottom: -15%;
-            left: -10%;
-            animation-delay: -5s;
-        }
-
-        .mesh-bg.slide-2-active .blob-1 {
-            background: rgba(212, 175, 55, 0.25);
-            transform: translate(-20vw, 20vh);
-        }
-        .mesh-bg.slide-2-active .blob-2 {
-            background: rgba(37, 109, 150, 0.4);
-            transform: translate(20vw, -20vh);
+            width: 55vw;
+            height: 55vw;
+            /* ذهبي ساطع (Opacity 60%) */
+            background: rgba(212, 175, 55, 0.6); 
+            bottom: -20%;
+            left: -15%;
+            animation-delay: -3.5s; 
         }
 
         @keyframes floatBlob {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.1) translate(30px, -40px); }
+            100% { transform: scale(1.3) translate(-30px, 40px); }
         }
+        /* ------------------------------------------------ */
 
         /* Navbar */
         header {
@@ -135,7 +133,7 @@
             justify-content: space-between;
             align-items: center;
             background: var(--surface-glass);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
         }
@@ -170,7 +168,7 @@
             align-items: center;
         }
         .lang-btn, .cta-nav {
-            background: var(--surface-color);
+            background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 8px 18px;
@@ -193,7 +191,9 @@
             color: #fff;
         }
 
+        /* ------------------------------------------------ */
         /* Slide Engine Structure */
+        /* ------------------------------------------------ */
         .slide {
             position: fixed;
             top: 0;
@@ -207,7 +207,7 @@
             justify-content: center;
         }
 
-        /* Slide 1 */
+        /* Slide 1 (Hero) */
         hero {
             z-index: 1;
             padding: 0 10%;
@@ -215,30 +215,35 @@
             transform-origin: center top;
         }
         hero.slide-out {
-            transform: scale(0.85) translateY(-5%);
-            opacity: 0.2;
-            filter: blur(8px);
+            transform: scale(0.9) translateY(-5%);
+            opacity: 0.3;
+            filter: blur(10px);
         }
 
-        /* Slide 2 */
+        /* Slide 2 (Showcase) - فصل تام عن السلايد الأول */
         #showcase {
-            z-index: 2;
-            background-color: var(--bg-color); 
+            z-index: 5; /* فوق كل حاجة */
+            /* لون خلفية صلب (Solid) عشان يخفي النور اللي تحته تماماً ويفصلهم */
+            background-color: var(--surface-color); 
             transform: translateY(100vh); 
             padding: 100px 10%;
             overflow-y: auto; 
-            box-shadow: 0 -20px 50px rgba(0,0,0,0.5); 
+            /* خط مضيء من فوق وشادو ضخم عشان يبان كأنه شاشة تانية بتطلع تغطي الأولى */
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 -40px 100px rgba(0,0,0, 0.9); 
         }
         #showcase.slide-in {
             transform: translateY(0);
         }
         #showcase::-webkit-scrollbar { display: none; }
+        /* ------------------------------------------------ */
         
         .availability-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: var(--surface-color);
+            background: rgba(11, 17, 26, 0.5);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
             padding: 6px 14px;
             border-radius: 50px;
@@ -259,6 +264,8 @@
             line-height: 1.05;
             letter-spacing: -2px;
             margin-bottom: 25px;
+            /* شادو خفيف للكلام عشان يبقى مقروء فوق الإضاءة القوية */
+            text-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
         h1 span {
             background: linear-gradient(135deg, #fff 20%, var(--accent-blue) 100%);
@@ -267,10 +274,11 @@
         }
         .hero-desc {
             font-size: clamp(1rem, 1.5vw, 1.25rem);
-            color: var(--text-muted);
+            color: #d1d5db;
             max-width: 600px;
             margin-bottom: 40px;
             line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .hero-btns {
             display: flex;
@@ -298,7 +306,8 @@
             transform: translateY(-3px);
         }
         .btn-secondary {
-            background: var(--surface-color);
+            background: rgba(11, 17, 26, 0.5);
+            backdrop-filter: blur(10px);
             color: var(--text-main);
             border: 1px solid var(--border-color);
         }
@@ -321,8 +330,7 @@
             padding-bottom: 50px;
         }
         .bento-card {
-            background: rgba(11, 17, 26, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.03); /* شفافية خفيفة جداً لكرت الأعمال */
             border: 1px solid var(--border-color);
             border-radius: 24px;
             padding: 35px;
@@ -332,6 +340,7 @@
             border-color: rgba(37, 109, 150, 0.6);
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 0.05);
         }
         .bento-card.large { grid-column: span 2; }
         .bento-card h3 {
@@ -352,7 +361,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(5, 8, 15, 0.9);
+            background: rgba(2, 4, 8, 0.95);
             backdrop-filter: blur(25px);
             z-index: 10000;
             display: flex;
@@ -376,7 +385,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 35px 70px rgba(0,0,0,0.8);
+            box-shadow: 0 35px 70px rgba(0,0,0,0.9);
             transform: scale(0.92);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -449,7 +458,7 @@
             position: relative;
             flex-grow: 1;
             width: 100%;
-            background: #080c14;
+            background: #05080f;
             overflow: hidden;
             display: flex;
         }
@@ -471,15 +480,14 @@
         .cv-scroll-area:active { cursor: grabbing !important; }
 
         .cv-scroll-area::-webkit-scrollbar { width: 14px; height: 14px; }
-        .cv-scroll-area::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 10px; }
+        .cv-scroll-area::-webkit-scrollbar-track { background: #05080f; border-radius: 10px; }
         .cv-scroll-area::-webkit-scrollbar-thumb {
             background: var(--accent-blue); 
             border-radius: 10px;
-            border: 3px solid var(--bg-color);
+            border: 3px solid #05080f;
             background-clip: padding-box;
         }
         .cv-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
-        .cv-scroll-area::-webkit-scrollbar-corner { background: var(--bg-color); }
 
         .cv-image-preview {
             max-width: 100%;
@@ -577,6 +585,7 @@
     <div class="cursor-dot" id="customCursorDot"></div>
     <div class="cursor-circle" id="customCursorCircle"></div>
 
+    <!-- شبكة الإضاءة الجديدة الساطعة -->
     <div class="mesh-bg" id="meshBg">
         <div class="mesh-blob blob-1"></div>
         <div class="mesh-blob blob-2"></div>
@@ -726,18 +735,15 @@
             });
         }
 
-        // ---------------------------------------------------------
-        // Slide Engine (With Auto-Scroll Limiter)
-        // ---------------------------------------------------------
+        // Slide Engine
         let currentSlide = 0;
         const totalSlides = 2;
         let isAnimating = false;
         
-        let hasAutoScrolled = false; // المتغير السحري اللي بيمنع تكرار الأوتو-سكرول
+        let hasAutoScrolled = false;
 
         const heroSlide = document.getElementById('slide-hero');
         const showcaseSlide = document.getElementById('showcase');
-        const meshBg = document.getElementById('meshBg');
 
         function goToSlide(index) {
             if (isAnimating || index < 0 || index >= totalSlides) return;
@@ -745,14 +751,12 @@
             currentSlide = index;
 
             if (currentSlide === 1) {
-                hasAutoScrolled = true; // بمجرد ما ننزل للسلايد التاني لأي سبب، نلغي الأوتو-سكرول للأبد
+                hasAutoScrolled = true; 
                 heroSlide.classList.add('slide-out');
                 showcaseSlide.classList.add('slide-in');
-                meshBg.classList.add('slide-2-active');
             } else {
                 heroSlide.classList.remove('slide-out');
                 showcaseSlide.classList.remove('slide-in');
-                meshBg.classList.remove('slide-2-active');
             }
             setTimeout(() => { isAnimating = false; }, 1200);
         }
@@ -787,9 +791,7 @@
             }
         });
 
-        // ---------------------------------------------------------
-        // Smart Edge Scrolling Engine (Top & Bottom)
-        // ---------------------------------------------------------
+        // Edge Scrolling Engine (Top & Bottom)
         let edgeScrollAnimation;
         let hoverZone = 'none'; 
         
@@ -849,17 +851,14 @@
             cancelAnimationFrame(edgeScrollAnimation);
         });
 
-        // ---------------------------------------------------------
-        // Single-Time Idle Auto-Scroll Logic
-        // ---------------------------------------------------------
+        // Idle Auto-Scroll Logic
         let idleTimer;
         function resetIdleTimer() {
             clearTimeout(idleTimer);
-            // لو احنا في السلايد الأول، والمودال مقفول، والأوتو-سكرول لسه محصلش ولا مرة
             if (currentSlide === 0 && !document.getElementById('cvModal').classList.contains('active') && !hasAutoScrolled) {
                 idleTimer = setTimeout(() => {
                     goToSlide(1);
-                    hasAutoScrolled = true; // تم تنفيذ الأوتو-سكرول ومش هيحصل تاني
+                    hasAutoScrolled = true;
                 }, 5000); 
             }
         }
@@ -868,9 +867,7 @@
         });
         resetIdleTimer(); 
 
-        // ---------------------------------------------------------
-        // High-End CV Viewer Drag Logic
-        // ---------------------------------------------------------
+        // CV Viewer Drag Logic
         let cvScale = 1;
         const cvImage = document.getElementById('cvImagePreview');
         const cvScrollArea = document.getElementById('cvScrollArea');
