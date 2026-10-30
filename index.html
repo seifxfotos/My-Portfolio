@@ -866,10 +866,14 @@
                     <div class="brand-item">
                         <div class="brand-header">
                             <img src="Dr-Aya.webp" alt="Dr. Aya Hattab Logo" class="brand-logo" loading="lazy" decoding="async">
-                            <a href="https://drayakhattab.com/" target="_blank" class="btn-primary" style="padding: 8px 20px; font-size: 0.85rem;" aria-label="زيارة الموقع">
-                                <span data-i18n="visit_site">زيارة الموقع</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                            </a>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button onclick="openWebModal('https://drayakhattab.com/', 'منصة عيادات دكتور آية')" class="btn-primary" style="padding: 8px 18px; font-size: 0.85rem; cursor: pointer;">
+                                    <span>معاينة مباشرة</span>
+                                </button>
+                                <a href="https://drayakhattab.com/" target="_blank" class="lang-btn" style="padding: 8px 18px; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center;" aria-label="زيارة الموقع">
+                                    <span>زيارة خارجية</span>
+                                </a>
+                            </div>
                         </div>
                         <p class="brand-desc" style="margin-bottom: 20px; line-height: 1.8; color: var(--text-muted);">
                             تم بناء وتطوير نظام رقمي متكامل (System) خصيصاً لإدارة وتشغيل عيادات دكتورة آية بشكل احترافي، يهدف لتقديم تجربة مستخدم سلسة للمرضى وتسهيل عمليات الحجز والمتابعة الطبية.
@@ -885,10 +889,14 @@
                     <div class="brand-item">
                         <div class="brand-header">
                             <img src="Leil.webp" alt="Leil Store Logo" class="brand-logo" loading="lazy" decoding="async">
-                            <a href="https://leil.shop/" target="_blank" class="btn-primary" style="padding: 8px 20px; font-size: 0.85rem;" aria-label="زيارة المتجر">
-                                <span data-i18n="visit_site">زيارة الموقع</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                            </a>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button onclick="openWebModal('https://leil.shop/', 'متجر ليل لمنتجات العناية')" class="btn-primary" style="padding: 8px 18px; font-size: 0.85rem; cursor: pointer;">
+                                    <span>معاينة مباشرة</span>
+                                </button>
+                                <a href="https://leil.shop/" target="_blank" class="lang-btn" style="padding: 8px 18px; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center;" aria-label="زيارة المتجر">
+                                    <span>زيارة خارجية</span>
+                                </a>
+                            </div>
                         </div>
                         <p class="brand-desc" style="margin-bottom: 20px; line-height: 1.8; color: var(--text-muted);">
                             تطوير وبناء متجر إلكتروني متكامل لمنتجات العناية لبراند (ليل)، يتميز بتصميم عصري وأزرار تفاعلية مخصصة لاختيار المنتجات بلغة HTML/CSS وتجهيز المتجر بأداء فائق وسرعة عالية.
@@ -1399,5 +1407,27 @@
             }
         }, 5000);
     </script>
+<!-- Web Preview Modal (Popup) -->
+    <div class="cv-modal" id="webPreviewModal" role="dialog" aria-modal="true" aria-labelledby="webModalTitle">
+        <div class="cv-modal-content" style="max-width: 1400px; height: 95dvh;">
+            <div class="cv-modal-header">
+                <h3 id="webModalTitle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span id="webModalTitleText">معاينة الموقع</span>
+                </h3>
+                <div class="cv-modal-actions">
+                    <a href="#" id="externalLinkBtn" target="_blank" class="btn-download-cv">
+                        <span data-i18n="visit_site">فتح في تبويب جديد</span>
+                    </a>
+                    <button class="close-modal" onclick="closeWebModal()" aria-label="Close Preview">&times;</button>
+                </div>
+            </div>
+            <div class="cv-viewer-area" style="background: #fff;">
+                <iframe id="webPreviewIframe" src="" style="width: 100%; height: 100%; border: none;" title="Website Preview"></iframe>
+            </div>
+        </div>
+    </div>    
 </body>
 </html>
