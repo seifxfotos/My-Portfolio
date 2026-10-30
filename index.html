@@ -398,7 +398,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .empty-state {
+.empty-state {
             text-align: center;
             padding: 80px 20px;
             color: var(--text-muted);
@@ -410,6 +410,42 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* Slide 3 (About) */
+        #about {
+            z-index: 6; 
+            background-color: var(--surface-color); 
+            transform: translateY(100dvh); 
+            padding: 100px 10%;
+            overflow-y: auto; 
+            overflow-x: hidden;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 -40px 100px rgba(0,0,0, 0.9); 
+            perspective: 1500px;
+        }
+        #about.slide-in { transform: translateY(0); }
+        #about::-webkit-scrollbar { display: none; }
+        
+        .about-container { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; text-align: center; justify-content: center; min-height: 60vh; }
+        .about-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .about-reveal.reveal { opacity: 1; transform: translateY(0); }
+        
+        .about-name { font-size: 3.5rem; font-weight: 900; color: var(--text-main); margin-bottom: 5px; }
+        .about-name span { color: var(--accent-gold); }
+        .about-role { font-size: 1.4rem; font-weight: 600; color: var(--accent-blue); margin-bottom: 15px; }
+        .about-desc { font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
+        
+        .social-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .social-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 55px; height: 55px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .social-btn:hover { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(37, 109, 150, 0.4); }
+        .social-btn svg { width: 24px; height: 24px; }
 
         /* Brands Showcase */
         .brands-showcase-container {
