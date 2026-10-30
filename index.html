@@ -430,8 +430,7 @@
         .about-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .about-reveal.reveal { opacity: 1; transform: translateY(0); }
         
-        .about-name { font-size: 3.5rem; font-weight: 900; color: var(--text-main); margin-bottom: 5px; }
-        .about-name span { color: var(--accent-gold); }
+        .about-logo { max-width: 280px; height: auto; margin: 0 auto 15px auto; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)); }
         .about-role { font-size: 1.4rem; font-weight: 600; color: var(--accent-blue); margin-bottom: 15px; }
         .about-desc { font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
         
@@ -869,9 +868,9 @@
 <!-- Slide 3 (About Me) -->
     <section class="slide" id="about">
         <div class="about-container">
-            <h2 class="about-name about-reveal">Seif <span>Ahmed</span></h2>
-            <h3 class="about-role about-reveal" data-i18n="about_role">Lead Graphic Designer & Video Editor</h3>
-            <p class="about-desc about-reveal" data-i18n="about_desc">متخصص في الوسائط المتعددة بخبرة تتجاوز 7 سنوات في مجالات التصميم الجرافيكي، المونتاج، وتطوير الهويات البصرية للعلامات التجارية.</p>
+            <img src="logo.svg" alt="Seif Ahmed Logo" class="about-logo about-reveal">
+            <h3 class="about-role about-reveal" data-i18n="about_role">Art Director</h3>
+            <p class="about-desc about-reveal" data-i18n="about_desc">خبرة أكثر من 7 سنوات في مجال الجرافيك ديزاين والمونتاج والتصوير وتطوير المواقع الإلكترونية وتطوير الهويات البصرية للعلامات التجارية.</p>
             
             <div class="social-links about-reveal">
                 <a href="https://www.linkedin.com/in/seifxfotos" target="_blank" class="social-btn" aria-label="LinkedIn">
@@ -1289,8 +1288,8 @@
                 tab_video: "تصوير ومونتاج",
                 tab_web: "برمجة مواقع",
                 empty_soon: "سيتم إضافة الأعمال قريباً...",
-                about_role: "Lead Graphic Designer & Video Editor",
-                about_desc: "متخصص في الوسائط المتعددة بخبرة تتجاوز 7 سنوات في مجالات التصميم الجرافيكي، المونتاج، وتطوير الهويات البصرية للعلامات التجارية."
+                about_role: "Art Director",
+                about_desc: "خبرة أكثر من 7 سنوات في مجال الجرافيك ديزاين والمونتاج والتصوير وتطوير المواقع الإلكترونية وتطوير الهويات البصرية للعلامات التجارية."
             },
             en: {
                 nav_about: "About",
@@ -1307,8 +1306,8 @@
                 tab_video: "Video & Editing",
                 tab_web: "Web Development",
                 empty_soon: "Projects coming soon...",
-                about_role: "Lead Graphic Designer & Video Editor",
-                about_desc: "Multimedia Specialist with over 7 years of experience in Graphic Design, Video Editing, and Brand Identity Development."
+                about_role: "Art Director",
+                about_desc: "Over 7 years of experience in Graphic Design, Video Editing, Photography, Web Development, and Brand Identity Development."
             }
         };
         
