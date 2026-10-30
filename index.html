@@ -1227,68 +1227,6 @@
                 else if (currentSlide === 2 && aboutSlide.scrollTop <= 0) goToSlide(1);
             }
         });
-        }, { passive: true });
-
-// Wheel Events
-        window.addEventListener('wheel', (e) => {
-            if (isModalOpen() || lightboxModal.classList.contains('active') || isAnimating) return;
-            if (e.deltaY > 50) {
-                if (currentSlide === 0) goToSlide(1);
-                else if (currentSlide === 1 && Math.ceil(showcaseSlide.scrollTop + showcaseSlide.clientHeight) >= showcaseSlide.scrollHeight - 10) goToSlide(2);
-            } else if (e.deltaY < -50) {
-                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) goToSlide(0);
-                else if (currentSlide === 2 && aboutSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) goToSlide(1);
-            }
-        }, { passive: true });
-
-        // Touch Events for Slide
-        let tStartY = 0, tStartX = 0, tStartScroll = 0, tTrack = false;
-        window.addEventListener('touchstart', (e) => {
-            if (isModalOpen() || lightboxModal.classList.contains('active')) { tTrack = false; return; }
-            tTrack = true;
-            tStartY = e.touches[0].clientY;
-            tStartX = e.touches[0].clientX;
-            tStartScroll = currentSlide === 1 ? showcaseSlide.scrollTop : (currentSlide === 2 ? aboutSlide.scrollTop : 0);
-        }, { passive: true });
-
-        window.addEventListener('touchend', (e) => {
-            if (!tTrack || isModalOpen() || lightboxModal.classList.contains('active') || isAnimating) return;
-            tTrack = false;
-            const t = e.changedTouches[0];
-            const dy = tStartY - t.clientY;
-            const dx = tStartX - t.clientX;
-            if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.2) return;
-
-            if (dy > 0) {
-                if (currentSlide === 0) goToSlide(1);
-                else if (currentSlide === 1 && Math.ceil(tStartScroll + showcaseSlide.clientHeight) >= showcaseSlide.scrollHeight - 10) goToSlide(2);
-            } else {
-                if (currentSlide === 1 && tStartScroll <= 0 && showcaseSlide.scrollTop <= 0) goToSlide(0);
-                else if (currentSlide === 2 && tStartScroll <= 0 && aboutSlide.scrollTop <= 0) goToSlide(1);
-            }
-        }, { passive: true });
-
-        // Keyboard Events
-        window.addEventListener('keydown', (e) => {
-            if (lightboxModal.classList.contains('active')) {
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowLeft') nextLightboxImg(); 
-                if (e.key === 'ArrowRight') prevLightboxImg(); 
-                return;
-            }
-            if (isModalOpen()) {
-                if (e.key === 'Escape') closeCVModal();
-                return;
-            }
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-                if (currentSlide === 0) goToSlide(1);
-                else if (currentSlide === 1 && Math.ceil(showcaseSlide.scrollTop + showcaseSlide.clientHeight) >= showcaseSlide.scrollHeight - 10) goToSlide(2);
-            }
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) goToSlide(0);
-                else if (currentSlide === 2 && aboutSlide.scrollTop <= 0) goToSlide(1);
-            }
-        });
 
         // CV Viewer Drag Logic
         let cvScale = 1;
