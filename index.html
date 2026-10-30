@@ -484,7 +484,7 @@
             .zoom-controls button { width: 40px; height: 40px; border-radius: 50px; }
         }
         /* تنسيقات قسم معرض الأعمال والبراندات */
-        .brands-showcase-container {
+.brands-showcase-container {
             display: flex;
             flex-direction: column;
             gap: 60px;
@@ -503,75 +503,71 @@
         .brand-header {
             display: flex;
             align-items: center;
-            gap: 20px;
+            justify-content: space-between;
             margin-bottom: 25px;
             flex-wrap: wrap;
+            gap: 15px;
         }
 
-        /* تحجيم اللوجوهات لتكون متساوية وثابتة ومنضبطة */
         .brand-logo {
-            height: 45px;
-            max-width: 160px;
+            height: 40px;
+            max-width: 150px;
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
+        /* توحيد الوصف في جميع البراندات */
         .brand-desc {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
         }
 
-        /* شبكة الصور: جانب بعض على الكمبيوتر، وترتيب من الشمال لليمين */
         .brand-gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-            direction: ltr; /* لضمان الترتيب من الشمال لليمين بالظبط */
+            direction: ltr;
         }
 
-        /* لو البراند عنده 6 صور (Express Tires) نعملها شبكة من 3 أعمدة في صفين */
         .brand-gallery.grid-6 {
             grid-template-columns: repeat(3, 1fr);
         }
 
-        /* توحيد أظهر واحتواء الصور (سواء 4:5 أو 1:1 تظبط تماماً مع بعض) */
+        /* جعل الصور تظهر كاملة تماماً من غير قص (object-fit: contain مع خلفية متناسقة) */
         .gallery-img {
             width: 100%;
-            height: 340px;
-            object-fit: cover;
-            border-radius: 16px;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            background: #020408;
             transition: var(--transition);
-            background: #05080f;
         }
 
         .gallery-img:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-50px) scale(1.02);
             border-color: var(--accent-blue);
             box-shadow: 0 15px 30px rgba(0,0,0,0.6);
         }
 
-        /* تعديلات الموبايل: الصور تحت بعضها واللوجوهات متناسقة */
+        /* الموبايل: صور تحت بعضها كاملة وبدون قص */
         @media(max-width: 900px) {
-            .brands-showcase-container {
-                gap: 40px;
-            }
-            .brand-item {
-                padding: 20px;
-            }
+            .brands-showcase-container { gap: 40px; }
+            .brand-item { padding: 20px; }
             .brand-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 8px;
             }
             .brand-gallery, .brand-gallery.grid-6 {
-                grid-template-columns: 1fr; /* تحت بعضها على التلفون */
+                grid-template-columns: 1fr;
             }
             .gallery-img {
-                height: auto;
-                max-height: 450px;
+                max-height: none;
             }
+        }
     </style>
 </head>
 <body>
@@ -682,7 +678,7 @@
             <div class="brand-item">
                 <div class="brand-header">
                     <img src="E-Triple-Soft.webp" alt="E-Triple-Soft Logo" class="brand-logo">
-                    <p class="brand-desc">تصميم حملات سوشيال ميديا وبطاقات بصرية احترافية.</p>
+                    <p class="brand-desc">تصميم حملات سوشيال ميديا.</p>
                 </div>
                 <div class="brand-gallery">
                     <img src="E-Triple-Soft-1.webp" alt="Work 1" class="gallery-img">
@@ -695,7 +691,7 @@
             <div class="brand-item">
                 <div class="brand-header">
                     <img src="Express-Tires.webp" alt="Express-Tires Logo" class="brand-logo">
-                    <p class="brand-desc">تصميم حملات سوشيال ميديا وبطاقات بصرية احترافية.</p>
+                    <p class="brand-desc">تصميم حملات سوشيال ميديا.</p>
                 </div>
                 <div class="brand-gallery grid-6">
                     <img src="Express-Tires-1.webp" alt="Work 1" class="gallery-img">
@@ -711,7 +707,7 @@
             <div class="brand-item">
                 <div class="brand-header">
                     <img src="Motivo.webp" alt="Motivo Logo" class="brand-logo">
-                    <p class="brand-desc">تصميم حملات سوشيال ميديا وبطاقات بصرية احترافية.</p>
+                    <p class="brand-desc">تصميم حملات سوشيال ميديا.</p>
                 </div>
                 <div class="brand-gallery">
                     <img src="Motivo-1.webp" alt="Work 1" class="gallery-img">
@@ -724,7 +720,7 @@
             <div class="brand-item">
                 <div class="brand-header">
                     <img src="RAM.webp" alt="RAM Logo" class="brand-logo">
-                    <p class="brand-desc">تصميم حملات سوشيال ميديا وبطاقات بصرية احترافية.</p>
+                    <p class="brand-desc">تصميم حملات سوشيال ميديا.</p>
                 </div>
                 <div class="brand-gallery">
                     <img src="RAM-1.webp" alt="Work 1" class="gallery-img">
