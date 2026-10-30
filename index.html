@@ -535,23 +535,89 @@
         }
 
         /* جعل الصور تظهر كاملة تماماً من غير قص (object-fit: contain مع خلفية متناسقة) */
+/* جعل التصاميم تملأ المساحة بشكل متناسق ومتكامل بدون جوانب سوداء */
         .gallery-img {
             width: 100%;
-            height: auto;
-            max-height: 420px;
-            object-fit: contain;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            background: #020408;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #05080f;
             transition: var(--transition);
+            cursor: pointer !important;
         }
 
         .gallery-img:hover {
-            transform: translateY(-50px) scale(1.02);
+            transform: translateY(-6px) scale(1.02);
             border-color: var(--accent-blue);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
+        /* نافذة تكبير الصور (Lightbox Modal) */
+        .image-lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(2, 4, 8, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-lightbox-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content img {
+            max-width: 90vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer !important;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            transform: scale(1.1);
+        }
         /* الموبايل: صور تحت بعضها كاملة وبدون قص */
         @media(max-width: 900px) {
             .brands-showcase-container { gap: 40px; }
@@ -840,7 +906,33 @@
             document.documentElement.addEventListener('mouseleave', () => { dot.classList.add('is-hidden'); circle.classList.add('is-hidden'); });
             document.documentElement.addEventListener('mouseenter', () => { dot.classList.remove('is-hidden'); circle.classList.remove('is-hidden'); });
         }
+// تفعيل النقر لتكبير الصور (Lightbox)
+        const lightboxModal = document.getElementById('imageLightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
 
+        document.querySelectorAll('.gallery-img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxModal.classList.add('active');
+            });
+        });
+
+        function closeLightbox() {
+            lightboxModal.classList.remove('active');
+        }
+
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+        
         // Mobile Menu Toggle Logic
         function toggleMobileMenu() {
             const dropdown = document.getElementById('mobileDropdown');
@@ -1113,6 +1205,13 @@
                 if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
             });
         }
+        <!-- Lightbox Modal تكبير الصور -->
+    <div class="image-lightbox-modal" id="imageLightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <img src="" alt="Expanded Design" id="lightboxImg">
+        </div>
+    </div>
     </script>
 </body>
 </html>
