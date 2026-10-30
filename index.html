@@ -483,6 +483,95 @@
             .zoom-controls { flex-direction: row; bottom: 25px; right: 50%; transform: translateX(50%); padding: 4px; border-radius: 50px; }
             .zoom-controls button { width: 40px; height: 40px; border-radius: 50px; }
         }
+        /* تنسيقات قسم معرض الأعمال والبراندات */
+        .brands-showcase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            padding-bottom: 80px;
+            width: 100%;
+        }
+
+        .brand-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        /* تحجيم اللوجوهات لتكون متساوية وثابتة ومنضبطة */
+        .brand-logo {
+            height: 45px;
+            max-width: 160px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .brand-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* شبكة الصور: جانب بعض على الكمبيوتر، وترتيب من الشمال لليمين */
+        .brand-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            direction: ltr; /* لضمان الترتيب من الشمال لليمين بالظبط */
+        }
+
+        /* لو البراند عنده 6 صور (Express Tires) نعملها شبكة من 3 أعمدة في صفين */
+        .brand-gallery.grid-6 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* توحيد أظهر واحتواء الصور (سواء 4:5 أو 1:1 تظبط تماماً مع بعض) */
+        .gallery-img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            background: #05080f;
+        }
+
+        .gallery-img:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent-blue);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+        }
+
+        /* تعديلات الموبايل: الصور تحت بعضها واللوجوهات متناسقة */
+        @media(max-width: 900px) {
+            .brands-showcase-container {
+                gap: 40px;
+            }
+            .brand-item {
+                padding: 20px;
+            }
+            .brand-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .brand-gallery, .brand-gallery.grid-6 {
+                grid-template-columns: 1fr; /* تحت بعضها على التلفون */
+            }
+            .gallery-img {
+                height: auto;
+                max-height: 450px;
+            }
     </style>
 </head>
 <body>
@@ -584,34 +673,66 @@
         </div>
     </hero>
 
-    <!-- Slide 2 (Showcase) -->
     <section class="slide" id="showcase">
         <h2 class="section-title" data-i18n="section_work_title">أبرز الأعمال والمشاريع</h2>
-        <div class="bento-grid">
-            <div class="bento-card large">
-                <h3 data-i18n="card_bevava_title">هوية براند Bevava</h3>
-                <p data-i18n="card_bevava_desc">قيادة الإشراف التصميمي وإعداد الهوية البصرية المتكاملة والحملات الإعلانية الرقمية.</p>
+        
+        <div class="brands-showcase-container">
+            
+            <!-- براند 1: E-Triple-Soft (3 صور) -->
+            <div class="brand-item">
+                <div class="brand-header">
+                    <img src="E-Triple-Soft.webp" alt="E-Triple-Soft Logo" class="brand-logo">
+                    <p class="brand-desc">تصميم حملات سوشيال ميديا وبطاقات بصرية احترافية.</p>
+                </div>
+                <div class="brand-gallery">
+                    <img src="E-Triple-Soft-1.webp" alt="Work 1" class="gallery-img">
+                    <img src="E-Triple-Soft-2.webp" alt="Work 2" class="gallery-img">
+                    <img src="E-Triple-Soft-3.webp" alt="Work 3" class="gallery-img">
+                </div>
             </div>
-            <div class="bento-card">
-                <h3 data-i18n="card_starco_title">Starco - الكويت</h3>
-                <p data-i18n="card_starco_desc">إدارة التصميم والمونتاج الإعلاني بمستوى تجاري تنافسي.</p>
+
+            <!-- براند 2: Express-Tires (6 صور) -->
+            <div class="brand-item">
+                <div class="brand-header">
+                    <img src="Express-Tires.webp" alt="Express-Tires Logo" class="brand-logo">
+                    <p class="brand-desc">تصميم حملات سوشيال ميديا وبطاقات بصرية احترافية.</p>
+                </div>
+                <div class="brand-gallery grid-6">
+                    <img src="Express-Tires-1.webp" alt="Work 1" class="gallery-img">
+                    <img src="Express-Tires-2.webp" alt="Work 2" class="gallery-img">
+                    <img src="Express-Tires-3.webp" alt="Work 3" class="gallery-img">
+                    <img src="Express-Tires-4.webp" alt="Work 4" class="gallery-img">
+                    <img src="Express-Tires-5.webp" alt="Work 5" class="gallery-img">
+                    <img src="Express-Tires-6.webp" alt="Work 6" class="gallery-img">
+                </div>
             </div>
-            <div class="bento-card">
-                <h3 data-i18n="card_freelance_title">الحملات التجارية</h3>
-                <p data-i18n="card_freelance_desc">تصميم براندات مثل Motivo، Express Tires، RAM، و E TripleSoft.</p>
+
+            <!-- براند 3: Motivo (3 صور) -->
+            <div class="brand-item">
+                <div class="brand-header">
+                    <img src="Motivo.webp" alt="Motivo Logo" class="brand-logo">
+                    <p class="brand-desc">تصميم حملات سوشيال ميديا وبطاقات بصرية احترافية.</p>
+                </div>
+                <div class="brand-gallery">
+                    <img src="Motivo-1.webp" alt="Work 1" class="gallery-img">
+                    <img src="Motivo-2.webp" alt="Work 2" class="gallery-img">
+                    <img src="Motivo-3.webp" alt="Work 3" class="gallery-img">
+                </div>
             </div>
-            <div class="bento-card large">
-                <h3 data-i18n="card_multimedia_title">Motion & Video Reel</h3>
-                <p data-i18n="card_multimedia_desc">إنتاج وإخراج الفيديوهات الاحترافية باستخدام Adobe Premiere & After Effects مع هندسة صوتية متكاملة.</p>
+
+            <!-- براند 4: RAM (3 صور) -->
+            <div class="brand-item">
+                <div class="brand-header">
+                    <img src="RAM.webp" alt="RAM Logo" class="brand-logo">
+                    <p class="brand-desc">تصميم حملات سوشيال ميديا وبطاقات بصرية احترافية.</p>
+                </div>
+                <div class="brand-gallery">
+                    <img src="RAM-1.webp" alt="Work 1" class="gallery-img">
+                    <img src="RAM-2.webp" alt="Work 2" class="gallery-img">
+                    <img src="RAM-3.webp" alt="Work 3" class="gallery-img">
+                </div>
             </div>
-            <div class="bento-card">
-                <h3 data-i18n="card_ui_title">UI/UX Design</h3>
-                <p data-i18n="card_ui_desc">تصميم واجهات تطبيقات ومواقع تفاعلية لتعزيز تجربة المستخدم الرقمية.</p>
-            </div>
-            <div class="bento-card">
-                <h3 data-i18n="card_3d_title">3D Product Rendering</h3>
-                <p data-i18n="card_3d_desc">إخراج وتصميم منتجات ثلاثية الأبعاد بدقة واقعية فائقة.</p>
-            </div>
+
         </div>
     </section>
 
