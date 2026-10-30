@@ -2,8 +2,21 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Open Graph Meta Tags -->
+    <meta name="description" content="Seif Ahmed - Lead Graphic Designer, Video Editor & Multimedia Specialist. تصميم حملات سوشيال ميديا، هويات بصرية، ومونتاج احترافي.">
+    <meta property="og:title" content="Seif Ahmed | Portfolio">
+    <meta property="og:description" content="أبرز أعمال ومشاريع سيف أحمد في التصميم والمونتاج وتطوير الهويات البصرية.">
+    <meta property="og:image" content="me.webp">
+    <meta property="og:url" content="https://seifahmed.space">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Seif Ahmed | Portfolio">
+    <meta name="twitter:description" content="Portfolio of Seif Ahmed - Multimedia Specialist & Designer.">
+    
     <title>Seif Ahmed | Portfolio</title>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +46,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none !important; /* إخفاء ماوس النظام في الموقع بالكامل */
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -51,19 +63,29 @@
 
         html[lang="en"] body { font-family: var(--font-en); }
 
-        /* Custom Cursor */
+        /* Custom Cursor - Fallback and JS Trigger */
+        body.custom-cursor-active * {
+            cursor: none !important;
+        }
+        
         .cursor-dot, .cursor-circle {
             position: fixed;
             top: 0;
             left: 0;
             pointer-events: none;
-            z-index: 9999999 !important; /* ضمان بقاء الماوس فوق الـ Lightbox وأي عنصر آخر */
+            z-index: 9999999 !important;
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, background-color 0.3s, opacity 0.2s;
+            opacity: 0; /* مخفي في البداية حتى يتحرك الماوس */
         }
         .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-gold); }
         .cursor-circle { width: 36px; height: 36px; border: 1px solid rgba(212, 175, 55, 0.6); background-color: rgba(212, 175, 55, 0.05); }
+
+        @media (pointer: coarse) {
+            .cursor-dot, .cursor-circle { display: none !important; }
+            body.custom-cursor-active * { cursor: auto !important; }
+        }
 
         /* Background Lighting */
         .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; z-index: 0; overflow: hidden; background-color: var(--bg-color); pointer-events: none; }
@@ -183,9 +205,9 @@
         }
 
         /* 🔥 HERO LAYOUT (FLEXBOX) 🔥 */
-        hero { z-index: 1; padding-top: 80px; transform-origin: center center; }
+        #slide-hero { z-index: 1; padding-top: 80px; transform-origin: center center; }
         
-        hero.slide-out {
+        #slide-hero.slide-out {
             transform: scale(0.8) translateY(-10%) rotateX(10deg);
             opacity: 0;
             filter: blur(15px);
@@ -361,20 +383,18 @@
             font-weight: 500;
         }
 
-        /* شبكة الصور: محاذاة للبداية عشان البوكس ياخد شكل الصورة تماماً */
-.brand-gallery {
+        .brand-gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             direction: ltr;
-            align-items: center; /* التعديل هنا: بيخلي الصور تتسنتر عمودياً مهما كان اختلاف طولها */
+            align-items: center; 
         }
 
         .brand-gallery.grid-6 {
             grid-template-columns: repeat(3, 1fr);
         }
 
-        /* الصور: الطول auto والظهور كامل بدون أي قص أو خلفيات سوداء */
         .gallery-img {
             width: 100%;
             height: auto;
@@ -385,13 +405,14 @@
             transition: var(--transition);
         }
 
-        .gallery-img:hover {
+        .gallery-img:hover, .gallery-img:focus {
             transform: translateY(-6px) scale(1.02);
             border-color: var(--accent-blue);
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            outline: none;
         }
 
-        /* نافذة تكبير الصور (Lightbox Modal) */
+        /* Lightbox Modal */
         .image-lightbox-modal {
             position: fixed;
             top: 0;
@@ -433,10 +454,8 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .lightbox-close {
+        .lightbox-close, .lightbox-nav {
             position: absolute;
-            top: -50px;
-            right: 0;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
@@ -448,13 +467,21 @@
             justify-content: center;
             font-size: 1.4rem;
             transition: var(--transition);
+            z-index: 100000;
         }
 
-        .lightbox-close:hover {
+        .lightbox-close { top: -50px; right: 0; }
+        .lightbox-nav { top: 50%; transform: translateY(-50%); }
+        .lightbox-prev { right: -60px; } 
+        .lightbox-next { left: -60px; }  
+
+        .lightbox-close:hover, .lightbox-nav:hover, .lightbox-close:focus, .lightbox-nav:focus {
             background: var(--accent-blue);
             border-color: var(--accent-blue);
-            transform: scale(1.1);
+            transform: scale(1.1) translateY(0);
+            outline: none;
         }
+        .lightbox-nav:hover { transform: translateY(-50%) scale(1.1); }
 
         /* CV Modal */
         .cv-modal {
@@ -502,7 +529,7 @@
         .btn-download-cv:hover { background: var(--accent-gold); color: #000; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
         
         .close-modal { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: var(--transition); }
-        .close-modal:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--accent-blue); color: var(--accent-blue); }
+        .close-modal:hover, .close-modal:focus { background: rgba(255, 255, 255, 0.12); border-color: var(--accent-blue); color: var(--accent-blue); outline: none;}
 
         /* CV Viewer */
         .cv-viewer-area { position: relative; flex-grow: 1; width: 100%; background: #05080f; overflow: hidden; display: flex; }
@@ -515,14 +542,10 @@
 
         .zoom-controls { position: absolute; bottom: 30px; right: 40px; background: var(--surface-glass); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; display: flex; flex-direction: column; gap: 5px; padding: 6px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         .zoom-controls button { background: transparent; border: none; color: var(--text-main); width: 45px; height: 45px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: var(--transition); }
-        .zoom-controls button:hover { background: var(--accent-blue-glow); color: var(--accent-blue); }
+        .zoom-controls button:hover, .zoom-controls button:focus { background: var(--accent-blue-glow); color: var(--accent-blue); outline: none; }
 
         /* Responsive Mobile Layout */
         @media(max-width: 900px) {
-            @media (pointer: coarse) { 
-                .cursor-dot, .cursor-circle { display: none !important; } 
-                * { cursor: auto !important; } 
-            }
             header { padding: 15px 5%; }
             .blob-4 { display: none !important; }
             .nav-links { display: none; } 
@@ -547,6 +570,10 @@
             .cv-image-preview { max-height: 80dvh; }
             .zoom-controls { flex-direction: row; bottom: 25px; right: 50%; transform: translateX(50%); padding: 4px; border-radius: 50px; }
             .zoom-controls button { width: 40px; height: 40px; border-radius: 50px; }
+            
+            .lightbox-prev { right: 5px; top: 50%; }
+            .lightbox-next { left: 5px; top: 50%; }
+            .lightbox-close { top: 15px; right: 15px; }
         }
     </style>
 </head>
@@ -563,8 +590,8 @@
 
     <!-- Header -->
     <header>
-        <a href="#" onclick="goToSlide(0); return false;" class="logo-svg">
-            <svg viewBox="0 0 3151.75 871.39">
+        <a href="#" onclick="goToSlide(0); return false;" class="logo-svg" aria-label="Home">
+            <svg viewBox="0 0 3151.75 871.39" aria-hidden="true">
                 <path class="animated-path" pathLength="1" d="M876.79,213.75c-2.96,2.95-10.34,0-16.25-6.65-5.91-5.91-8.13-14.04-5.17-16.99,2.95-2.22,5.17-7.39,5.91-12.56,1.48-8.86,0-19.2-6.65-29.54-5.91-10.34-16.99-20.68-33.98-31.02-121.88-68.69-361.94-8.86-480.86,46.54-56.88,26.59-196.48,105.63-158.07,186.88,17.73,38.41,79.77,59.83,140.34,80.51,34.72,12.56,69.43,24.38,98.24,40.63,209.04,117.45-51.71,370.06-257.05,373.76C88.65,848.99,1.49,813.53.01,738.93c-.74-33.98,25.85-78.3,91.59-130.74,2.96-2.96,10.34.74,16.25,7.39,5.91,5.91,8.13,14.03,4.43,16.25-63.52,50.97-88.64,92.33-87.9,122.62.74,47.27,82.73,52.44,115.23,50.97,179.49-4.43,438.02-225.29,283.64-312.45-25.85-14.03-59.09-25.85-93.07-37.67-70.17-24.38-141.82-48.75-169.89-108.58-45.06-96.76,84.21-180.97,155.12-214.21,127.05-59.09,372.28-110.8,502.28-36.93,26.59,15.51,45.06,33.98,55.4,52.44,11.08,17.73,14.03,34.72,12.56,47.27-1.48,8.12-4.43,14.77-8.86,18.47Z" />
                 <path class="animated-path" pathLength="1" d="M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
                 <path class="animated-path" pathLength="1" d="M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z" />
@@ -582,9 +609,9 @@
             <li><a href="#" onclick="openCVModal(event)" data-i18n="nav_cv">السيرة الذاتية</a></li>
         </ul>
         <div class="nav-actions">
-            <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
-            <button class="menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="menuIcon">
+            <button class="lang-btn" id="langToggle" onclick="toggleLanguage()" aria-label="Toggle Language">EN</button>
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMobileMenu()" aria-label="Open Menu">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="menuIcon" aria-hidden="true">
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -600,7 +627,7 @@
     </header>
 
     <!-- Slide 1 (Hero) -->
-    <hero class="slide" id="slide-hero">
+    <section class="slide hero-section" id="slide-hero">
         <div class="hero-layout">
             
             <div class="hero-right">
@@ -610,7 +637,7 @@
                 </div>
                 <a href="#" onclick="goToSlide(1); return false;" class="btn-primary">
                     <span data-i18n="btn_explore">استعراض الأعمال</span>
-                    <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;">
+                    <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;" aria-hidden="true">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
                         <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
@@ -618,442 +645,496 @@
             </div>
 
             <div class="hero-center">
-                <svg class="bg-logo-huge" viewBox="0 0 3151.75 871.39">
+                <svg class="bg-logo-huge" viewBox="0 0 3151.75 871.39" aria-hidden="true">
                     <path class="animated-path" pathLength="1" d="M876.79,213.75c-2.96,2.95-10.34,0-16.25-6.65-5.91-5.91-8.13-14.04-5.17-16.99,2.95-2.22,5.17-7.39,5.91-12.56,1.48-8.86,0-19.2-6.65-29.54-5.91-10.34-16.99-20.68-33.98-31.02-121.88-68.69-361.94-8.86-480.86,46.54-56.88,26.59-196.48,105.63-158.07,186.88,17.73,38.41,79.77,59.83,140.34,80.51,34.72,12.56,69.43,24.38,98.24,40.63,209.04,117.45-51.71,370.06-257.05,373.76C88.65,848.99,1.49,813.53.01,738.93c-.74-33.98,25.85-78.3,91.59-130.74,2.96-2.96,10.34.74,16.25,7.39,5.91,5.91,8.13,14.03,4.43,16.25-63.52,50.97-88.64,92.33-87.9,122.62.74,47.27,82.73,52.44,115.23,50.97,179.49-4.43,438.02-225.29,283.64-312.45-25.85-14.03-59.09-25.85-93.07-37.67-70.17-24.38-141.82-48.75-169.89-108.58-45.06-96.76,84.21-180.97,155.12-214.21,127.05-59.09,372.28-110.8,502.28-36.93,26.59,15.51,45.06,33.98,55.4,52.44,11.08,17.73,14.03,34.72,12.56,47.27-1.48,8.12-4.43,14.77-8.86,18.47Z" />
                     <path class="animated-path" pathLength="1" d="M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
                     <path class="animated-path" pathLength="1" d="M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z" />
                     <path class="animated-path" pathLength="1" d="M953.61,386.59c-2.22-1.48-4.43-4.43-5.91-6.65-4.43-6.65-3.69-12.56,1.48-13.3,7.39,0,27.33-19.94,47.27-45.06l5.91-5.91c12.56-19.94,23.64-36.93,31.76-50.23,8.86-14.77,15.51-25.12,20.68-30.29.74-2.96,2.95-3.69,6.65-2.96h.74c14.77,4.43,19.94,12.56,16.25,25.85-2.96,11.08-28.07,48.01-53.92,79.77-14.04,21.42-31.02,45.8-49.49,71.65-22.16,31.02-56.14,80.51-92.33,132.96,31.02.74,82.73,2.96,135.17-36.19,2.96-2.22,6.65-8.12,11.82-1.48,5.91,6.65,8.12,14.04,4.43,16.25-72.39,53.92-137.39,49.49-166.2,43.58l-5.17,6.65c1.48,17.73.74,48.01-9.6,93.81-7.39,34.72-23.64,60.57-42.1,79.77-25.11,25.85-54.66,38.41-70.91,36.93l-.74-.74c-1.48,0-2.22,0-3.69-.74l-1.48-.74c-16.99-8.12-18.47-24.38-8.86-45.06,6.65-13.3,16.99-31.76,29.55-53.18,22.16-36.93,52.44-83.47,83.47-129.26-.74-5.17-1.48-7.39-1.48-7.39-2.22-6.65.74-11.08,6.65-8.86h.74s1.48.74,4.43,1.48c39.89-59.09,79.77-115.23,104.15-149.95l.74-.74ZM836.17,611.88c-22.16,33.24-42.1,65-58.35,91.59-11.08,17.73-19.94,33.98-25.85,45.8,11.82-5.17,25.11-14.77,37.67-27.33,16.99-18.47,32.5-42.84,39.89-75.34,2.95-13.29,5.17-24.38,6.65-34.72Z" />
-                    <path class="animated-path" pathLength="1" d="M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z" />
-                    <path class="animated-path" pathLength="1" d="M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z" />
-                    <path class="animated-path" pathLength="1" d="M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z" />
-                    <path class="animated-path" pathLength="1" d="M2710.13,512.9c-34.72,17.73-73.86,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.62-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.63,40.63ZM2657.68,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.12,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
-                    <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
-                </svg>
-            </a>
-            <img src="me.webp" alt="Seif Ahmed" class="hero-portrait">
-        </div>
+                <path class="animated-path" pathLength="1" d="M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z" />
+                <path class="animated-path" pathLength="1" d="M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z" />
+                <path class="animated-path" pathLength="1" d="M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z" />
+                <path class="animated-path" pathLength="1" d="M2710.13,512.9c-34.72,17.73-73.86,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.62-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.63,40.63ZM2657.68,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.12,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
+            </svg>
+        </a>
+        <img src="me.webp" alt="Seif Ahmed" class="hero-portrait" fetchpriority="high">
+            </div>
 
-        <div class="hero-left">
-            <a href="#" onclick="openCVModal(event)" class="btn-secondary">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-                <span data-i18n="btn_cv">السيرة الذاتية</span>
-            </a>
-        </div>
-        
-    </div>
-</hero>
-
-<section class="slide" id="showcase">
-    <h2 class="section-title" data-i18n="section_work_title">أبرز الأعمال والمشاريع</h2>
-    
-    <div class="brands-showcase-container">
-        
-        <div class="brand-item">
-            <div class="brand-header">
-                <img src="E-Triple-Soft.webp" alt="E-Triple-Soft Logo" class="brand-logo">
-<p class="brand-desc" data-i18n="brand_desc">تصميم حملات سوشيال ميديا.</p>
-            </div>
-            <div class="brand-gallery">
-                <img src="E-Triple-Soft-1.webp" alt="Work 1" class="gallery-img">
-                <img src="E-Triple-Soft-2.webp" alt="Work 2" class="gallery-img">
-                <img src="E-Triple-Soft-3.webp" alt="Work 3" class="gallery-img">
-            </div>
-        </div>
-
-        <div class="brand-item">
-            <div class="brand-header">
-                <img src="Express-Tires.webp" alt="Express-Tires Logo" class="brand-logo">
-<p class="brand-desc" data-i18n="brand_desc">تصميم حملات سوشيال ميديا.</p>
-            </div>
-            <div class="brand-gallery grid-6">
-                <img src="Express-Tires-1.webp" alt="Work 1" class="gallery-img">
-                <img src="Express-Tires-2.webp" alt="Work 2" class="gallery-img">
-                <img src="Express-Tires-3.webp" alt="Work 3" class="gallery-img">
-                <img src="Express-Tires-4.webp" alt="Work 4" class="gallery-img">
-                <img src="Express-Tires-5.webp" alt="Work 5" class="gallery-img">
-                <img src="Express-Tires-6.webp" alt="Work 6" class="gallery-img">
-            </div>
-        </div>
-
-        <div class="brand-item">
-            <div class="brand-header">
-                <img src="Motivo.webp" alt="Motivo Logo" class="brand-logo">
-<p class="brand-desc" data-i18n="brand_desc">تصميم حملات سوشيال ميديا.</p>
-            </div>
-            <div class="brand-gallery">
-                <img src="Motivo-1.webp" alt="Work 1" class="gallery-img">
-                <img src="Motivo-2.webp" alt="Work 2" class="gallery-img">
-                <img src="Motivo-3.webp" alt="Work 3" class="gallery-img">
-            </div>
-        </div>
-
-        <div class="brand-item">
-            <div class="brand-header">
-                <img src="RAM.webp" alt="RAM Logo" class="brand-logo">
-<p class="brand-desc" data-i18n="brand_desc">تصميم حملات سوشيال ميديا.</p>
-            </div>
-            <div class="brand-gallery">
-                <img src="RAM-1.webp" alt="Work 1" class="gallery-img">
-                <img src="RAM-2.webp" alt="Work 2" class="gallery-img">
-                <img src="RAM-3.webp" alt="Work 3" class="gallery-img">
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- CV Modal -->
-<div class="cv-modal" id="cvModal">
-    <div class="cv-modal-content">
-        <div class="cv-modal-header">
-            <h3>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                </svg>
-                <span data-i18n="modal_title">معاينة السيرة الذاتية</span>
-            </h3>
-            <div class="cv-modal-actions">
-                <a href="cv.pdf" download="Seif_Ahmed_CV.pdf" class="btn-download-cv">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
+            <div class="hero-left">
+                <a href="#" onclick="openCVModal(event)" class="btn-secondary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
                     </svg>
-                    <span data-i18n="download_btn">تحميل PDF</span>
+                    <span data-i18n="btn_cv">السيرة الذاتية</span>
                 </a>
-                <button class="close-modal" onclick="closeCVModal()">&times;</button>
             </div>
+            
         </div>
+    </section>
+
+    <!-- Slide 2 (Showcase) -->
+    <section class="slide" id="showcase">
+        <h2 class="section-title" data-i18n="section_work_title">أبرز الأعمال والمشاريع</h2>
         
-        <div class="cv-viewer-area">
-            <div class="zoom-controls">
-                <button onclick="zoomCV(0.25)" title="Zoom In">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        <line x1="11" y1="8" x2="11" y2="14"></line>
-                        <line x1="8" y1="11" x2="14" y2="11"></line>
-                    </svg>
-                </button>
-                <button onclick="zoomCV(-0.25)" title="Zoom Out">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        <line x1="8" y1="11" x2="14" y2="11"></line>
-                    </svg>
-                </button>
-                <button onclick="resetZoomCV()" title="Reset">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="4 14 10 14 10 20"></polyline>
-                        <polyline points="20 10 14 10 14 4"></polyline>
-                        <line x1="14" y1="10" x2="21" y2="3"></line>
-                        <line x1="3" y1="21" x2="10" y2="14"></line>
-                    </svg>
-                </button>
+        <div class="brands-showcase-container">
+            
+            <div class="brand-item">
+                <div class="brand-header">
+                    <img src="E-Triple-Soft.webp" alt="E-Triple-Soft Logo" class="brand-logo" loading="lazy" decoding="async">
+                    <p class="brand-desc" data-i18n="brand_desc">تصميم حملات سوشيال ميديا.</p>
+                </div>
+                <div class="brand-gallery">
+                    <img src="E-Triple-Soft-1.webp" alt="E-Triple-Soft Design 1" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="E-Triple-Soft-2.webp" alt="E-Triple-Soft Design 2" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="E-Triple-Soft-3.webp" alt="E-Triple-Soft Design 3" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                </div>
             </div>
-            <div class="cv-scroll-area" id="cvScrollArea">
-                <img src="cv.jpg" alt="CV Preview" class="cv-image-preview" id="cvImagePreview" draggable="false">
+
+            <div class="brand-item">
+                <div class="brand-header">
+                    <img src="Express-Tires.webp" alt="Express-Tires Logo" class="brand-logo" loading="lazy" decoding="async">
+                    <p class="brand-desc" data-i18n="brand_desc">تصميم حملات سوشيال ميديا.</p>
+                </div>
+                <div class="brand-gallery grid-6">
+                    <img src="Express-Tires-1.webp" alt="Express-Tires Design 1" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="Express-Tires-2.webp" alt="Express-Tires Design 2" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="Express-Tires-3.webp" alt="Express-Tires Design 3" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="Express-Tires-4.webp" alt="Express-Tires Design 4" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="Express-Tires-5.webp" alt="Express-Tires Design 5" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="Express-Tires-6.webp" alt="Express-Tires Design 6" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                </div>
+            </div>
+
+            <div class="brand-item">
+                <div class="brand-header">
+                    <img src="Motivo.webp" alt="Motivo Logo" class="brand-logo" loading="lazy" decoding="async">
+                    <p class="brand-desc" data-i18n="brand_desc">تصميم حملات سوشيال ميديا.</p>
+                </div>
+                <div class="brand-gallery">
+                    <img src="Motivo-1.webp" alt="Motivo Design 1" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="Motivo-2.webp" alt="Motivo Design 2" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="Motivo-3.webp" alt="Motivo Design 3" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                </div>
+            </div>
+
+            <div class="brand-item">
+                <div class="brand-header">
+                    <img src="RAM.webp" alt="RAM Logo" class="brand-logo" loading="lazy" decoding="async">
+                    <p class="brand-desc" data-i18n="brand_desc">تصميم حملات سوشيال ميديا.</p>
+                </div>
+                <div class="brand-gallery">
+                    <img src="RAM-1.webp" alt="RAM Design 1" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="RAM-2.webp" alt="RAM Design 2" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                    <img src="RAM-3.webp" alt="RAM Design 3" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CV Modal -->
+    <div class="cv-modal" id="cvModal" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle">
+        <div class="cv-modal-content">
+            <div class="cv-modal-header">
+                <h3 id="cvModalTitle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                    <span data-i18n="modal_title">معاينة السيرة الذاتية</span>
+                </h3>
+                <div class="cv-modal-actions">
+                    <a href="cv.pdf" download="Seif_Ahmed_CV.pdf" class="btn-download-cv">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <span data-i18n="download_btn">تحميل PDF</span>
+                    </a>
+                    <button class="close-modal" onclick="closeCVModal()" aria-label="Close CV Viewer">&times;</button>
+                </div>
+            </div>
+            
+            <div class="cv-viewer-area">
+                <div class="zoom-controls">
+                    <button onclick="zoomCV(0.25)" title="Zoom In" aria-label="Zoom In">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <line x1="11" y1="8" x2="11" y2="14"></line>
+                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                    </button>
+                    <button onclick="zoomCV(-0.25)" title="Zoom Out" aria-label="Zoom Out">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                    </button>
+                    <button onclick="resetZoomCV()" title="Reset Zoom" aria-label="Reset Zoom">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="4 14 10 14 10 20"></polyline>
+                            <polyline points="20 10 14 10 14 4"></polyline>
+                            <line x1="14" y1="10" x2="21" y2="3"></line>
+                            <line x1="3" y1="21" x2="10" y2="14"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cv-scroll-area" id="cvScrollArea">
+                    <img src="cv.jpg" alt="CV Preview Document" class="cv-image-preview" id="cvImagePreview" draggable="false">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Lightbox Modal تكبير الصور -->
-<div class="image-lightbox-modal" id="imageLightbox">
-    <div class="lightbox-content">
-        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-        <img src="" alt="Expanded Design" id="lightboxImg">
+    <!-- Lightbox Modal تكبير الصور -->
+    <div class="image-lightbox-modal" id="imageLightbox" role="dialog" aria-modal="true" aria-label="Image Viewer" tabindex="-1">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close Image Viewer">&times;</button>
+            <button class="lightbox-nav lightbox-next" onclick="nextLightboxImg()" aria-label="Next Image">&#10094;</button> 
+            <img src="" alt="Expanded Design" id="lightboxImg">
+            <button class="lightbox-nav lightbox-prev" onclick="prevLightboxImg()" aria-label="Previous Image">&#10095;</button> 
+        </div>
     </div>
-</div>
 
-<!-- JavaScript -->
-<script>
-    const $ = (id) => document.getElementById(id);
+    <!-- JavaScript -->
+    <script>
+        const $ = (id) => document.getElementById(id);
 
-    const hasFinePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const hasTouch = matchMedia('(pointer: coarse)').matches;
-    const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const hasFinePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const heroSlide = $('slide-hero');
-    const showcaseSlide = $('showcase');
-    const meshBg = $('meshBg');
-    const cvModal = $('cvModal');
-    const secTitle = document.querySelector('.section-title');
-    const bentoCards = document.querySelectorAll('.bento-card');
+        const heroSlide = $('slide-hero');
+        const showcaseSlide = $('showcase');
+        const meshBg = $('meshBg');
+        const cvModal = $('cvModal');
+        const secTitle = document.querySelector('.section-title');
 
-    const isModalOpen = () => cvModal.classList.contains('active');
+        const isModalOpen = () => cvModal.classList.contains('active');
 
-    // Custom Cursor Logic
-    if (hasFinePointer) {
-        const dot = $('customCursorDot');
-        const circle = $('customCursorCircle');
-        let mx = -100, my = -100, cx = -100, cy = -100, scale = 1, targetScale = 1, ticking = false;
+        // Custom Cursor Logic
+        if (hasFinePointer) {
+            const dot = $('customCursorDot');
+            const circle = $('customCursorCircle');
+            let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+            let cx = mx, cy = my;
+            let scale = 1, targetScale = 1, ticking = false;
 
-        const paint = () => {
-            cx += (mx - cx) * 0.22;
-            cy += (my - cy) * 0.22;
-            scale += (targetScale - scale) * 0.2;
-            dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
-            circle.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${scale})`;
-            const settled = Math.abs(mx - cx) < 0.1 && Math.abs(my - cy) < 0.1 && Math.abs(targetScale - scale) < 0.01;
-            if (settled) { ticking = false; return; }
-            requestAnimationFrame(paint);
-        };
-        const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
+            const paint = () => {
+                cx += (mx - cx) * 0.22;
+                cy += (my - cy) * 0.22;
+                scale += (targetScale - scale) * 0.2;
+                dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+                circle.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${scale})`;
+                const settled = Math.abs(mx - cx) < 0.1 && Math.abs(my - cy) < 0.1 && Math.abs(targetScale - scale) < 0.01;
+                if (settled) { ticking = false; return; }
+                requestAnimationFrame(paint);
+            };
+            const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
 
-        window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; kick(); }, { passive: true });
+            window.addEventListener('mousemove', (e) => {
+                if (!document.body.classList.contains('custom-cursor-active')) {
+                    document.body.classList.add('custom-cursor-active');
+                    dot.style.opacity = '1';
+                    circle.style.opacity = '1';
+                }
+                mx = e.clientX; my = e.clientY; kick(); 
+            }, { passive: true });
 
-document.addEventListener('mouseover', (e) => {
-            const hot = !!e.target.closest('a, button, .bento-card, .logo-svg, .gallery-img, .lightbox-close');
-            targetScale = hot ? 1.8 : 1;
-            circle.style.backgroundColor = hot ? 'rgba(212, 175, 55, 0.1)' : 'rgba(212, 175, 55, 0.05)';
-            circle.style.borderColor = hot ? 'var(--accent-gold)' : 'rgba(212, 175, 55, 0.6)';
-            kick();
+            document.addEventListener('mouseover', (e) => {
+                const hot = !!e.target.closest('a, button, .bento-card, .logo-svg, .gallery-img, .lightbox-close, .lightbox-nav');
+                targetScale = hot ? 1.8 : 1;
+                circle.style.backgroundColor = hot ? 'rgba(212, 175, 55, 0.1)' : 'rgba(212, 175, 55, 0.05)';
+                circle.style.borderColor = hot ? 'var(--accent-gold)' : 'rgba(212, 175, 55, 0.6)';
+                kick();
+            });
+            
+            document.documentElement.addEventListener('mouseleave', () => { 
+                dot.style.opacity = '0'; circle.style.opacity = '0'; 
+                document.body.classList.remove('custom-cursor-active');
+            });
+            document.documentElement.addEventListener('mouseenter', () => { 
+                if(document.body.classList.contains('custom-cursor-active')){
+                    dot.style.opacity = '1'; circle.style.opacity = '1'; 
+                }
+            });
+        }
+
+        // Lightbox Logic 
+        const lightboxModal = document.getElementById('imageLightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const allGalleryImages = Array.from(document.querySelectorAll('.gallery-img'));
+        let currentImageIndex = 0;
+        let lastFocusedElement;
+
+        allGalleryImages.forEach((img, index) => {
+            img.addEventListener('click', () => openLightbox(index));
+            img.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') openLightbox(index);
+            });
         });
-        document.documentElement.addEventListener('mouseleave', () => { dot.style.opacity = '0'; circle.style.opacity = '0'; });
-        document.documentElement.addEventListener('mouseenter', () => { dot.style.opacity = '1'; circle.style.opacity = '1'; });
-    }
 
-    // Lightbox Logic (تكبير الصور)
-    const lightboxModal = document.getElementById('imageLightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-
-    document.querySelectorAll('.gallery-img').forEach(img => {
-        img.addEventListener('click', () => {
-            lightboxImg.src = img.src;
+        function openLightbox(index) {
+            lastFocusedElement = document.activeElement; 
+            currentImageIndex = index;
+            lightboxImg.src = allGalleryImages[index].src;
             lightboxModal.classList.add('active');
+            lightboxModal.focus();
+        }
+
+        function closeLightbox() {
+            lightboxModal.classList.remove('active');
+            if(lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        function nextLightboxImg() {
+            currentImageIndex = (currentImageIndex + 1) % allGalleryImages.length;
+            lightboxImg.src = allGalleryImages[currentImageIndex].src;
+        }
+
+        function prevLightboxImg() {
+            currentImageIndex = (currentImageIndex - 1 + allGalleryImages.length) % allGalleryImages.length;
+            lightboxImg.src = allGalleryImages[currentImageIndex].src;
+        }
+
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) closeLightbox();
         });
-    });
 
-    function closeLightbox() {
-        lightboxModal.classList.remove('active');
-    }
+        let touchStartX = 0;
+        lightboxModal.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+        
+        lightboxModal.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) nextLightboxImg(); 
+            if (touchEndX > touchStartX + 50) prevLightboxImg(); 
+        }, {passive: true});
 
-    lightboxModal.addEventListener('click', (e) => {
-        if (e.target === lightboxModal) {
-            closeLightbox();
-        }
-    });
-
-    // Mobile Menu Toggle Logic
-    function toggleMobileMenu() {
-        const dropdown = document.getElementById('mobileDropdown');
-        const menuIcon = document.getElementById('menuIcon');
-        dropdown.classList.toggle('active');
-        if (dropdown.classList.contains('active')) {
-            menuIcon.innerHTML = `<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>`;
-        } else {
-            menuIcon.innerHTML = `<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>`;
-        }
-    }
-
-    // Slide Engine
-    let currentSlide = 0;
-    const totalSlides = 2;
-    let isAnimating = false;
-    let hasAutoScrolled = false;
-    let lastShowcaseScroll = 0;
-
-    function goToSlide(index) {
-        if (isAnimating || index < 0 || index >= totalSlides || index === currentSlide) return;
-        isAnimating = true;
-        currentSlide = index;
-
-        if (currentSlide === 1) {
-            hasAutoScrolled = true;
-            heroSlide.classList.add('slide-out');
-            showcaseSlide.classList.add('slide-in');
-            meshBg.classList.add('slide-2-active');
-
-            setTimeout(() => secTitle.classList.add('reveal'), 400);
-        } else {
-            heroSlide.classList.remove('slide-out');
-            showcaseSlide.classList.remove('slide-in');
-            meshBg.classList.remove('slide-2-active');
-
-            secTitle.classList.remove('reveal');
-            setTimeout(() => { showcaseSlide.scrollTop = 0; }, 1200);
-        }
-
-        setTimeout(() => { isAnimating = false; }, prefersReducedMotion ? 50 : 1200);
-    }
-
-    showcaseSlide.addEventListener('scroll', () => { lastShowcaseScroll = performance.now(); }, { passive: true });
-
-    // Wheel Events
-    window.addEventListener('wheel', (e) => {
-        if (isModalOpen() || lightboxModal.classList.contains('active')) return;
-        if (e.deltaY > 50) {
-            goToSlide(1);
-        } else if (e.deltaY < -50) {
-            if (currentSlide === 1 && showcaseSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) {
-                goToSlide(0);
+        // Mobile Menu Toggle Logic
+        function toggleMobileMenu() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const menuIcon = document.getElementById('menuIcon');
+            dropdown.classList.toggle('active');
+            if (dropdown.classList.contains('active')) {
+                menuIcon.innerHTML = `<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>`;
+            } else {
+                menuIcon.innerHTML = `<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>`;
             }
         }
-    }, { passive: true });
 
-    // Touch Events
-    let tStartY = 0, tStartX = 0, tStartScroll = 0, tTrack = false;
-    window.addEventListener('touchstart', (e) => {
-        if (isModalOpen() || lightboxModal.classList.contains('active')) { tTrack = false; return; }
-        tTrack = true;
-        tStartY = e.touches[0].clientY;
-        tStartX = e.touches[0].clientX;
-        tStartScroll = showcaseSlide.scrollTop;
-    }, { passive: true });
+        // Slide Engine
+        let currentSlide = 0;
+        const totalSlides = 2;
+        let isAnimating = false;
+        let hasAutoScrolled = false;
+        let lastShowcaseScroll = 0;
 
-    window.addEventListener('touchend', (e) => {
-        if (!tTrack || isModalOpen() || lightboxModal.classList.contains('active')) return;
-        tTrack = false;
-        const t = e.changedTouches[0];
-        const dy = tStartY - t.clientY;
-        const dx = tStartX - t.clientX;
-        if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.2) return;
+        function goToSlide(index) {
+            if (isAnimating || index < 0 || index >= totalSlides || index === currentSlide) return;
+            isAnimating = true;
+            currentSlide = index;
 
-        if (dy > 0) {
-            goToSlide(1);
-        } else if (currentSlide === 1 && tStartScroll <= 0 && showcaseSlide.scrollTop <= 0) {
-            goToSlide(0);
-        }
-    }, { passive: true });
+            if (currentSlide === 1) {
+                hasAutoScrolled = true;
+                heroSlide.classList.add('slide-out');
+                showcaseSlide.classList.add('slide-in');
+                meshBg.classList.add('slide-2-active');
 
-    // Keyboard Events
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (lightboxModal.classList.contains('active')) closeLightbox();
-            if (isModalOpen()) closeCVModal();
-            return;
-        }
-        if (isModalOpen() || lightboxModal.classList.contains('active')) return;
-        if (e.key === 'ArrowDown' || e.key === 'PageDown') goToSlide(1);
-        if ((e.key === 'ArrowUp' || e.key === 'PageUp') && showcaseSlide.scrollTop <= 0) goToSlide(0);
-    });
+                setTimeout(() => secTitle.classList.add('reveal'), 400);
+            } else {
+                heroSlide.classList.remove('slide-out');
+                showcaseSlide.classList.remove('slide-in');
+                meshBg.classList.remove('slide-2-active');
 
-    // CV Viewer Drag Logic
-    let cvScale = 1;
-    const cvImage = document.getElementById('cvImagePreview');
-    const cvScrollArea = document.getElementById('cvScrollArea');
+                secTitle.classList.remove('reveal');
+                setTimeout(() => { showcaseSlide.scrollTop = 0; }, 1200);
+            }
 
-    function zoomCV(step) {
-        cvScale += step;
-        if (cvScale < 0.5) cvScale = 0.5;
-        if (cvScale > 3.5) cvScale = 3.5;
-        cvImage.style.transform = `scale(${cvScale})`;
-    }
-
-    function resetZoomCV() {
-        cvScale = 1;
-        cvImage.style.transform = `scale(1)`;
-    }
-
-    let isDragging = false;
-    let startX, startY, scrollLeft, scrollTop;
-
-    const startDrag = (e) => {
-        isDragging = true;
-        const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
-        const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
-        startX = pageX - cvScrollArea.offsetLeft;
-        startY = pageY - cvScrollArea.offsetTop;
-        scrollLeft = cvScrollArea.scrollLeft;
-        scrollTop = cvScrollArea.scrollTop;
-    };
-
-    const stopDrag = () => { isDragging = false; };
-
-    const onDrag = (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
-        const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
-        const walkX = (pageX - cvScrollArea.offsetLeft) - startX;
-        const walkY = (pageY - cvScrollArea.offsetTop) - startY;
-        cvScrollArea.scrollLeft = scrollLeft - walkX;
-        cvScrollArea.scrollTop = scrollTop - walkY;
-    };
-
-    cvScrollArea.addEventListener('mousedown', startDrag);
-    cvScrollArea.addEventListener('touchstart', startDrag, {passive: false});
-    cvScrollArea.addEventListener('mouseleave', stopDrag);
-    cvScrollArea.addEventListener('mouseup', stopDrag);
-    cvScrollArea.addEventListener('touchend', stopDrag);
-    cvScrollArea.addEventListener('mousemove', onDrag);
-    cvScrollArea.addEventListener('touchmove', onDrag, {passive: false});
-
-    function openCVModal(event) {
-        event.preventDefault();
-        document.getElementById('cvModal').classList.add('active');
-        resetZoomCV();
-    }
-
-function closeCVModal() {
-        document.getElementById('cvModal').classList.remove('active');
-    }
-
-    window.addEventListener('click', (e) => {
-        const modal = document.getElementById('cvModal');
-        if (e.target === modal) closeCVModal();
-    });
-
-    // Localization Dictionary
-    const translations = {
-        ar: {
-            nav_about: "عني",
-            nav_work: "الأعمال",
-            nav_cv: "السيرة الذاتية",
-            hero_status: "متاح لفرص عمل Full-Time",
-            btn_explore: "استعراض الأعمال",
-            btn_cv: "السيرة الذاتية",
-            section_work_title: "أبرز الأعمال والمشاريع",
-            modal_title: "معاينة السيرة الذاتية",
-            download_btn: "تحميل PDF",
-            brand_desc: "تصميم حملات سوشيال ميديا.",
-        },
-        en: {
-            nav_about: "About",
-            nav_work: "Portfolio",
-            nav_cv: "CV",
-            hero_status: "Available for Full-Time",
-            btn_explore: "Explore Work",
-            btn_cv: "View CV",
-            section_work_title: "Featured Works & Projects",
-            modal_title: "CV Preview",
-            download_btn: "Download PDF",
-        brand_desc: "Social Media Campaigns Design.",
-        }
-    };
-
-    let currentLang = 'ar';
-    function toggleLanguage() {
-        currentLang = currentLang === 'ar' ? 'en' : 'ar';
-        document.documentElement.setAttribute('lang', currentLang);
-        document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
-        document.getElementById('langToggle').innerText = currentLang === 'ar' ? 'EN' : 'AR';
-        
-        const arrow = document.getElementById('btn-arrow');
-        if (arrow) {
-            arrow.style.transform = currentLang === 'en' ? 'rotate(180deg)' : 'rotate(0deg)';
+            setTimeout(() => { isAnimating = false; }, prefersReducedMotion ? 50 : 1200);
         }
 
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
+        showcaseSlide.addEventListener('scroll', () => { lastShowcaseScroll = performance.now(); }, { passive: true });
+
+        // Wheel Events
+        window.addEventListener('wheel', (e) => {
+            if (isModalOpen() || lightboxModal.classList.contains('active')) return;
+            if (e.deltaY > 50) {
+                goToSlide(1);
+            } else if (e.deltaY < -50) {
+                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) {
+                    goToSlide(0);
+                }
+            }
+        }, { passive: true });
+
+        // Touch Events for Slide
+        let tStartY = 0, tStartX = 0, tStartScroll = 0, tTrack = false;
+        window.addEventListener('touchstart', (e) => {
+            if (isModalOpen() || lightboxModal.classList.contains('active')) { tTrack = false; return; }
+            tTrack = true;
+            tStartY = e.touches[0].clientY;
+            tStartX = e.touches[0].clientX;
+            tStartScroll = showcaseSlide.scrollTop;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            if (!tTrack || isModalOpen() || lightboxModal.classList.contains('active')) return;
+            tTrack = false;
+            const t = e.changedTouches[0];
+            const dy = tStartY - t.clientY;
+            const dx = tStartX - t.clientX;
+            if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.2) return;
+
+            if (dy > 0) {
+                goToSlide(1);
+            } else if (currentSlide === 1 && tStartScroll <= 0 && showcaseSlide.scrollTop <= 0) {
+                goToSlide(0);
+            }
+        }, { passive: true });
+
+        // Keyboard Events
+        window.addEventListener('keydown', (e) => {
+            if (lightboxModal.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') nextLightboxImg(); 
+                if (e.key === 'ArrowRight') prevLightboxImg(); 
+                return;
+            }
+            if (isModalOpen()) {
+                if (e.key === 'Escape') closeCVModal();
+                return;
+            }
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') goToSlide(1);
+            if ((e.key === 'ArrowUp' || e.key === 'PageUp') && showcaseSlide.scrollTop <= 0) goToSlide(0);
         });
-    }
-    setTimeout(() => {
-        if (!hasAutoScrolled && currentSlide === 0 && !isModalOpen()) {
-            goToSlide(1);
+
+        // CV Viewer Drag Logic
+        let cvScale = 1;
+        const cvImage = document.getElementById('cvImagePreview');
+        const cvScrollArea = document.getElementById('cvScrollArea');
+
+        function zoomCV(step) {
+            cvScale += step;
+            if (cvScale < 0.5) cvScale = 0.5;
+            if (cvScale > 3.5) cvScale = 3.5;
+            cvImage.style.transform = `scale(${cvScale})`;
         }
-    }, 5000);
-</script>
+
+        function resetZoomCV() {
+            cvScale = 1;
+            cvImage.style.transform = `scale(1)`;
+        }
+
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        const startDrag = (e) => {
+            isDragging = true;
+            const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+            const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
+            startX = pageX - cvScrollArea.offsetLeft;
+            startY = pageY - cvScrollArea.offsetTop;
+            scrollLeft = cvScrollArea.scrollLeft;
+            scrollTop = cvScrollArea.scrollTop;
+        };
+
+        const stopDrag = () => { isDragging = false; };
+
+        const onDrag = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+            const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
+            const walkX = (pageX - cvScrollArea.offsetLeft) - startX;
+            const walkY = (pageY - cvScrollArea.offsetTop) - startY;
+            cvScrollArea.scrollLeft = scrollLeft - walkX;
+            cvScrollArea.scrollTop = scrollTop - walkY;
+        };
+
+        cvScrollArea.addEventListener('mousedown', startDrag);
+        cvScrollArea.addEventListener('touchstart', startDrag, {passive: false});
+        cvScrollArea.addEventListener('mouseleave', stopDrag);
+        cvScrollArea.addEventListener('mouseup', stopDrag);
+        cvScrollArea.addEventListener('touchend', stopDrag);
+        cvScrollArea.addEventListener('mousemove', onDrag);
+        cvScrollArea.addEventListener('touchmove', onDrag, {passive: false});
+
+        function openCVModal(event) {
+            event.preventDefault();
+            document.getElementById('cvModal').classList.add('active');
+            resetZoomCV();
+        }
+
+        function closeCVModal() {
+            document.getElementById('cvModal').classList.remove('active');
+        }
+
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('cvModal');
+            if (e.target === modal) closeCVModal();
+        });
+
+        // Localization Dictionary
+        const translations = {
+            ar: {
+                nav_about: "عني",
+                nav_work: "الأعمال",
+                nav_cv: "السيرة الذاتية",
+                hero_status: "متاح لفرص عمل Full-Time",
+                btn_explore: "استعراض الأعمال",
+                btn_cv: "السيرة الذاتية",
+                section_work_title: "أبرز الأعمال والمشاريع",
+                modal_title: "معاينة السيرة الذاتية",
+                download_btn: "تحميل PDF",
+                brand_desc: "تصميم حملات سوشيال ميديا."
+            },
+            en: {
+                nav_about: "About",
+                nav_work: "Portfolio",
+                nav_cv: "CV",
+                hero_status: "Available for Full-Time",
+                btn_explore: "Explore Work",
+                btn_cv: "View CV",
+                section_work_title: "Featured Works & Projects",
+                modal_title: "CV Preview",
+                download_btn: "Download PDF",
+                brand_desc: "Social Media Campaigns Design."
+            }
+        };
+
+        let currentLang = 'ar';
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.setAttribute('lang', currentLang);
+            document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            document.getElementById('langToggle').innerText = currentLang === 'ar' ? 'EN' : 'AR';
+            
+            const arrow = document.getElementById('btn-arrow');
+            if (arrow) {
+                arrow.style.transform = currentLang === 'en' ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
+            });
+        }
+
+        setTimeout(() => {
+            if (!hasAutoScrolled && currentSlide === 0 && !isModalOpen()) {
+                goToSlide(1);
+            }
+        }, 5000);
+    </script>
 </body>
 </html>
