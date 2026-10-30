@@ -999,9 +999,8 @@
         resetZoomCV();
     }
 
-    function closeCVModal() {
+function closeCVModal() {
         document.getElementById('cvModal').classList.remove('active');
-        resetIdleTimer();
     }
 
     window.addEventListener('click', (e) => {
@@ -1052,6 +1051,11 @@
             if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
         });
     }
+    setTimeout(() => {
+        if (!hasAutoScrolled && currentSlide === 0 && !isModalOpen()) {
+            goToSlide(1);
+        }
+    }, 5000);
 </script>
 </body>
 </html>
