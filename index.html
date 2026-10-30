@@ -1020,7 +1020,7 @@
             }, { passive: true });
 
             document.addEventListener('mouseover', (e) => {
-                const hot = !!e.target.closest('a, button, .bento-card, .logo-svg, .gallery-img, .lightbox-close, .lightbox-nav, .tab-btn');
+                const hot = !!e.target.closest('a, button, .bento-card, .logo-svg, .gallery-img, .lightbox-close, .lightbox-nav, .tab-btn, .social-btn');
                 targetScale = hot ? 1.8 : 1;
                 circle.style.backgroundColor = hot ? 'rgba(212, 175, 55, 0.1)' : 'rgba(212, 175, 55, 0.05)';
                 circle.style.borderColor = hot ? 'var(--accent-gold)' : 'rgba(212, 175, 55, 0.6)';
@@ -1166,16 +1166,18 @@
         }
 
         // Wheel Events البسيط والسليم
+// Wheel Events
         window.addEventListener('wheel', (e) => {
             if (isModalOpen() || lightboxModal.classList.contains('active') || isAnimating) return;
             if (e.deltaY > 50) {
                 if (currentSlide === 0) goToSlide(1);
-                else if (currentSlide === 1) goToSlide(2);
+                else if (currentSlide === 1 && Math.ceil(showcaseSlide.scrollTop + showcaseSlide.clientHeight) >= showcaseSlide.scrollHeight - 10) goToSlide(2);
             } else if (e.deltaY < -50) {
-                if (currentSlide === 2) goToSlide(1);
-                else if (currentSlide === 1) goToSlide(0);
+                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) goToSlide(0);
+                else if (currentSlide === 2 && aboutSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) goToSlide(1);
             }
         }, { passive: true });
+
         // Touch Events for Slide
         let tStartY = 0, tStartX = 0, tStartScroll = 0, tTrack = false;
         window.addEventListener('touchstart', (e) => {
@@ -1183,7 +1185,7 @@
             tTrack = true;
             tStartY = e.touches[0].clientY;
             tStartX = e.touches[0].clientX;
-            tStartScroll = currentSlide === 1 ? showcaseSlide.scrollTop : aboutSlide.scrollTop;
+            tStartScroll = currentSlide === 1 ? showcaseSlide.scrollTop : (currentSlide === 2 ? aboutSlide.scrollTop : 0);
         }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
@@ -1196,6 +1198,7 @@
 
             if (dy > 0) {
                 if (currentSlide === 0) goToSlide(1);
+                else if (currentSlide === 1 && Math.ceil(tStartScroll + showcaseSlide.clientHeight) >= showcaseSlide.scrollHeight - 10) goToSlide(2);
             } else {
                 if (currentSlide === 1 && tStartScroll <= 0 && showcaseSlide.scrollTop <= 0) goToSlide(0);
                 else if (currentSlide === 2 && tStartScroll <= 0 && aboutSlide.scrollTop <= 0) goToSlide(1);
@@ -1261,9 +1264,6 @@
                 if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) goToSlide(0);
                 else if (currentSlide === 2 && aboutSlide.scrollTop <= 0) goToSlide(1);
             }
-        });
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') goToSlide(1);
-            if ((e.key === 'ArrowUp' || e.key === 'PageUp') && showcaseSlide.scrollTop <= 0) goToSlide(0);
         });
 
         // CV Viewer Drag Logic
