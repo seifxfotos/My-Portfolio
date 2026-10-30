@@ -362,12 +362,12 @@
         }
 
         /* شبكة الصور: محاذاة للبداية عشان البوكس ياخد شكل الصورة تماماً */
-        .brand-gallery {
+.brand-gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             direction: ltr;
-            align-items: start; /* يمنع التمدد الرأسي، فينهي مشكلة الفريم الأسود */
+            align-items: center; /* التعديل هنا: بيخلي الصور تتسنتر عمودياً مهما كان اختلاف طولها */
         }
 
         .brand-gallery.grid-6 {
