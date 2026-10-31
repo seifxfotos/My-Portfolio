@@ -100,10 +100,11 @@
         }
 
         /* زرار تكبير الموقع (Fullscreen) */
+        /* زرار تكبير الموقع (Fullscreen) */
         .fullscreen-btn {
             position: absolute;
             top: 15px;
-            left: 15px;
+            right: 25px; /* نقلناه لليمين بدل الشمال */
             background: rgba(11, 17, 26, 0.7);
             border: 1px solid var(--border-color);
             color: var(--text-main);
@@ -114,7 +115,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer !important;
-            z-index: 100;
+            z-index: 99999; /* أقصى قيمة عشان يلقط الضغطة فوق أي حاجة */
             transition: var(--transition);
             backdrop-filter: blur(10px);
             pointer-events: auto;
@@ -1609,21 +1610,31 @@
             if (e.target === modal) closeCVModal();
         });
 
-        // دالة تكبير حاوية المواقع
+// دالة تكبير حاوية المواقع الشاملة
     function toggleSiteFullscreen(btn) {
-        var wrapper = btn.parentElement; 
+        // بيمسك الحاوية اللي شايلة الموقع والزرار بدقة
+        var wrapper = btn.closest('.vid-wrapper'); 
         
-        if (!document.fullscreenElement) {
+        // بيتحقق إذا كانت الشاشة كاملة حالياً في أي متصفح
+        var isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+
+        if (!isFullscreen) {
+            // أمر فتح الشاشة الكاملة (يدعم جميع المتصفحات)
             if (wrapper.requestFullscreen) {
                 wrapper.requestFullscreen();
             } else if (wrapper.webkitRequestFullscreen) { /* Safari */
                 wrapper.webkitRequestFullscreen();
+            } else if (wrapper.msRequestFullscreen) { /* IE11 */
+                wrapper.msRequestFullscreen();
             }
         } else {
+            // أمر الخروج من الشاشة الكاملة
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.webkitExitFullscreen) { /* Safari */
                 document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
             }
         }
     }
