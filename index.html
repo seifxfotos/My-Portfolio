@@ -1609,6 +1609,24 @@
             if (e.target === modal) closeCVModal();
         });
 
+        // دالة تكبير حاوية المواقع
+    function toggleSiteFullscreen(btn) {
+        var wrapper = btn.parentElement; 
+        
+        if (!document.fullscreenElement) {
+            if (wrapper.requestFullscreen) {
+                wrapper.requestFullscreen();
+            } else if (wrapper.webkitRequestFullscreen) { /* Safari */
+                wrapper.webkitRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            }
+        }
+    }
         // Localization Dictionary
         // Localization Dictionary
         const translations = {
