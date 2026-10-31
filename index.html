@@ -673,6 +673,36 @@
 
         /* Responsive Mobile Layout */
         @media(max-width: 900px) {
+            /* 1. إجبار حاوية الصورة إنها تكون في طبقة سفلية */
+            .hero-center {
+                position: relative !important;
+                z-index: 1 !important; 
+            }
+            
+            /* 2. إجبار حاوية الزراير إنها تكون في طبقة علوية (فوق الصورة تماماً) بنفس مكانها الأصلي */
+            .hero-left {
+                position: relative !important;
+                z-index: 9999 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                padding: 0 5% !important;
+                order: 3 !important;
+                /* مفيش أي margins هنا عشان مكانهم ميتحركش سنتي */
+            }
+            
+            .hero-left a {
+                position: relative !important;
+                z-index: 99999 !important;
+                width: 100% !important;
+                justify-content: center !important;
+                padding: 13px !important;
+                box-sizing: border-box !important;
+                /* إلغاء أي تأثير بهتان ممكن ييجي من الأب */
+                opacity: 1 !important;
+                filter: none !important; 
+            }
+        }
             header { padding: 15px 5%; }
             .blob-4 { display: none !important; }
             .nav-links { display: none; } 
@@ -684,7 +714,6 @@
             .hero-center { position: relative; left: auto; transform: none; flex: 1; width: 100%; align-items: center; order: 2; }
             .hero-portrait { max-height: 48dvh; bottom: -60px; }
             .bg-logo-huge { width: 90vw; max-width: 380px; top: 30%; opacity: 1; }
-            .hero-left { position: relative; z-index: 10; width: 100%; justify-content: center; padding: 0 5%; order: 3; margin-top: 10px; align-items: center !important; }
             .btn-primary, .btn-secondary, .hero-left .availability-badge { width: 100%; justify-content: center; padding: 13px; box-sizing: border-box; }
             
             #showcase { padding: 100px 5%; }
