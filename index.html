@@ -698,6 +698,35 @@
 
         /* Responsive Mobile Layout */
         @media(max-width: 900px) {
+            .hero-left {
+                position: relative !important;
+                z-index: 99999 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                padding: 0 5% !important;
+                order: 3 !important;
+                margin-top: 15px !important;
+                /* إلغاء تأثير التدرج الأسود الموروث من الأب نهائياً */
+                -webkit-mask-image: none !important;
+                mask-image: none !important;
+            }
+
+            .hero-left a {
+                /* الحفاظ على تصميم الزرار الأصلي بدون تغيير */
+                width: 100% !important;
+                justify-content: center !important;
+                padding: 13px !important;
+                box-sizing: border-box !important;
+                position: relative !important;
+                z-index: 999999 !important;
+                opacity: 1 !important;
+                filter: none !important;
+                transform: none !important;
+                background: transparent;
+                box-shadow: none;
+            }
+        }
             header { padding: 15px 5%; }
             .nav-links { display: none; }
             .menu-toggle { display: flex; }
@@ -708,32 +737,7 @@
             .hero-center { position: relative; left: auto; transform: none; flex: 1; width: 100%; align-items: center; order: 2; }
             .hero-portrait { max-height: 48dvh; bottom: -60px; }
             .bg-logo-huge { width: 90vw; max-width: 380px; top: 30%; opacity: 1; }
-            .hero-left {
-            position: relative !important;
-            /* السطرين دول هم الحل السحري لرفع الطبقة فوق التدرج الأسود */
-            z-index: 9999999 !important;
-            transform: translateZ(10px) !important; 
-            
-            display: flex !important;
-            flex-direction: column !important;
-            width: 100% !important;
-            padding: 0 5% !important;
-            order: 3 !important;
-            margin-top: 15px !important;
-        }
 
-        .hero-left a {
-            position: relative !important;
-            opacity: 1 !important;
-            filter: brightness(1.2) !important; /* زيادة إضاءة الزرار */
-            background: rgba(20, 35, 55, 0.95) !important; /* إعطاء لون صلب للزرار يمنع الشفافية */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6) !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            width: 100% !important;
-            justify-content: center !important;
-            padding: 13px !important;
-            box-sizing: border-box !important;
-        }
             .btn-primary, .btn-secondary, .hero-left .availability-badge { width: 100%; justify-content: center; padding: 13px; box-sizing: border-box; }
 
             #showcase { padding: 100px 5%; }
