@@ -87,7 +87,7 @@
             body.custom-cursor-active * { cursor: auto !important; }
         }
 
-        /* Video Aspect Ratios */
+/* Video Wrapper & Pointer Events Fix */
         .vid-wrapper {
             position: relative;
             border-radius: 12px;
@@ -95,9 +95,12 @@
             border: 1px solid var(--border-color);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             width: 100%;
+            z-index: 10;
+            pointer-events: auto; /* لحل مشكلة الماوس */
         }
-        .vid-portrait { padding-top: 177.78%; } /* للفيديوهات الطولية 9:16 */
-        .vid-landscape { padding-top: 56.25%; } /* للفيديوهات العرضية 16:9 */
+        
+        /* مقاس طولي ثابت لكل الفيديوهات 9:16 */
+        .vid-portrait { padding-top: 177.78%; } 
         
         .vid-wrapper iframe {
             position: absolute;
@@ -106,6 +109,7 @@
             width: 100%;
             height: 100%;
             border: none;
+            pointer-events: auto !important; /* منع التداخل مع الماوس المخصص */
         }
         
         /* Background Lighting */
@@ -887,18 +891,19 @@
                             الإشراف على تصوير ومونتاج فيديوهات "Reels" سريعة وديناميكية لتغطية أجواء المكان وإبراز جودة الأطباق والتجربة المميزة للمطعم بأسلوب جذاب يناسب منصات السوشيال ميديا.
                         </p>
                         <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                            <!-- فيديو طولي -->
                             <div class="vid-wrapper vid-portrait">
                                 <iframe src="https://player.vimeo.com/video/904828047?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 1"></iframe>
                             </div>
-                            <!-- فيديو طولي -->
                             <div class="vid-wrapper vid-portrait">
                                 <iframe src="https://player.vimeo.com/video/899302381?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 2"></iframe>
                             </div>
-                            <!-- فيديو طولي -->
                             <div class="vid-wrapper vid-portrait">
                                 <iframe src="https://player.vimeo.com/video/899212308?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 3"></iframe>
                             </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+                            <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">Videography</span>
+                            <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">Reels Editing</span>
                         </div>
                     </div>
 
@@ -910,15 +915,17 @@
                         <p class="brand-desc" style="margin-bottom: 25px; line-height: 1.8; color: var(--text-muted);" data-i18n="aya_video_desc">
                             إنتاج وتصوير فيديوهات طبية توعوية وترويجية لعيادات دكتورة آية، مع مونتاج احترافي يركز على إيصال المعلومات الطبية للمرضى بثقة ووضوح.
                         </p>
-                        <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                            <!-- فيديو عرضي 16:9 -->
-                            <div class="vid-wrapper vid-landscape">
-                                <iframe src="https://player.vimeo.com/video/959173596?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Promo 1"></iframe>
+                        <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/959173596?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Khattab Reel 1"></iframe>
                             </div>
-                            <!-- فيديو عرضي 16:9 -->
-                            <div class="vid-wrapper vid-landscape">
-                                <iframe src="https://player.vimeo.com/video/879129154?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Promo 2"></iframe>
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/879129154?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Khattab Reel 2"></iframe>
                             </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; justify-content: center;">
+                            <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">Medical Videos</span>
+                            <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">Promo Editing</span>
                         </div>
                     </div>
 
@@ -931,14 +938,16 @@
                             تصوير ومونتاج فيديوهات "Trendy" بأسلوب عصري وإيقاع سريع يهدف لانتشار المحتوى (Viral) وجذب انتباه الشباب، لتعزيز الهوية البصرية للبراند.
                         </p>
                         <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
-                            <!-- فيديو طولي -->
                             <div class="vid-wrapper vid-portrait">
                                 <iframe src="https://player.vimeo.com/video/899303804?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Bobz Reel 1"></iframe>
                             </div>
-                            <!-- فيديو طولي -->
                             <div class="vid-wrapper vid-portrait">
                                 <iframe src="https://player.vimeo.com/video/899214835?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Bobz Reel 2"></iframe>
                             </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; justify-content: center;">
+                            <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">Trendy Content</span>
+                            <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">Viral Editing</span>
                         </div>
                     </div>
 
@@ -950,15 +959,17 @@
                         <p class="brand-desc" style="margin-bottom: 25px; line-height: 1.8; color: var(--text-muted);" data-i18n="vigour_desc">
                             تصوير ومونتاج حملة دعائية مصغرة مخصصة لأحد المدربين بهدف إبراز الخدمات الرياضية المتنوعة داخل الجيم، باستخدام حركة كاميرا تعكس الطاقة والنشاط.
                         </p>
-                        <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                            <!-- فيديو عرضي 16:9 -->
-                            <div class="vid-wrapper vid-landscape">
-                                <iframe src="https://player.vimeo.com/video/899302059?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Ad 1"></iframe>
+                        <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/899302059?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Reel 1"></iframe>
                             </div>
-                            <!-- فيديو عرضي 16:9 -->
-                            <div class="vid-wrapper vid-landscape">
-                                <iframe src="https://player.vimeo.com/video/899211446?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Ad 2"></iframe>
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/899211446?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Reel 2"></iframe>
                             </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; justify-content: center;">
+                            <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">Sports Campaign</span>
+                            <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">Dynamic Editing</span>
                         </div>
                     </div>
 
