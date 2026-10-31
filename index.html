@@ -87,6 +87,27 @@
             body.custom-cursor-active * { cursor: auto !important; }
         }
 
+        /* Video Aspect Ratios */
+        .vid-wrapper {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 100%;
+        }
+        .vid-portrait { padding-top: 177.78%; } /* للفيديوهات الطولية 9:16 */
+        .vid-landscape { padding-top: 56.25%; } /* للفيديوهات العرضية 16:9 */
+        
+        .vid-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
         /* Background Lighting */
         .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; z-index: 0; overflow: hidden; background-color: var(--bg-color); pointer-events: none; }
         .mesh-blob { position: absolute; border-radius: 50%; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), background 1.2s ease; will-change: transform; pointer-events: none; }
@@ -853,9 +874,95 @@
                 </div>
             </div>
 
-            <!-- القسم الثاني: تصوير ومونتاج -->
+<!-- القسم الثاني: تصوير ومونتاج -->
             <div class="tab-content" id="tab-video">
-                <div class="empty-state" data-i18n="empty_soon">سيتم إضافة الأعمال قريباً...</div>
+                <div class="brands-showcase-container">
+                    
+                    <!-- 1. Beit Lebnen (بيت لبنان) -->
+                    <div class="brand-item">
+                        <div class="brand-header">
+                            <img src="Beit-Lebnen.webp" alt="Beit Lebnen Logo" class="brand-logo" loading="lazy" decoding="async">
+                        </div>
+                        <p class="brand-desc" style="margin-bottom: 25px; line-height: 1.8; color: var(--text-muted);" data-i18n="beit_lebnen_desc">
+                            الإشراف على تصوير ومونتاج فيديوهات "Reels" سريعة وديناميكية لتغطية أجواء المكان وإبراز جودة الأطباق والتجربة المميزة للمطعم بأسلوب جذاب يناسب منصات السوشيال ميديا.
+                        </p>
+                        <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <!-- فيديو طولي -->
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/904828047?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 1"></iframe>
+                            </div>
+                            <!-- فيديو طولي -->
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/899302381?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 2"></iframe>
+                            </div>
+                            <!-- فيديو طولي -->
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/899212308?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 3"></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Dr. Aya Khattab (دكتور آية خطاب) -->
+                    <div class="brand-item">
+                        <div class="brand-header">
+                            <img src="Dr-Aya.webp" alt="Dr. Aya Hattab Logo" class="brand-logo" loading="lazy" decoding="async">
+                        </div>
+                        <p class="brand-desc" style="margin-bottom: 25px; line-height: 1.8; color: var(--text-muted);" data-i18n="aya_video_desc">
+                            إنتاج وتصوير فيديوهات طبية توعوية وترويجية لعيادات دكتورة آية، مع مونتاج احترافي يركز على إيصال المعلومات الطبية للمرضى بثقة ووضوح.
+                        </p>
+                        <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                            <!-- فيديو عرضي 16:9 -->
+                            <div class="vid-wrapper vid-landscape">
+                                <iframe src="https://player.vimeo.com/video/959173596?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Promo 1"></iframe>
+                            </div>
+                            <!-- فيديو عرضي 16:9 -->
+                            <div class="vid-wrapper vid-landscape">
+                                <iframe src="https://player.vimeo.com/video/879129154?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Promo 2"></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Bobz (بوبز) -->
+                    <div class="brand-item">
+                        <div class="brand-header">
+                            <img src="Bobz.webp" alt="Bobz Logo" class="brand-logo" loading="lazy" decoding="async">
+                        </div>
+                        <p class="brand-desc" style="margin-bottom: 25px; line-height: 1.8; color: var(--text-muted);" data-i18n="bobz_desc">
+                            تصوير ومونتاج فيديوهات "Trendy" بأسلوب عصري وإيقاع سريع يهدف لانتشار المحتوى (Viral) وجذب انتباه الشباب، لتعزيز الهوية البصرية للبراند.
+                        </p>
+                        <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
+                            <!-- فيديو طولي -->
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/899303804?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Bobz Reel 1"></iframe>
+                            </div>
+                            <!-- فيديو طولي -->
+                            <div class="vid-wrapper vid-portrait">
+                                <iframe src="https://player.vimeo.com/video/899214835?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Bobz Reel 2"></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Vigour Gym (ڨيجور جيم) -->
+                    <div class="brand-item">
+                        <div class="brand-header">
+                            <img src="Vigour-Gym.webp" alt="Vigour Gym Logo" class="brand-logo" loading="lazy" decoding="async">
+                        </div>
+                        <p class="brand-desc" style="margin-bottom: 25px; line-height: 1.8; color: var(--text-muted);" data-i18n="vigour_desc">
+                            تصوير ومونتاج حملة دعائية مصغرة مخصصة لأحد المدربين بهدف إبراز الخدمات الرياضية المتنوعة داخل الجيم، باستخدام حركة كاميرا تعكس الطاقة والنشاط.
+                        </p>
+                        <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                            <!-- فيديو عرضي 16:9 -->
+                            <div class="vid-wrapper vid-landscape">
+                                <iframe src="https://player.vimeo.com/video/899302059?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Ad 1"></iframe>
+                            </div>
+                            <!-- فيديو عرضي 16:9 -->
+                            <div class="vid-wrapper vid-landscape">
+                                <iframe src="https://player.vimeo.com/video/899211446?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Ad 2"></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
 <!-- القسم الثالث: برمجة مواقع -->
@@ -1339,7 +1446,6 @@
         });
 
         // Localization Dictionary
-        // Localization Dictionary
         const translations = {
             ar: {
                 nav_about: "عني",
@@ -1357,7 +1463,18 @@
                 tab_web: "برمجة مواقع",
                 empty_soon: "سيتم إضافة الأعمال قريباً...",
                 about_role: "Art Director",
-                about_desc: "خبرة أكثر من 7 سنوات في مجال الجرافيك ديزاين والمونتاج والتصوير،<br>وتطوير المواقع الإلكترونية وتطوير الهويات البصرية للعلامات التجارية."
+                about_desc: "خبرة أكثر من 7 سنوات في مجال الجرافيك ديزاين والمونتاج والتصوير،<br>وتطوير المواقع الإلكترونية وتطوير الهويات البصرية للعلامات التجارية.",
+                
+                // ترجمات برمجة المواقع
+                visit_site: "زيارة الموقع",
+                aya_desc: "تم بناء وتطوير نظام رقمي متكامل (System) خصيصاً لإدارة وتشغيل عيادات دكتورة آية بشكل احترافي، يهدف لتقديم تجربة مستخدم سلسة للمرضى وتسهيل عمليات الحجز والمتابعة الطبية.",
+                leil_desc: "تطوير وبناء متجر إلكتروني متكامل لمنتجات العناية لبراند (ليل)، يتميز بتصميم عصري وأزرار تفاعلية مخصصة لاختيار المنتجات بلغة HTML/CSS وتجهيز المتجر بأداء فائق وسرعة عالية.",
+                
+                // ترجمات تصوير ومونتاج
+                beit_lebnen_desc: "الإشراف على تصوير ومونتاج فيديوهات 'Reels' سريعة وديناميكية لتغطية أجواء المكان وإبراز جودة الأطباق والتجربة المميزة للمطعم بأسلوب جذاب يناسب منصات السوشيال ميديا.",
+                aya_video_desc: "إنتاج وتصوير فيديوهات طبية توعوية وترويجية لعيادات دكتورة آية، مع مونتاج احترافي يركز على إيصال المعلومات الطبية للمرضى بثقة ووضوح.",
+                bobz_desc: "تصوير ومونتاج فيديوهات 'Trendy' بأسلوب عصري وإيقاع سريع يهدف لانتشار المحتوى (Viral) وجذب انتباه الشباب، لتعزيز الهوية البصرية للبراند.",
+                vigour_desc: "تصوير ومونتاج حملة دعائية مصغرة مخصصة لأحد المدربين بهدف إبراز الخدمات الرياضية المتنوعة داخل الجيم، باستخدام حركة كاميرا تعكس الطاقة والنشاط."
             },
             en: {
                 nav_about: "About",
@@ -1375,7 +1492,18 @@
                 tab_web: "Web Development",
                 empty_soon: "Projects coming soon...",
                 about_role: "Art Director",
-                about_desc: "Over 7 years of experience in Graphic Design, Video Editing, Photography,<br>Web Development, and Brand Identity Development."
+                about_desc: "Over 7 years of experience in Graphic Design, Video Editing, Photography,<br>Web Development, and Brand Identity Development.",
+                
+                // Web Development Translations
+                visit_site: "Visit Website",
+                aya_desc: "Built and developed an integrated digital system specifically designed to manage and operate Dr. Aya's clinics professionally, aiming to provide a seamless user experience for patients.",
+                leil_desc: "Developed and built an integrated e-commerce store for care products for the (Leil) brand, featuring modern design, custom interactive buttons, and high performance.",
+                
+                // Videography & Editing Translations
+                beit_lebnen_desc: "Directed and edited fast-paced, dynamic Reels capturing the venue's atmosphere, highlighting food quality and the unique restaurant experience for social media.",
+                aya_video_desc: "Produced and filmed medical awareness and promotional videos for Dr. Aya's clinics, with professional editing focused on delivering medical information to patients with trust and clarity.",
+                bobz_desc: "Filmed and edited trendy, fast-paced videos aimed at viral content creation and capturing youth attention, enhancing the brand's visual identity.",
+                vigour_desc: "Filmed and edited a mini promotional campaign for a fitness coach to highlight diverse gym services, using dynamic camera movements that reflect energy and activity."
             }
         };
         
