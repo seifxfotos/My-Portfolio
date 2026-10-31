@@ -3,42 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#020408">
-
+    
     <!-- SEO & Open Graph Meta Tags -->
-    <meta name="description" content="Seif Ahmed - Art Director. تصميم حملات سوشيال ميديا، هويات بصرية، مونتاج احترافي وتطوير مواقع إلكترونية.">
-    <meta property="og:title" content="Seif Ahmed | Art Director">
-    <meta property="og:description" content="أبرز أعمال ومشاريع سيف أحمد في التصميم والمونتاج وتطوير الهويات البصرية والمواقع.">
-    <meta property="og:image" content="https://seifahmed.space/me.webp">
+    <meta name="description" content="Seif Ahmed - Lead Graphic Designer, Video Editor & Multimedia Specialist. تصميم حملات سوشيال ميديا، هويات بصرية، ومونتاج احترافي.">
+    <meta property="og:title" content="Seif Ahmed | Portfolio">
+    <meta property="og:description" content="أبرز أعمال ومشاريع سيف أحمد في التصميم والمونتاج وتطوير الهويات البصرية.">
+    <meta property="og:image" content="me.webp">
     <meta property="og:url" content="https://seifahmed.space">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Seif Ahmed | Art Director">
-    <meta name="twitter:description" content="Portfolio of Seif Ahmed - Art Director, Designer & Multimedia Specialist.">
-    <meta name="twitter:image" content="https://seifahmed.space/me.webp">
-
-    <title>Seif Ahmed | Art Director - جرافيك ديزاين ومونتاج وتطوير مواقع</title>
-
+    <meta name="twitter:title" content="Seif Ahmed | Portfolio">
+    <meta name="twitter:description" content="Portfolio of Seif Ahmed - Multimedia Specialist & Designer.">
+    
+    <title>Seif Ahmed | Portfolio</title>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-
+    
     <style>
         :root {
-            --bg-color: #020408;
+            --bg-color: #020408; 
             --surface-color: #0b111a;
             --surface-glass: rgba(11, 17, 26, 0.85);
-            --border-color: rgba(37, 109, 150, 0.3);
-
+            --border-color: rgba(37, 109, 150, 0.3); 
+            
             --text-main: #f4f4f6;
             --text-muted: #9ba1a6;
-
-            --accent-blue: #256d96;
+            
+            --accent-blue: #256d96; 
             --accent-blue-glow: rgba(37, 109, 150, 0.15);
-            --accent-gold: #d4af37;
+            --accent-gold: #d4af37; 
             --accent-gold-glow: rgba(212, 175, 55, 0.15);
-
+            
             --font-ar: 'Cairo', sans-serif;
             --font-en: 'Outfit', sans-serif;
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -59,39 +57,17 @@
             width: 100%;
             height: 100vh;
             height: 100dvh;
-            perspective: 1200px;
+            perspective: 1200px; 
             position: relative;
         }
 
         html[lang="en"] body { font-family: var(--font-en); }
 
-        /* نص للقراء الآليين فقط (SEO / Screen readers) - مش بيظهر في الشكل */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
         /* Custom Cursor - Fallback and JS Trigger */
         body.custom-cursor-active * {
             cursor: none !important;
         }
-
-        /* لما الماوس يدخل على iframe: نرجّع كيرسر النظام ونخفي المخصص */
-        body.custom-cursor-active.over-iframe * {
-            cursor: auto !important;
-        }
-        body.over-iframe .cursor-dot,
-        body.over-iframe .cursor-circle {
-            opacity: 0 !important;
-        }
-
+        
         .cursor-dot, .cursor-circle {
             position: fixed;
             top: 0;
@@ -101,7 +77,7 @@
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, background-color 0.3s, opacity 0.2s;
-            opacity: 0;
+            opacity: 0; 
         }
         .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-gold); }
         .cursor-circle { width: 36px; height: 36px; border: 1px solid rgba(212, 175, 55, 0.6); background-color: rgba(212, 175, 55, 0.05); }
@@ -111,7 +87,7 @@
             body.custom-cursor-active * { cursor: auto !important; }
         }
 
-        /* Video Wrapper & Pointer Events Fix */
+/* Video Wrapper & Pointer Events Fix */
         .vid-wrapper {
             position: relative;
             border-radius: 12px;
@@ -120,13 +96,12 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             width: 100%;
             z-index: 10;
-            pointer-events: auto;
-            background: var(--bg-color);
+            pointer-events: auto; /* لحل مشكلة الماوس */
         }
-
+        
         /* مقاس طولي ثابت لكل الفيديوهات 9:16 */
-        .vid-portrait { padding-top: 177.78%; }
-
+        .vid-portrait { padding-top: 177.78%; } 
+        
         .vid-wrapper iframe {
             position: absolute;
             top: 0;
@@ -134,13 +109,13 @@
             width: 100%;
             height: 100%;
             border: none;
-            pointer-events: auto !important;
+            pointer-events: auto !important; /* منع التداخل مع الماوس المخصص */
         }
-
+        
         /* Background Lighting */
         .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; z-index: 0; overflow: hidden; background-color: var(--bg-color); pointer-events: none; }
         .mesh-blob { position: absolute; border-radius: 50%; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), background 1.2s ease; will-change: transform; pointer-events: none; }
-
+        
         .blob-1 { width: 1300px; height: 1300px; background: radial-gradient(circle, rgba(37, 109, 150, 0.85) 0%, rgba(37, 109, 150, 0) 70%); top: -20%; left: -20%; animation: float1 4s infinite alternate ease-in-out; }
         .blob-3 { width: 1300px; height: 1300px; background: radial-gradient(circle, rgba(212, 175, 55, 0.65) 0%, rgba(212, 175, 55, 0) 70%); bottom: -20%; right: -20%; animation: float3 4.5s infinite alternate ease-in-out; }
 
@@ -163,14 +138,14 @@
             background: linear-gradient(to bottom, rgba(2,4,8,0.9) 0%, rgba(2,4,8,0) 100%);
             z-index: 1000;
         }
-
+        
         .logo-svg { display: flex; align-items: center; transition: var(--transition); }
         .logo-svg svg { height: 45px; width: auto; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3)); transition: var(--transition); }
-
+        
         .animated-path {
             fill: transparent;
             stroke: #fff;
-            stroke-width: 15px;
+            stroke-width: 15px; 
             stroke-dasharray: 1;
             stroke-dashoffset: 1;
             animation: drawAndFill 3.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
@@ -181,11 +156,11 @@
             100% { stroke-dashoffset: 0; fill: #fff; stroke: transparent; }
         }
         .logo-svg:hover svg .animated-path { fill: var(--accent-gold); transition: fill 0.3s ease; }
-
+        
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
         .nav-links a:hover { color: var(--text-main); }
-
+        
         .nav-actions { display: flex; gap: 15px; align-items: center; }
         .lang-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; transition: var(--transition); }
         .lang-btn:hover { border-color: var(--accent-blue); background: var(--accent-blue-glow); }
@@ -254,9 +229,9 @@
             transform-style: preserve-3d;
         }
 
-        /* HERO LAYOUT */
+        /* 🔥 HERO LAYOUT 🔥 */
         #slide-hero { z-index: 1; padding-top: 80px; transform-origin: center center; }
-
+        
         #slide-hero.slide-out {
             transform: scale(0.8) translateY(-10%) rotateX(10deg);
             opacity: 0;
@@ -264,37 +239,37 @@
             pointer-events: none;
         }
 
-        .hero-layout {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            position: relative;
-            z-index: 2;
+        .hero-layout { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%; 
+            height: 100%; 
+            position: relative; 
+            z-index: 2; 
         }
-
-        .hero-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 0 8%;
-            z-index: 4;
+        
+        .hero-right { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: flex-start; 
+            padding: 0 8%; 
+            z-index: 4; 
         }
-
-        .availability-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(11, 17, 26, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            margin-bottom: 16px;
+        
+        .availability-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            background: rgba(11, 17, 26, 0.5); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid var(--border-color); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 0.85rem; 
+            margin-bottom: 16px; 
         }
         .status-dot { width: 8px; height: 8px; background-color: var(--accent-blue); border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); }
 
@@ -314,33 +289,33 @@
         .btn-primary:hover { background: var(--accent-gold); color: #000; transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5); }
         .btn-primary:active { transform: scale(0.95); }
 
-        .hero-center {
-            flex: 1.2;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            height: 100%;
-            position: relative;
+        .hero-center { 
+            flex: 1.2; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; 
+            height: 100%; 
+            position: relative; 
             z-index: 2;
         }
-
+        
         .bg-logo-huge {
             position: absolute;
             top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: clamp(600px, 80vw, 1100px);
-            z-index: 1;
+            width: clamp(600px, 80vw, 1100px); 
+            z-index: 1; 
             pointer-events: none;
-            opacity: 1;
+            opacity: 1; 
         }
 
         .hero-portrait {
-            max-height: 88dvh;
+            max-height: 88dvh; 
             width: auto;
-            z-index: 3;
+            z-index: 3; 
             position: relative;
-            bottom: -5dvh;
+            bottom: -5dvh; 
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
             mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
             animation: floatPortrait 8s ease-in-out infinite;
@@ -348,15 +323,15 @@
 
         @keyframes floatPortrait { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-        .hero-left {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 0 8%;
-            z-index: 4;
+        .hero-left { 
+            flex: 1; 
+            display: flex; 
+            justify-content: flex-end; 
+            align-items: center; 
+            padding: 0 8%; 
+            z-index: 4; 
         }
-
+        
         .btn-secondary {
             background: rgba(37, 109, 150, 0.25) !important;
             backdrop-filter: blur(16px);
@@ -378,23 +353,23 @@
 
         /* Slide 2 (Showcase) */
         #showcase {
-            z-index: 5;
-            background-color: var(--surface-color);
-            transform: translateY(100dvh);
+            z-index: 5; 
+            background-color: var(--surface-color); 
+            transform: translateY(100dvh); 
             padding: 100px 10%;
-            overflow-y: auto;
+            overflow-y: auto; 
             overflow-x: hidden;
             border-top: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 -40px 100px rgba(0,0,0, 0.9);
+            box-shadow: 0 -40px 100px rgba(0,0,0, 0.9); 
             perspective: 1500px;
         }
         #showcase.slide-in { transform: translateY(0); }
         #showcase::-webkit-scrollbar { display: none; }
-
+        
         .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 30px; letter-spacing: -1px; text-align: center; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .section-title.reveal { opacity: 1; transform: translateY(0); }
 
-        /* Tabs Navigation */
+        /* 🔥 Tabs Navigation 🔥 */
         .portfolio-tabs {
             display: flex;
             justify-content: center;
@@ -416,17 +391,18 @@
             font-family: var(--font-ar);
             font-weight: 700;
             font-size: 0.95rem;
+            cursor: pointer !important;
             transition: var(--transition);
             backdrop-filter: blur(10px);
         }
         html[lang="en"] .tab-btn { font-family: var(--font-en); }
-
+        
         .tab-btn:hover, .tab-btn:focus {
             border-color: var(--accent-blue);
             color: var(--text-main);
             outline: none;
         }
-
+        
         .tab-btn.active {
             background: var(--accent-blue-glow);
             border-color: var(--accent-gold);
@@ -441,13 +417,13 @@
         .tab-content.active {
             display: block;
         }
-
+        
         @keyframes fadeTab {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .empty-state {
+.empty-state {
             text-align: center;
             padding: 80px 20px;
             color: var(--text-muted);
@@ -462,27 +438,27 @@
 
         /* Slide 3 (About) */
         #about {
-            z-index: 6;
-            background-color: var(--surface-color);
-            transform: translateY(100dvh);
+            z-index: 6; 
+            background-color: var(--surface-color); 
+            transform: translateY(100dvh); 
             padding: 100px 10%;
-            overflow-y: auto;
+            overflow-y: auto; 
             overflow-x: hidden;
             border-top: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 -40px 100px rgba(0,0,0, 0.9);
+            box-shadow: 0 -40px 100px rgba(0,0,0, 0.9); 
             perspective: 1500px;
         }
         #about.slide-in { transform: translateY(0); }
         #about::-webkit-scrollbar { display: none; }
-
+        
         .about-container { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; text-align: center; justify-content: center; min-height: 60vh; }
         .about-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .about-reveal.reveal { opacity: 1; transform: translateY(0); }
-
+        
         .about-logo { max-width: 280px; height: auto; margin: 0 auto 15px auto; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)); }
         .about-role { font-size: 1.4rem; font-weight: 600; color: var(--accent-blue); margin-bottom: 15px; }
         .about-desc { font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
-
+        
         .social-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .social-btn {
             display: flex; align-items: center; justify-content: center;
@@ -539,7 +515,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             direction: ltr;
-            align-items: center;
+            align-items: center; 
         }
 
         .brand-gallery.grid-6 {
@@ -623,8 +599,8 @@
 
         .lightbox-close { top: -50px; right: 0; }
         .lightbox-nav { top: 50%; transform: translateY(-50%); }
-        .lightbox-prev { right: -60px; }
-        .lightbox-next { left: -60px; }
+        .lightbox-prev { right: -60px; } 
+        .lightbox-next { left: -60px; }  
 
         .lightbox-close:hover, .lightbox-nav:hover, .lightbox-close:focus, .lightbox-nav:focus {
             background: var(--accent-blue);
@@ -634,7 +610,7 @@
         }
         .lightbox-nav:hover { transform: translateY(-50%) scale(1.1); }
 
-        /* CV Modal (also used for the web preview modal) */
+        /* CV Modal */
         .cv-modal {
             position: fixed;
             top: 0;
@@ -653,7 +629,7 @@
             perspective: 1500px;
         }
         .cv-modal.active { opacity: 1; pointer-events: auto; }
-
+        
         .cv-modal-content {
             background: var(--surface-color);
             border: 1px solid rgba(37, 109, 150, 0.4);
@@ -670,27 +646,26 @@
             transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
         }
         .cv-modal.active .cv-modal-content { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; }
-
+        
         .cv-modal-header { padding: 22px 35px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background: var(--bg-color); z-index: 10; }
         .cv-modal-header h3 { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .cv-modal-header h3 svg { color: var(--accent-gold); }
         .cv-modal-actions { display: flex; gap: 15px; align-items: center; }
-
+        
         .btn-download-cv { background: var(--accent-blue); color: #fff; padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 0.88rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); }
         .btn-download-cv:hover { background: var(--accent-gold); color: #000; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
-
+        
         .close-modal { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: var(--transition); }
         .close-modal:hover, .close-modal:focus { background: rgba(255, 255, 255, 0.12); border-color: var(--accent-blue); color: var(--accent-blue); outline: none;}
 
         /* CV Viewer */
         .cv-viewer-area { position: relative; flex-grow: 1; width: 100%; background: #05080f; overflow: hidden; display: flex; }
-        /* direction:ltr + margin:auto على الصورة = الزوم بيوصل لكل الأطراف والصورة متسنترة لما تكون أصغر من الإطار */
-        .cv-scroll-area { width: 100%; height: 100%; overflow: auto; padding: 30px; display: flex; justify-content: flex-start; align-items: flex-start; direction: ltr; user-select: none; -webkit-user-drag: none; will-change: scroll-position; }
+        .cv-scroll-area { width: 100%; height: 100%; overflow: auto; padding: 30px; display: flex; justify-content: center; align-items: flex-start; user-select: none; -webkit-user-drag: none; will-change: scroll-position; }
         .cv-scroll-area::-webkit-scrollbar { width: 14px; height: 14px; }
         .cv-scroll-area::-webkit-scrollbar-track { background: #05080f; border-radius: 10px; }
         .cv-scroll-area::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 10px; border: 3px solid #05080f; background-clip: padding-box; }
         .cv-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
-        .cv-image-preview { max-width: 100%; max-height: 75vh; width: auto; height: auto; flex-shrink: 0; margin: 0 auto; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 15px 40px rgba(0,0,0,0.8); border-radius: 4px; }
+        .cv-image-preview { max-width: 100%; max-height: 75vh; width: auto; height: auto; object-fit: contain; transform-origin: top center; pointer-events: none; user-select: none; -webkit-user-drag: none; transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 15px 40px rgba(0,0,0,0.8); border-radius: 4px; will-change: transform; }
 
         .zoom-controls { position: absolute; bottom: 30px; right: 40px; background: var(--surface-glass); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; display: flex; flex-direction: column; gap: 5px; padding: 6px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         .zoom-controls button { background: transparent; border: none; color: var(--text-main); width: 45px; height: 45px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: var(--transition); }
@@ -699,9 +674,10 @@
         /* Responsive Mobile Layout */
         @media(max-width: 900px) {
             header { padding: 15px 5%; }
-            .nav-links { display: none; }
+            .blob-4 { display: none !important; }
+            .nav-links { display: none; } 
             .menu-toggle { display: flex; }
-
+            
             .hero-layout { display: flex; flex-direction: column; justify-content: flex-start; padding-top: 45px; padding-bottom: 25px; }
             .hero-right { position: static; transform: none; width: 100%; align-items: center; text-align: center; padding: 0 5%; order: 1; margin-top: -15px; }
             .availability-badge { margin-bottom: 12px; }
@@ -710,20 +686,7 @@
             .bg-logo-huge { width: 90vw; max-width: 380px; top: 30%; opacity: 1; }
             .hero-left { position: relative; z-index: 10; width: 100%; justify-content: center; padding: 0 5%; order: 3; margin-top: 10px; align-items: center !important; }
             .btn-primary, .btn-secondary, .hero-left .availability-badge { width: 100%; justify-content: center; padding: 13px; box-sizing: border-box; }
-
-            /* شريط أسود تحت زراير "عني" و"السيرة الذاتية" عشان يبقوا فوق اللون الأسود وواضحين */
-            .hero-left {
-                position: absolute !important;
-                left: 0; right: 0; bottom: 0;
-                margin-top: 0;
-                padding: 45px 5% 22px;
-                gap: 12px !important;
-                z-index: 30 !important;
-                background: linear-gradient(to top, var(--bg-color) 0%, var(--bg-color) 68%, rgba(2, 4, 8, 0) 100%);
-            }
-            .hero-left .availability-badge { background: #0b111a; margin-bottom: 0; }
-            .hero-left .btn-secondary { background: #0f2a3b !important; backdrop-filter: none; -webkit-backdrop-filter: none; }
-
+            
             #showcase { padding: 100px 5%; }
             .brand-gallery, .brand-gallery.grid-6 { grid-template-columns: 1fr; }
             .cv-modal-content { width: 100%; height: 100dvh; border-radius: 0; border: none; transform: scale(0.9) translateY(100px); }
@@ -734,36 +697,38 @@
             .cv-image-preview { max-height: 80dvh; }
             .zoom-controls { flex-direction: row; bottom: 25px; right: 50%; transform: translateX(50%); padding: 4px; border-radius: 50px; }
             .zoom-controls button { width: 40px; height: 40px; border-radius: 50px; }
-
+            
             .lightbox-prev { right: 5px; top: 50%; }
             .lightbox-next { left: 5px; top: 50%; }
             .lightbox-close { top: 15px; right: 15px; }
-        }
-
-        /* احترام إعداد "تقليل الحركة" - اللوجو يفضل ظاهر بدون أنيميشن */
-        @media (prefers-reduced-motion: reduce) {
-            .animated-path { animation: none !important; fill: #fff; stroke: transparent; stroke-dashoffset: 0; }
-            .blob-1, .blob-3, .hero-portrait { animation: none !important; }
-            .slide, .about-reveal, .section-title, .portfolio-tabs { transition-duration: 0.01s !important; }
         }
     </style>
 </head>
 <body>
 
-    <h1 class="sr-only">Seif Ahmed — Art Director | Graphic Design, Video Editing &amp; Web Development</h1>
-
     <div class="cursor-dot" id="customCursorDot"></div>
     <div class="cursor-circle" id="customCursorCircle"></div>
-
+    
     <div class="mesh-bg" id="meshBg">
         <div class="mesh-blob blob-1"></div>
         <div class="mesh-blob blob-3"></div>
+        <div class="mesh-blob blob-4"></div>
     </div>
 
     <!-- Header -->
     <header>
         <a href="#" onclick="goToSlide(0); return false;" class="logo-svg" aria-label="Home">
-            <svg viewBox="0 0 3151.75 871.39" aria-hidden="true" data-logo></svg>
+            <svg viewBox="0 0 3151.75 871.39" aria-hidden="true">
+                <path class="animated-path" pathLength="1" d="M876.79,213.75c-2.96,2.95-10.34,0-16.25-6.65-5.91-5.91-8.13-14.04-5.17-16.99,2.95-2.22,5.17-7.39,5.91-12.56,1.48-8.86,0-19.2-6.65-29.54-5.91-10.34-16.99-20.68-33.98-31.02-121.88-68.69-361.94-8.86-480.86,46.54-56.88,26.59-196.48,105.63-158.07,186.88,17.73,38.41,79.77,59.83,140.34,80.51,34.72,12.56,69.43,24.38,98.24,40.63,209.04,117.45-51.71,370.06-257.05,373.76C88.65,848.99,1.49,813.53.01,738.93c-.74-33.98,25.85-78.3,91.59-130.74,2.96-2.96,10.34.74,16.25,7.39,5.91,5.91,8.13,14.03,4.43,16.25-63.52,50.97-88.64,92.33-87.9,122.62.74,47.27,82.73,52.44,115.23,50.97,179.49-4.43,438.02-225.29,283.64-312.45-25.85-14.03-59.09-25.85-93.07-37.67-70.17-24.38-141.82-48.75-169.89-108.58-45.06-96.76,84.21-180.97,155.12-214.21,127.05-59.09,372.28-110.8,502.28-36.93,26.59,15.51,45.06,33.98,55.4,52.44,11.08,17.73,14.03,34.72,12.56,47.27-1.48,8.12-4.43,14.77-8.86,18.47Z" />
+                <path class="animated-path" pathLength="1" d="M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                <path class="animated-path" pathLength="1" d="M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z" />
+                <path class="animated-path" pathLength="1" d="M953.61,386.59c-2.22-1.48-4.43-4.43-5.91-6.65-4.43-6.65-3.69-12.56,1.48-13.3,7.39,0,27.33-19.94,47.27-45.06l5.91-5.91c12.56-19.94,23.64-36.93,31.76-50.23,8.86-14.77,15.51-25.12,20.68-30.29.74-2.96,2.95-3.69,6.65-2.96h.74c14.77,4.43,19.94,12.56,16.25,25.85-2.96,11.08-28.07,48.01-53.92,79.77-14.04,21.42-31.02,45.8-49.49,71.65-22.16,31.02-56.14,80.51-92.33,132.96,31.02.74,82.73,2.96,135.17-36.19,2.96-2.22,6.65-8.12,11.82-1.48,5.91,6.65,8.12,14.04,4.43,16.25-72.39,53.92-137.39,49.49-166.2,43.58l-5.17,6.65c1.48,17.73.74,48.01-9.6,93.81-7.39,34.72-23.64,60.57-42.1,79.77-25.11,25.85-54.66,38.41-70.91,36.93l-.74-.74c-1.48,0-2.22,0-3.69-.74l-1.48-.74c-16.99-8.12-18.47-24.38-8.86-45.06,6.65-13.3,16.99-31.76,29.55-53.18,22.16-36.93,52.44-83.47,83.47-129.26-.74-5.17-1.48-7.39-1.48-7.39-2.22-6.65.74-11.08,6.65-8.86h.74s1.48.74,4.43,1.48c39.89-59.09,79.77-115.23,104.15-149.95l.74-.74ZM836.17,611.88c-22.16,33.24-42.1,65-58.35,91.59-11.08,17.73-19.94,33.98-25.85,45.8,11.82-5.17,25.11-14.77,37.67-27.33,16.99-18.47,32.5-42.84,39.89-75.34,2.95-13.29,5.17-24.38,6.65-34.72Z" />
+                <path class="animated-path" pathLength="1" d="M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z" />
+                <path class="animated-path" pathLength="1" d="M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z" />
+                <path class="animated-path" pathLength="1" d="M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z" />
+                <path class="animated-path" pathLength="1" d="M2710.13,512.9c-34.72,17.73-73.86,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.62-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.63,40.63ZM2657.68,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.12,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
+            </svg>
         </a>
         <ul class="nav-links">
             <li><a href="#" onclick="goToSlide(2); return false;" data-i18n="nav_about">عني</a></li>
@@ -791,7 +756,7 @@
     <!-- Slide 1 (Hero) -->
     <section class="slide hero-section" id="slide-hero">
         <div class="hero-layout">
-
+            
             <div class="hero-right">
                 <div class="availability-badge">
                     <div class="status-dot"></div>
@@ -807,47 +772,58 @@
             </div>
 
             <div class="hero-center">
-                <svg class="bg-logo-huge" viewBox="0 0 3151.75 871.39" aria-hidden="true" data-logo></svg>
+                <svg class="bg-logo-huge" viewBox="0 0 3151.75 871.39" aria-hidden="true">
+                    <path class="animated-path" pathLength="1" d="M876.79,213.75c-2.96,2.95-10.34,0-16.25-6.65-5.91-5.91-8.13-14.04-5.17-16.99,2.95-2.22,5.17-7.39,5.91-12.56,1.48-8.86,0-19.2-6.65-29.54-5.91-10.34-16.99-20.68-33.98-31.02-121.88-68.69-361.94-8.86-480.86,46.54-56.88,26.59-196.48,105.63-158.07,186.88,17.73,38.41,79.77,59.83,140.34,80.51,34.72,12.56,69.43,24.38,98.24,40.63,209.04,117.45-51.71,370.06-257.05,373.76C88.65,848.99,1.49,813.53.01,738.93c-.74-33.98,25.85-78.3,91.59-130.74,2.96-2.96,10.34.74,16.25,7.39,5.91,5.91,8.13,14.03,4.43,16.25-63.52,50.97-88.64,92.33-87.9,122.62.74,47.27,82.73,52.44,115.23,50.97,179.49-4.43,438.02-225.29,283.64-312.45-25.85-14.03-59.09-25.85-93.07-37.67-70.17-24.38-141.82-48.75-169.89-108.58-45.06-96.76,84.21-180.97,155.12-214.21,127.05-59.09,372.28-110.8,502.28-36.93,26.59,15.51,45.06,33.98,55.4,52.44,11.08,17.73,14.03,34.72,12.56,47.27-1.48,8.12-4.43,14.77-8.86,18.47Z" />
+                    <path class="animated-path" pathLength="1" d="M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                    <path class="animated-path" pathLength="1" d="M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z" />
+                    <path class="animated-path" pathLength="1" d="M953.61,386.59c-2.22-1.48-4.43-4.43-5.91-6.65-4.43-6.65-3.69-12.56,1.48-13.3,7.39,0,27.33-19.94,47.27-45.06l5.91-5.91c12.56-19.94,23.64-36.93,31.76-50.23,8.86-14.77,15.51-25.12,20.68-30.29.74-2.96,2.95-3.69,6.65-2.96h.74c14.77,4.43,19.94,12.56,16.25,25.85-2.96,11.08-28.07,48.01-53.92,79.77-14.04,21.42-31.02,45.8-49.49,71.65-22.16,31.02-56.14,80.51-92.33,132.96,31.02.74,82.73,2.96,135.17-36.19,2.96-2.22,6.65-8.12,11.82-1.48,5.91,6.65,8.12,14.04,4.43,16.25-72.39,53.92-137.39,49.49-166.2,43.58l-5.17,6.65c1.48,17.73.74,48.01-9.6,93.81-7.39,34.72-23.64,60.57-42.1,79.77-25.11,25.85-54.66,38.41-70.91,36.93l-.74-.74c-1.48,0-2.22,0-3.69-.74l-1.48-.74c-16.99-8.12-18.47-24.38-8.86-45.06,6.65-13.3,16.99-31.76,29.55-53.18,22.16-36.93,52.44-83.47,83.47-129.26-.74-5.17-1.48-7.39-1.48-7.39-2.22-6.65.74-11.08,6.65-8.86h.74s1.48.74,4.43,1.48c39.89-59.09,79.77-115.23,104.15-149.95l.74-.74ZM836.17,611.88c-22.16,33.24-42.1,65-58.35,91.59-11.08,17.73-19.94,33.98-25.85,45.8,11.82-5.17,25.11-14.77,37.67-27.33,16.99-18.47,32.5-42.84,39.89-75.34,2.95-13.29,5.17-24.38,6.65-34.72Z" />
+                    <path class="animated-path" pathLength="1" d="M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z" />
+                    <path class="animated-path" pathLength="1" d="M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z" />
+                    <path class="animated-path" pathLength="1" d="M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z" />
+                    <path class="animated-path" pathLength="1" d="M2710.13,512.9c-34.72,17.73-73.86,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.62-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.63,40.63ZM2657.68,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.12,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                    <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
+                </svg>
                 <img src="me.webp" alt="Seif Ahmed" class="hero-portrait" fetchpriority="high">
             </div>
 
-            <div class="hero-left" style="position: relative; z-index: 10; flex-direction: column; align-items: flex-end; gap: 15px; justify-content: center;">
-                <a href="#" onclick="goToSlide(2); return false;" class="availability-badge" style="cursor: pointer; text-decoration: none; margin-bottom: 0;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--accent-blue);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <span data-i18n="nav_about" style="color: var(--text-main);">عني</span>
-                </a>
-                <a href="#" onclick="openCVModal(event)" class="btn-secondary">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg>
-                    <span data-i18n="btn_cv">السيرة الذاتية</span>
-                </a>
-            </div>
-
+<div class="hero-left" style="position: relative; z-index: 10; flex-direction: column; align-items: flex-end; gap: 15px; justify-content: center;">
+            <a href="#" onclick="goToSlide(2); return false;" class="availability-badge" style="cursor: pointer; text-decoration: none; margin-bottom: 0;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--accent-blue);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span data-i18n="nav_about" style="color: var(--text-main);">عني</span>
+            </a>
+            <a href="#" onclick="openCVModal(event)" class="btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span data-i18n="btn_cv">السيرة الذاتية</span>
+            </a>
+        </div>
+            
         </div>
     </section>
 
     <!-- Slide 2 (Showcase) -->
     <section class="slide" id="showcase">
         <h2 class="section-title" data-i18n="section_work_title">أبرز الأعمال والمشاريع</h2>
-
-        <!-- Tabs -->
-        <div class="portfolio-tabs" role="tablist">
-            <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-graphic" data-tab="tab-graphic" data-i18n="tab_graphic">جرافيك ديزاين</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-video" data-tab="tab-video" data-i18n="tab_video">تصوير ومونتاج</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-web" data-tab="tab-web" data-i18n="tab_web">برمجة مواقع</button>
+        
+        <!-- 🔥 أزرار التنقل (Tabs) 🔥 -->
+        <div class="portfolio-tabs">
+            <button class="tab-btn active" data-tab="tab-graphic" data-i18n="tab_graphic">جرافيك ديزاين</button>
+            <button class="tab-btn" data-tab="tab-video" data-i18n="tab_video">تصوير ومونتاج</button>
+            <button class="tab-btn" data-tab="tab-web" data-i18n="tab_web">برمجة مواقع</button>
         </div>
-
+        
+        <!-- حاوية الأقسام -->
         <div class="tab-contents-wrapper">
-
+            
             <!-- القسم الأول: جرافيك ديزاين -->
-            <div class="tab-content active" id="tab-graphic" role="tabpanel">
+            <div class="tab-content active" id="tab-graphic">
                 <div class="brands-showcase-container">
-
+                    
                     <div class="brand-item">
                         <div class="brand-header">
                             <img src="E-Triple-Soft.webp" alt="E-Triple-Soft Logo" class="brand-logo" loading="lazy" decoding="async">
@@ -902,11 +878,11 @@
                 </div>
             </div>
 
-            <!-- القسم الثاني: تصوير ومونتاج (الفيديوهات بتتحمل أول ما التاب يتفتح عن طريق data-src) -->
-            <div class="tab-content" id="tab-video" role="tabpanel">
+<!-- القسم الثاني: تصوير ومونتاج -->
+            <div class="tab-content" id="tab-video">
                 <div class="brands-showcase-container">
-
-                    <!-- 1. Beit Lebnen -->
+                    
+                    <!-- 1. Beit Lebnen (بيت لبنان) -->
                     <div class="brand-item">
                         <div class="brand-header">
                             <img src="Beit-Lebnen.webp" alt="Beit Lebnen Logo" class="brand-logo" loading="lazy" decoding="async">
@@ -914,20 +890,21 @@
                         <p class="brand-desc" style="margin-bottom: 25px; line-height: 1.8; color: var(--text-muted);" data-i18n="beit_lebnen_desc">
                             الإشراف على تصوير ومونتاج فيديوهات "Reels" سريعة وديناميكية لتغطية أجواء المكان وإبراز جودة الأطباق والتجربة المميزة للمطعم بأسلوب جذاب يناسب منصات السوشيال ميديا.
                         </p>
+                        <!-- تم التعديل هنا: max-width: 900px; margin: 0 auto; لتوحيد المقاس مع باقي الأقسام -->
                         <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 900px; margin: 0 auto;">
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/904828047?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 1" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/904828047?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 1"></iframe>
                             </div>
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/899302381?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 2" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/899302381?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 2"></iframe>
                             </div>
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/899212308?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 3" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/899212308?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Beit Lebnen Reel 3"></iframe>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 2. Dr. Aya Khattab -->
+                    <!-- 2. Dr. Aya Khattab (دكتور آية خطاب) -->
                     <div class="brand-item">
                         <div class="brand-header">
                             <img src="Dr-Aya.webp" alt="Dr. Aya Hattab Logo" class="brand-logo" loading="lazy" decoding="async">
@@ -937,15 +914,15 @@
                         </p>
                         <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/959173596?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Khattab Reel 1" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/959173596?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Khattab Reel 1"></iframe>
                             </div>
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/879129154?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Khattab Reel 2" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/879129154?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Dr Aya Khattab Reel 2"></iframe>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 3. Bobz -->
+                    <!-- 3. Bobz (بوبز) -->
                     <div class="brand-item">
                         <div class="brand-header">
                             <img src="Bobz.webp" alt="Bobz Logo" class="brand-logo" loading="lazy" decoding="async">
@@ -955,15 +932,15 @@
                         </p>
                         <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/899303804?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Bobz Reel 1" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/899303804?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Bobz Reel 1"></iframe>
                             </div>
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/899214835?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Bobz Reel 2" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/899214835?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Bobz Reel 2"></iframe>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 4. Vigour Gym -->
+                    <!-- 4. Vigour Gym (ڨيجور جيم) -->
                     <div class="brand-item">
                         <div class="brand-header">
                             <img src="Vigour-Gym.webp" alt="Vigour Gym Logo" class="brand-logo" loading="lazy" decoding="async">
@@ -973,10 +950,10 @@
                         </p>
                         <div class="brand-gallery" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/899302059?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Reel 1" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/899302059?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Reel 1"></iframe>
                             </div>
                             <div class="vid-wrapper vid-portrait">
-                                <iframe data-src="https://player.vimeo.com/video/899211446?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Reel 2" loading="lazy"></iframe>
+                                <iframe src="https://player.vimeo.com/video/899211446?color=d4af37&title=0&byline=0&portrait=0&badge=0" allow="autoplay; fullscreen; picture-in-picture" title="Vigour Gym Reel 2"></iframe>
                             </div>
                         </div>
                     </div>
@@ -984,22 +961,22 @@
                 </div>
             </div>
 
-            <!-- القسم الثالث: برمجة مواقع -->
-            <div class="tab-content" id="tab-web" role="tabpanel">
+<!-- القسم الثالث: برمجة مواقع -->
+            <div class="tab-content" id="tab-web">
                 <div class="brands-showcase-container">
-
+                    
                     <!-- مشروع موقع دكتور آية -->
                     <div class="brand-item">
-                        <div class="brand-header" style="cursor: pointer;" role="button" tabindex="0" data-web-url="https://drayakhattab.com/" data-web-title="web_title_aya">
+                        <div class="brand-header" style="cursor: pointer;" onclick="openWebModal('https://drayakhattab.com/', 'منصة عيادات دكتور آية')">
                             <div style="display: flex; align-items: center; gap: 15px;">
                                 <img src="Dr-Aya.webp" alt="Dr. Aya Hattab Logo" class="brand-logo" loading="lazy" decoding="async">
                                 <span style="font-size: 0.9rem; color: var(--accent-blue); display: inline-flex; align-items: center; gap: 5px;">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                                    <span data-i18n="preview_click">انقر للمعاينة التفاعلية</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                    انقر للمعاينة التفاعلية
                                 </span>
                             </div>
                         </div>
-                        <p class="brand-desc" style="margin-top: 15px; margin-bottom: 20px; line-height: 1.8; color: var(--text-muted);" data-i18n="aya_desc">
+                        <p class="brand-desc" style="margin-top: 15px; margin-bottom: 20px; line-height: 1.8; color: var(--text-muted);">
                             تم بناء وتطوير نظام رقمي متكامل (System) خصيصاً لإدارة وتشغيل عيادات دكتورة آية بشكل احترافي، يهدف لتقديم تجربة مستخدم سلسة للمرضى وتسهيل عمليات الحجز والمتابعة الطبية.
                         </p>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -1011,16 +988,16 @@
 
                     <!-- مشروع متجر ليل -->
                     <div class="brand-item">
-                        <div class="brand-header" style="cursor: pointer;" role="button" tabindex="0" data-web-url="https://leil.shop/" data-web-title="web_title_leil">
+                        <div class="brand-header" style="cursor: pointer;" onclick="openWebModal('https://leil.shop/', 'متجر ليل لمنتجات العناية')">
                             <div style="display: flex; align-items: center; gap: 15px;">
                                 <img src="Leil.webp" alt="Leil Store Logo" class="brand-logo" loading="lazy" decoding="async">
                                 <span style="font-size: 0.9rem; color: var(--accent-gold); display: inline-flex; align-items: center; gap: 5px;">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                                    <span data-i18n="preview_click">انقر للمعاينة التفاعلية</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                    انقر للمعاينة التفاعلية
                                 </span>
                             </div>
                         </div>
-                        <p class="brand-desc" style="margin-top: 15px; margin-bottom: 20px; line-height: 1.8; color: var(--text-muted);" data-i18n="leil_desc">
+                        <p class="brand-desc" style="margin-top: 15px; margin-bottom: 20px; line-height: 1.8; color: var(--text-muted);">
                             تطوير وبناء متجر إلكتروني متكامل لمنتجات العناية لبراند (ليل)، يتميز بتصميم عصري وأزرار تفاعلية مخصصة لاختيار المنتجات بلغة HTML/CSS وتجهيز المتجر بأداء فائق وسرعة عالية.
                         </p>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -1035,36 +1012,45 @@
 
         </div>
     </section>
-
-    <!-- Slide 3 (About Me) -->
+<!-- Slide 3 (About Me) -->
     <section class="slide" id="about">
         <div class="about-container">
-            <svg class="about-logo about-reveal" viewBox="0 0 3151.75 871.39" aria-hidden="true" style="width: 100%; max-width: 320px; margin: 0 auto 15px auto;" data-logo></svg>
+            <!-- اللوجو المباشر -->
+            <svg class="about-logo about-reveal" viewBox="0 0 3151.75 871.39" aria-hidden="true" style="width: 100%; max-width: 320px; margin: 0 auto 15px auto;">
+                <path class="animated-path" pathLength="1" d="M876.79,213.75c-2.96,2.95-10.34,0-16.25-6.65-5.91-5.91-8.13-14.04-5.17-16.99,2.95-2.22,5.17-7.39,5.91-12.56,1.48-8.86,0-19.2-6.65-29.54-5.91-10.34-16.99-20.68-33.98-31.02-121.88-68.69-361.94-8.86-480.86,46.54-56.88,26.59-196.48,105.63-158.07,186.88,17.73,38.41,79.77,59.83,140.34,80.51,34.72,12.56,69.43,24.38,98.24,40.63,209.04,117.45-51.71,370.06-257.05,373.76C88.65,848.99,1.49,813.53.01,738.93c-.74-33.98,25.85-78.3,91.59-130.74,2.96-2.96,10.34.74,16.25,7.39,5.91,5.91,8.13,14.03,4.43,16.25-63.52,50.97-88.64,92.33-87.9,122.62.74,47.27,82.73,52.44,115.23,50.97,179.49-4.43,438.02-225.29,283.64-312.45-25.85-14.03-59.09-25.85-93.07-37.67-70.17-24.38-141.82-48.75-169.89-108.58-45.06-96.76,84.21-180.97,155.12-214.21,127.05-59.09,372.28-110.8,502.28-36.93,26.59,15.51,45.06,33.98,55.4,52.44,11.08,17.73,14.03,34.72,12.56,47.27-1.48,8.12-4.43,14.77-8.86,18.47Z" />
+                <path class="animated-path" pathLength="1" d="M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                <path class="animated-path" pathLength="1" d="M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z" />
+                <path class="animated-path" pathLength="1" d="M953.61,386.59c-2.22-1.48-4.43-4.43-5.91-6.65-4.43-6.65-3.69-12.56,1.48-13.3,7.39,0,27.33-19.94,47.27-45.06l5.91-5.91c12.56-19.94,23.64-36.93,31.76-50.23,8.86-14.77,15.51-25.12,20.68-30.29.74-2.96,2.95-3.69,6.65-2.96h.74c14.77,4.43,19.94,12.56,16.25,25.85-2.96,11.08-28.07,48.01-53.92,79.77-14.04,21.42-31.02,45.8-49.49,71.65-22.16,31.02-56.14,80.51-92.33,132.96,31.02.74,82.73,2.96,135.17-36.19,2.96-2.22,6.65-8.12,11.82-1.48,5.91,6.65,8.12,14.04,4.43,16.25-72.39,53.92-137.39,49.49-166.2,43.58l-5.17,6.65c1.48,17.73.74,48.01-9.6,93.81-7.39,34.72-23.64,60.57-42.1,79.77-25.11,25.85-54.66,38.41-70.91,36.93l-.74-.74c-1.48,0-2.22,0-3.69-.74l-1.48-.74c-16.99-8.12-18.47-24.38-8.86-45.06,6.65-13.3,16.99-31.76,29.55-53.18,22.16-36.93,52.44-83.47,83.47-129.26-.74-5.17-1.48-7.39-1.48-7.39-2.22-6.65.74-11.08,6.65-8.86h.74s1.48.74,4.43,1.48c39.89-59.09,79.77-115.23,104.15-149.95l.74-.74ZM836.17,611.88c-22.16,33.24-42.1,65-58.35,91.59-11.08,17.73-19.94,33.98-25.85,45.8,11.82-5.17,25.11-14.77,37.67-27.33,16.99-18.47,32.5-42.84,39.89-75.34,2.95-13.29,5.17-24.38,6.65-34.72Z" />
+                <path class="animated-path" pathLength="1" d="M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z" />
+                <path class="animated-path" pathLength="1" d="M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z" />
+                <path class="animated-path" pathLength="1" d="M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z" />
+                <path class="animated-path" pathLength="1" d="M2710.13,512.9c-34.72,17.73-73.86,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.62-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.63,40.63ZM2657.68,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.12,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z" />
+                <path class="animated-path" pathLength="1" d="M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z" />
+            </svg>
 
             <h3 class="about-role about-reveal" data-i18n="about_role">Art Director</h3>
             <p class="about-desc about-reveal" data-i18n="about_desc">خبرة أكثر من 7 سنوات في مجال الجرافيك ديزاين والمونتاج والتصوير،<br>وتطوير المواقع الإلكترونية وتطوير الهويات البصرية للعلامات التجارية.</p>
-
+            
             <div class="social-links about-reveal">
                 <!-- LinkedIn -->
-                <a href="https://www.linkedin.com/in/seifxfotos" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/seifxfotos" target="_blank" class="social-btn" aria-label="LinkedIn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
                 <!-- Instagram -->
-                <a href="https://www.instagram.com/seifxfotos/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+                <a href="https://www.instagram.com/seifxfotos/" target="_blank" class="social-btn" aria-label="Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </a>
                 <!-- Facebook -->
-                <a href="https://www.facebook.com/seifxfotos1/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+                <a href="https://www.facebook.com/seifxfotos1/" target="_blank" class="social-btn" aria-label="Facebook">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                 </a>
-                <!-- WhatsApp -->
-                <a href="https://wa.me/201227581927" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="WhatsApp">
+                <!-- WhatsApp (Phone Receiver) -->
+                <a href="https://wa.me/201227581927" target="_blank" class="social-btn" aria-label="WhatsApp">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                 </a>
             </div>
         </div>
     </section>
-
     <!-- CV Modal -->
     <div class="cv-modal" id="cvModal" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle">
         <div class="cv-modal-content">
@@ -1090,7 +1076,7 @@
                     <button class="close-modal" onclick="closeCVModal()" aria-label="Close CV Viewer">&times;</button>
                 </div>
             </div>
-
+            
             <div class="cv-viewer-area">
                 <div class="zoom-controls">
                     <button onclick="zoomCV(0.25)" title="Zoom In" aria-label="Zoom In">
@@ -1124,37 +1110,13 @@
         </div>
     </div>
 
-    <!-- Web Preview Modal -->
-    <div class="cv-modal" id="webPreviewModal" role="dialog" aria-modal="true" aria-labelledby="webModalTitle">
-        <div class="cv-modal-content" style="max-width: 1400px; height: 95dvh;">
-            <div class="cv-modal-header">
-                <h3 id="webModalTitle">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
-                    <span id="webModalTitleText" data-i18n="web_modal_default">معاينة الموقع</span>
-                </h3>
-                <div class="cv-modal-actions">
-                    <a href="#" id="externalLinkBtn" target="_blank" rel="noopener noreferrer" class="btn-download-cv" style="padding: 8px 12px; display: inline-flex; align-items: center; gap: 6px;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        <span data-i18n="open_new_tab">تكبير / فتح تاب جديد</span>
-                    </a>
-                    <button class="close-modal" onclick="closeWebModal()" aria-label="Close Preview">&times;</button>
-                </div>
-            </div>
-            <div class="cv-viewer-area" style="background: #fff;">
-                <iframe id="webPreviewIframe" src="" style="width: 100%; height: 100%; border: none;" title="Website Preview"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- Lightbox Modal -->
+    <!-- Lightbox Modal تكبير الصور -->
     <div class="image-lightbox-modal" id="imageLightbox" role="dialog" aria-modal="true" aria-label="Image Viewer" tabindex="-1">
         <div class="lightbox-content">
             <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close Image Viewer">&times;</button>
-            <button class="lightbox-nav lightbox-next" onclick="nextLightboxImg()" aria-label="Next Image">&#10094;</button>
+            <button class="lightbox-nav lightbox-next" onclick="nextLightboxImg()" aria-label="Next Image">&#10094;</button> 
             <img src="" alt="Expanded Design" id="lightboxImg">
-            <button class="lightbox-nav lightbox-prev" onclick="prevLightboxImg()" aria-label="Previous Image">&#10095;</button>
+            <button class="lightbox-nav lightbox-prev" onclick="prevLightboxImg()" aria-label="Previous Image">&#10095;</button> 
         </div>
     </div>
 
@@ -1162,29 +1124,6 @@
     <script>
         const $ = (id) => document.getElementById(id);
 
-        /* ========= Logo (مكتوب مرة واحدة ومتحقن في الـ 3 أماكن) ========= */
-        const LOGO_PATHS = [
-            "M876.79,213.75c-2.96,2.95-10.34,0-16.25-6.65-5.91-5.91-8.13-14.04-5.17-16.99,2.95-2.22,5.17-7.39,5.91-12.56,1.48-8.86,0-19.2-6.65-29.54-5.91-10.34-16.99-20.68-33.98-31.02-121.88-68.69-361.94-8.86-480.86,46.54-56.88,26.59-196.48,105.63-158.07,186.88,17.73,38.41,79.77,59.83,140.34,80.51,34.72,12.56,69.43,24.38,98.24,40.63,209.04,117.45-51.71,370.06-257.05,373.76C88.65,848.99,1.49,813.53.01,738.93c-.74-33.98,25.85-78.3,91.59-130.74,2.96-2.96,10.34.74,16.25,7.39,5.91,5.91,8.13,14.03,4.43,16.25-63.52,50.97-88.64,92.33-87.9,122.62.74,47.27,82.73,52.44,115.23,50.97,179.49-4.43,438.02-225.29,283.64-312.45-25.85-14.03-59.09-25.85-93.07-37.67-70.17-24.38-141.82-48.75-169.89-108.58-45.06-96.76,84.21-180.97,155.12-214.21,127.05-59.09,372.28-110.8,502.28-36.93,26.59,15.51,45.06,33.98,55.4,52.44,11.08,17.73,14.03,34.72,12.56,47.27-1.48,8.12-4.43,14.77-8.86,18.47Z",
-            "M655.94,512.9c-34.72,17.73-73.87,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.63-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.62,40.63ZM603.49,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.13,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z",
-            "M801.45,447.9c3.69-2.96,11.08,0,16.99,6.65,5.91,6.65,8.12,14.03,4.43,16.99-16.25,14.03-42.84,45.8-59.09,76.82-10.34,20.68-9.6,32.5-2.22,36.19,30.29,4.43,112.27-75.34,112.27-76.08,2.96-2.95,8.13-8.86,14.04-2.21,6.65,6.65,3.69,8.86.74,11.82-.74,0-123.35,132.96-155.12,77.56-10.34-18.47-5.17-43.58,7.39-68.69,16.25-31.76,43.58-65,60.57-79.04ZM847.25,426.48c-2.96,3.69-10.34.74-16.25-5.17-5.91-6.65-8.86-14.03-5.91-17.73l41.36-47.27c2.95-3.69,9.6-.74,16.25,5.17,5.91,6.65,8.12,14.03,5.91,17.73l-41.36,47.27Z",
-            "M953.61,386.59c-2.22-1.48-4.43-4.43-5.91-6.65-4.43-6.65-3.69-12.56,1.48-13.3,7.39,0,27.33-19.94,47.27-45.06l5.91-5.91c12.56-19.94,23.64-36.93,31.76-50.23,8.86-14.77,15.51-25.12,20.68-30.29.74-2.96,2.95-3.69,6.65-2.96h.74c14.77,4.43,19.94,12.56,16.25,25.85-2.96,11.08-28.07,48.01-53.92,79.77-14.04,21.42-31.02,45.8-49.49,71.65-22.16,31.02-56.14,80.51-92.33,132.96,31.02.74,82.73,2.96,135.17-36.19,2.96-2.22,6.65-8.12,11.82-1.48,5.91,6.65,8.12,14.04,4.43,16.25-72.39,53.92-137.39,49.49-166.2,43.58l-5.17,6.65c1.48,17.73.74,48.01-9.6,93.81-7.39,34.72-23.64,60.57-42.1,79.77-25.11,25.85-54.66,38.41-70.91,36.93l-.74-.74c-1.48,0-2.22,0-3.69-.74l-1.48-.74c-16.99-8.12-18.47-24.38-8.86-45.06,6.65-13.3,16.99-31.76,29.55-53.18,22.16-36.93,52.44-83.47,83.47-129.26-.74-5.17-1.48-7.39-1.48-7.39-2.22-6.65.74-11.08,6.65-8.86h.74s1.48.74,4.43,1.48c39.89-59.09,79.77-115.23,104.15-149.95l.74-.74ZM836.17,611.88c-22.16,33.24-42.1,65-58.35,91.59-11.08,17.73-19.94,33.98-25.85,45.8,11.82-5.17,25.11-14.77,37.67-27.33,16.99-18.47,32.5-42.84,39.89-75.34,2.95-13.29,5.17-24.38,6.65-34.72Z",
-            "M1354.7,781.03c2.95-2.95,10.34,0,16.25,6.65,4.43,5.17,6.65,11.08,5.91,14.77,75.34-62.79,200.91-186.88,330.91-319.1-189.09,8.86-376.71,7.39-421.03-31.76-18.47-16.25-22.9-34.72-14.77-53.92,7.39-19.21,27.33-40.62,55.4-63.52,28.81-22.9,65.74-46.54,107.84-67.96,163.24-84.95,406.26-148.47,542.17-59.09C2091.87,88.92,2177.55,1.02,2187.16.28c30.28-2.95,42.1,16.99,23.64,84.95-14.03,49.49-44.32,132.22-99.72,266.65-10.34,25.85-21.42,50.97-32.5,74.6,31.76-2.95,50.23-5.17,50.23-5.17,5.17-.74,12.56,4.43,16.99,11.82,5.17,6.65,4.43,13.3,0,14.04-.74,0-28.07,2.95-73.13,7.39-5.91,36.93-16.99,73.86-31.02,109.32-29.55,76.08-71.65,145.51-104.89,192.05-24.38,33.98-44.32,55.4-51.71,56.88-11.82,2.95-19.94-3.69-24.38-19.2-2.95-11.82,16.99-48.01,48.75-104.89,32.5-57.61,76.82-136.65,121.14-229.72-73.13,6.65-172.84,15.51-275.52,21.42-190.57,194.26-378.93,378.93-421.77,390.01-14.03,3.69-24.38-2.95-28.81-20.68-5.17-19.94,49.49-68.69,50.23-68.69ZM1733.63,456.76c69.43-70.17,138.87-141.82,201.65-206.82l29.55-30.29c-128.52-72.39-354.55-9.6-509.67,70.91-42.1,21.42-78.3,45.06-106.37,67.22-27.33,22.16-46.54,42.84-53.92,60.57-3.69,9.6-4.43,15.51-2.22,17.73,41.36,36.19,245.23,32.5,440.97,20.68ZM1956.7,273.58c-54.66,56.14-114.49,118.18-175.06,179.49,101.93-6.65,197.22-16.25,262.22-22.9l7.39-15.51c2.96-31.76,2.22-62.79-5.17-91.59-8.86-33.24-25.85-62.05-54.66-85.68l-34.72,36.19ZM1998.06,590.46c-18.47,35.46-36.19,67.22-51.71,95.29,17.73-28.07,35.46-60.57,51.71-95.29ZM2203.41,26.13c-5.91.74-88.64,84.94-200.91,200.17,35.46,30.28,56.14,67.22,66.48,107.1,2.95,8.86,4.43,18.47,5.91,28.07,4.43-9.6,8.86-19.94,12.56-30.29,55.4-133.7,85.68-216.42,98.98-265.17,8.86-29.55,21.42-40.62,16.99-39.89Z",
-            "M2337.85,230.74c2.22-3.69,9.6-1.48,15.51,4.43,6.65,5.91,9.6,14.03,7.39,17.73l-161.76,262.22c40.63-31.02,81.99-49.49,86.42-.74.74,6.65,1.48,54.66,1.48,54.66,2.95,3.69,26.59-2.22,91.59-62.79,2.95-2.96,7.39-9.6,13.29-3.69,5.91,6.65,5.91,11.82,2.96,14.77-73.13,67.96-108.58,84.94-125.57,67.22-17.73-19.21-11.82-53.92-14.03-79.78-2.22-18.46-119.66,113.75-120.4,114.49-2.22,2.95-8.86.74-14.77-5.17-6.65-5.91-9.6-14.03-7.39-17.73l225.29-365.63Z",
-            "M2403.59,444.95c1.48-3.69,8.86-1.48,14.77,4.43,6.65,5.91,10.34,13.3,8.12,17.73l-13.3,22.9c22.9-22.16,45.06-40.63,59.09-45.8,45.8-15.51,38.41,34.72,23.64,79.77,2.22-1.48,5.17-2.95,7.39-3.69,6.65-2.95,12.56-5.17,17.73-5.17,11.82-.74,21.42,5.17,28.07,19.21,3.69,8.12,3.69,20.68-2.22,37.67-.74,1.48,79.04-64.26,79.77-64.26,2.96-2.96,9.6-11.08,15.51-4.43,6.65,5.91,5.91,10.34,2.96,13.29-.74.74-177.28,186.88-121.88,34.72.74-2.95,1.48-5.17,2.22-8.12l-2.96,1.48c-19.94,10.34-45.8,31.76-50.97,40.63v.74c-2.22,4.43-8.86,2.96-15.51-2.96-6.65-5.91-9.6-14.03-8.13-17.73,0-.74,45.06-96.76,42.84-96.03-39.89,14.04-146.25,144.04-146.99,144.78-2.22,2.96-8.86.74-14.77-4.43-5.91-5.91-9.6-14.03-7.39-17.73l81.99-146.99Z",
-            "M2710.13,512.9c-34.72,17.73-73.86,22.16-76.08,22.16-50.23,107.84,149.21,16.25,172.1-25.11,2.22-4.43,9.6-9.6,16.25-3.69,5.91,5.91,5.91,8.86,3.69,13.29-20.68,36.19-135.91,115.97-186.88,87.16-25.11-14.03-40.62-43.58-34.72-72.39,3.69-18.47,14.77-37.67,29.55-54.66,14.77-16.25,31.76-31.76,48.01-43.58,21.42-14.77,41.36-23.64,49.49-22.16,6.65,1.48,12.56,5.17,17.73,11.08,7.39,8.12,10.34,17.73,8.86,26.59-.74,6.65-3.69,13.29-7.39,20.68-8.12,15.51-22.9,31.76-40.63,40.63ZM2657.68,501.08c10.34-2.95,21.42-7.39,33.24-12.56,15.51-8.12,28.81-23.64,36.93-37.67,1.48-2.96,2.22-5.17,3.69-8.12-8.12,3.69-17.73,9.6-28.81,17.73-14.77,11.08-31.76,25.11-45.06,40.63Z",
-            "M2916.95,536.54c-.74,3.69-5.17,4.43-10.34,1.48l-.74,1.48c-26.59,22.9-50.23,41.37-68.69,53.18-25.11,15.51-67.22,19.2-65-22.9.74-11.08,5.91-25.11,14.03-39.15,14.77-24.38,46.53-65,77.56-63.52,28.81-.74,37.67,14.03,45.06,25.11,27.33-25.85,55.4-56.14,81.99-87.9,60.57-72.39,101.93-132.22,121.88-163.24l15.51-23.64c2.22-3.69,8.86-2.22,15.51,4.43,5.91,5.91,9.6,13.3,7.39,17.73,0,0-5.91,9.6-17.73,27.33-72.39,113.75-346.43,545.86-336.08,570.24,2.96,7.39,0,11.08-5.91,9.6-5.91-1.48-13.29-8.12-15.51-15.51-8.86-20.68,89.38-189.09,183.92-344.95-14.03,14.77-28.07,28.81-42.1,41.36,0,5.17-.74,8.12-.74,8.86ZM2892.57,507.73c-1.48-5.17-5.17-11.08-14.77-11.08-26.59-1.48-56.14,34.72-68.69,55.4-5.91,10.34-10.34,19.94-11.82,27.33,4.43-2.21,11.08-5.91,19.21-11.08,18.47-11.08,42.1-29.55,67.96-52.44l8.12-8.12Z"
-        ];
-        document.querySelectorAll('svg[data-logo]').forEach((svg) => {
-            LOGO_PATHS.forEach((d) => {
-                const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                p.setAttribute('class', 'animated-path');
-                p.setAttribute('pathLength', '1');
-                p.setAttribute('d', d);
-                svg.appendChild(p);
-            });
-        });
-
-        /* ========= Globals ========= */
         const hasFinePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
         const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1193,17 +1132,12 @@
         const aboutSlide = $('about');
         const meshBg = $('meshBg');
         const cvModal = $('cvModal');
-        const webModal = $('webPreviewModal');
-        const lightboxModal = $('imageLightbox');
-        const lightboxImg = $('lightboxImg');
         const secTitle = document.querySelector('.section-title');
         const portfolioTabs = document.querySelector('.portfolio-tabs');
 
-        const isLightboxOpen = () => lightboxModal.classList.contains('active');
-        const isModalOpen = () => cvModal.classList.contains('active') || webModal.classList.contains('active');
-        const atBottom = (el) => Math.ceil(el.scrollTop + el.clientHeight) >= el.scrollHeight - 10;
+        const isModalOpen = () => cvModal.classList.contains('active');
 
-        /* ========= Custom Cursor ========= */
+        // Custom Cursor Logic
         if (hasFinePointer) {
             const dot = $('customCursorDot');
             const circle = $('customCursorCircle');
@@ -1229,84 +1163,46 @@
                     dot.style.opacity = '1';
                     circle.style.opacity = '1';
                 }
-                mx = e.clientX; my = e.clientY; kick();
+                mx = e.clientX; my = e.clientY; kick(); 
             }, { passive: true });
 
             document.addEventListener('mouseover', (e) => {
-                const hot = !!e.target.closest('a, button, .logo-svg, .gallery-img, .lightbox-close, .lightbox-nav, .tab-btn, .social-btn, [data-web-url]');
+                const hot = !!e.target.closest('a, button, .bento-card, .logo-svg, .gallery-img, .lightbox-close, .lightbox-nav, .tab-btn, .social-btn');
                 targetScale = hot ? 1.8 : 1;
                 circle.style.backgroundColor = hot ? 'rgba(212, 175, 55, 0.1)' : 'rgba(212, 175, 55, 0.05)';
                 circle.style.borderColor = hot ? 'var(--accent-gold)' : 'rgba(212, 175, 55, 0.6)';
                 kick();
             });
-
-            document.documentElement.addEventListener('mouseleave', () => {
-                dot.style.opacity = '0'; circle.style.opacity = '0';
+            
+            document.documentElement.addEventListener('mouseleave', () => { 
+                dot.style.opacity = '0'; circle.style.opacity = '0'; 
                 document.body.classList.remove('custom-cursor-active');
             });
-            document.documentElement.addEventListener('mouseenter', () => {
-                if (document.body.classList.contains('custom-cursor-active')) {
-                    dot.style.opacity = '1'; circle.style.opacity = '1';
+            document.documentElement.addEventListener('mouseenter', () => { 
+                if(document.body.classList.contains('custom-cursor-active')){
+                    dot.style.opacity = '1'; circle.style.opacity = '1'; 
                 }
             });
-
-            // الـ iframes بتبلع أحداث الماوس: نرجّع كيرسر النظام جواها ونخفي المخصص
-            const bindIframeCursor = (el) => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('over-iframe'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('over-iframe'));
-            };
-            document.querySelectorAll('.vid-wrapper').forEach(bindIframeCursor);
-            bindIframeCursor($('webPreviewIframe'));
         }
 
-        /* ========= Tabs (+ تحميل الفيديوهات عند الطلب) ========= */
-        const tabBtns = Array.from(document.querySelectorAll('.tab-btn'));
+        // Tabs Logic
+        const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
 
-        function loadLazyIframes(container) {
-            container.querySelectorAll('iframe[data-src]').forEach((f) => {
-                f.src = f.getAttribute('data-src');
-                f.removeAttribute('data-src');
-            });
-        }
-
-        function activateTab(btn) {
-            tabBtns.forEach((b) => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-            tabContents.forEach((c) => c.classList.remove('active'));
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-            const target = $(btn.getAttribute('data-tab'));
-            target.classList.add('active');
-            loadLazyIframes(target);
-        }
-
-        tabBtns.forEach((btn, i) => {
-            btn.addEventListener('click', () => activateTab(btn));
-            btn.addEventListener('keydown', (e) => {
-                if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-                const rtl = document.documentElement.getAttribute('dir') === 'rtl';
-                const step = e.key === 'ArrowLeft' ? (rtl ? 1 : -1) : (rtl ? -1 : 1);
-                const next = tabBtns[(i + step + tabBtns.length) % tabBtns.length];
-                next.focus();
-                activateTab(next);
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-tab');
+                document.getElementById(targetId).classList.add('active');
             });
         });
 
-        /* ========= Focus helpers للـ Modals ========= */
-        let lastModalFocus = null;
-
-        function trapFocus(e, container) {
-            if (e.key !== 'Tab') return;
-            const items = Array.from(container.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])'))
-                .filter((el) => el.offsetParent !== null || el === document.activeElement);
-            if (!items.length) { e.preventDefault(); return; }
-            const first = items[0], last = items[items.length - 1];
-            if (!container.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
-            else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-        }
-
-        /* ========= Lightbox ========= */
+        // Lightbox Logic 
+        const lightboxModal = document.getElementById('imageLightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
         const allGalleryImages = Array.from(document.querySelectorAll('.gallery-img'));
         let currentImageIndex = 0;
         let lastFocusedElement;
@@ -1319,7 +1215,7 @@
         });
 
         function openLightbox(index) {
-            lastFocusedElement = document.activeElement;
+            lastFocusedElement = document.activeElement; 
             currentImageIndex = index;
             lightboxImg.src = allGalleryImages[index].src;
             lightboxModal.classList.add('active');
@@ -1328,7 +1224,7 @@
 
         function closeLightbox() {
             lightboxModal.classList.remove('active');
-            if (lastFocusedElement) lastFocusedElement.focus();
+            if(lastFocusedElement) lastFocusedElement.focus();
         }
 
         function nextLightboxImg() {
@@ -1346,20 +1242,20 @@
         });
 
         let touchStartX = 0;
-        lightboxModal.addEventListener('touchstart', (e) => {
+        lightboxModal.addEventListener('touchstart', e => {
             touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
+        }, {passive: true});
+        
+        lightboxModal.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) nextLightboxImg(); 
+            if (touchEndX > touchStartX + 50) prevLightboxImg(); 
+        }, {passive: true});
 
-        lightboxModal.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            if (touchEndX < touchStartX - 50) nextLightboxImg();
-            if (touchEndX > touchStartX + 50) prevLightboxImg();
-        }, { passive: true });
-
-        /* ========= Mobile Menu ========= */
+        // Mobile Menu Toggle Logic
         function toggleMobileMenu() {
-            const dropdown = $('mobileDropdown');
-            const menuIcon = $('menuIcon');
+            const dropdown = document.getElementById('mobileDropdown');
+            const menuIcon = document.getElementById('menuIcon');
             dropdown.classList.toggle('active');
             if (dropdown.classList.contains('active')) {
                 menuIcon.innerHTML = `<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>`;
@@ -1368,33 +1264,26 @@
             }
         }
 
-        // قفل القائمة لما تضغط برّاها
-        document.addEventListener('click', (e) => {
-            if ($('mobileDropdown').classList.contains('active') && !e.target.closest('#mobileDropdown, #menuToggle')) {
-                toggleMobileMenu();
-            }
-        });
-
-        /* ========= Slide Engine ========= */
+// Slide Engine
         let currentSlide = 0;
         const totalSlides = 3;
         let isAnimating = false;
         let hasAutoScrolled = false;
         let lastShowcaseScroll = 0;
-        let lockUntil = 0;
 
         function goToSlide(index) {
             if (isAnimating || index < 0 || index >= totalSlides || index === currentSlide) return;
             isAnimating = true;
             currentSlide = index;
-            lockUntil = performance.now() + 1700; // يمنع الـ momentum scroll من تخطي شاشة
+
+            const portfolioTabs = document.querySelector('.portfolio-tabs');
 
             heroSlide.classList.add('slide-out');
             showcaseSlide.classList.remove('slide-in');
             aboutSlide.classList.remove('slide-in');
             secTitle.classList.remove('reveal');
             if (portfolioTabs) portfolioTabs.classList.remove('reveal');
-            document.querySelectorAll('.about-reveal').forEach((el) => el.classList.remove('reveal'));
+            document.querySelectorAll('.about-reveal').forEach(el => el.classList.remove('reveal'));
 
             if (currentSlide === 0) {
                 heroSlide.classList.remove('slide-out');
@@ -1425,24 +1314,22 @@
         showcaseSlide.addEventListener('scroll', () => { lastShowcaseScroll = performance.now(); }, { passive: true });
         aboutSlide.addEventListener('scroll', () => { lastShowcaseScroll = performance.now(); }, { passive: true });
 
-        // Wheel
+        // Wheel Events
         window.addEventListener('wheel', (e) => {
-            if (isModalOpen() || isLightboxOpen() || isAnimating) return;
-            const now = performance.now();
-            if (now < lockUntil) return;
+            if (isModalOpen() || lightboxModal.classList.contains('active') || isAnimating) return;
             if (e.deltaY > 50) {
                 if (currentSlide === 0) goToSlide(1);
-                else if (currentSlide === 1 && atBottom(showcaseSlide) && now - lastShowcaseScroll > 500) goToSlide(2);
+                else if (currentSlide === 1 && Math.ceil(showcaseSlide.scrollTop + showcaseSlide.clientHeight) >= showcaseSlide.scrollHeight - 10) goToSlide(2);
             } else if (e.deltaY < -50) {
-                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0 && now - lastShowcaseScroll > 450) goToSlide(0);
-                else if (currentSlide === 2 && aboutSlide.scrollTop <= 0 && now - lastShowcaseScroll > 450) goToSlide(1);
+                if (currentSlide === 1 && showcaseSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) goToSlide(0);
+                else if (currentSlide === 2 && aboutSlide.scrollTop <= 0 && performance.now() - lastShowcaseScroll > 450) goToSlide(1);
             }
         }, { passive: true });
 
-        // Touch
+        // Touch Events for Slide
         let tStartY = 0, tStartX = 0, tStartScroll = 0, tTrack = false;
         window.addEventListener('touchstart', (e) => {
-            if (isModalOpen() || isLightboxOpen()) { tTrack = false; return; }
+            if (isModalOpen() || lightboxModal.classList.contains('active')) { tTrack = false; return; }
             tTrack = true;
             tStartY = e.touches[0].clientY;
             tStartX = e.touches[0].clientX;
@@ -1450,7 +1337,7 @@
         }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
-            if (!tTrack || isModalOpen() || isLightboxOpen() || isAnimating) return;
+            if (!tTrack || isModalOpen() || lightboxModal.classList.contains('active') || isAnimating) return;
             tTrack = false;
             const t = e.changedTouches[0];
             const dy = tStartY - t.clientY;
@@ -1466,28 +1353,21 @@
             }
         }, { passive: true });
 
-        // Keyboard (Escape بيقفل أي نافذة مفتوحة بالترتيب: Lightbox ← Web ← CV)
+        // Keyboard Events
         window.addEventListener('keydown', (e) => {
-            if (isLightboxOpen()) {
+            if (lightboxModal.classList.contains('active')) {
                 if (e.key === 'Escape') closeLightbox();
-                else if (e.key === 'ArrowLeft') nextLightboxImg();
-                else if (e.key === 'ArrowRight') prevLightboxImg();
-                else trapFocus(e, lightboxModal);
+                if (e.key === 'ArrowLeft') nextLightboxImg(); 
+                if (e.key === 'ArrowRight') prevLightboxImg(); 
                 return;
             }
-            if (webModal.classList.contains('active')) {
-                if (e.key === 'Escape') closeWebModal();
-                else trapFocus(e, webModal);
-                return;
-            }
-            if (cvModal.classList.contains('active')) {
+            if (isModalOpen()) {
                 if (e.key === 'Escape') closeCVModal();
-                else trapFocus(e, cvModal);
                 return;
             }
             if (e.key === 'ArrowDown' || e.key === 'PageDown') {
                 if (currentSlide === 0) goToSlide(1);
-                else if (currentSlide === 1 && atBottom(showcaseSlide)) goToSlide(2);
+                else if (currentSlide === 1 && Math.ceil(showcaseSlide.scrollTop + showcaseSlide.clientHeight) >= showcaseSlide.scrollHeight - 10) goToSlide(2);
             }
             if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                 if (currentSlide === 1 && showcaseSlide.scrollTop <= 0) goToSlide(0);
@@ -1495,128 +1375,75 @@
             }
         });
 
-        /* ========= CV Viewer (زوم بتغيير العرض الفعلي = السكرول والسحب بيوصلوا لكل الأطراف) ========= */
+        // CV Viewer Drag Logic
         let cvScale = 1;
-        let cvBaseW = 0;
-        const cvImage = $('cvImagePreview');
-        const cvScrollArea = $('cvScrollArea');
-
-        function applyCVZoom() {
-            if (cvScale === 1) {
-                cvImage.style.width = '';
-                cvImage.style.height = '';
-                cvImage.style.maxWidth = '';
-                cvImage.style.maxHeight = '';
-                return;
-            }
-            if (!cvBaseW) {
-                cvBaseW = cvImage.getBoundingClientRect().width; // المقاس الطبيعي عند 100%
-                if (!cvBaseW) { cvScale = 1; return; }
-            }
-            cvImage.style.maxWidth = 'none';
-            cvImage.style.maxHeight = 'none';
-            cvImage.style.height = 'auto';
-            cvImage.style.width = (cvBaseW * cvScale) + 'px';
-        }
+        const cvImage = document.getElementById('cvImagePreview');
+        const cvScrollArea = document.getElementById('cvScrollArea');
 
         function zoomCV(step) {
-            cvScale = Math.min(3.5, Math.max(0.5, cvScale + step));
-            applyCVZoom();
+            cvScale += step;
+            if (cvScale < 0.5) cvScale = 0.5;
+            if (cvScale > 3.5) cvScale = 3.5;
+            cvImage.style.transform = `scale(${cvScale})`;
         }
 
         function resetZoomCV() {
             cvScale = 1;
-            cvBaseW = 0;
-            applyCVZoom();
-            cvScrollArea.scrollLeft = 0;
-            cvScrollArea.scrollTop = 0;
+            cvImage.style.transform = `scale(1)`;
         }
 
-        window.addEventListener('resize', () => { if (cvScale === 1) cvBaseW = 0; });
-
         let isDragging = false;
-        let startX, startY, startScrollLeft, startScrollTop;
-
-        const pointOf = (e) => (e.type.includes('mouse') ? e : e.touches[0]);
+        let startX, startY, scrollLeft, scrollTop;
 
         const startDrag = (e) => {
             isDragging = true;
-            const p = pointOf(e);
-            startX = p.clientX;
-            startY = p.clientY;
-            startScrollLeft = cvScrollArea.scrollLeft;
-            startScrollTop = cvScrollArea.scrollTop;
+            const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+            const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
+            startX = pageX - cvScrollArea.offsetLeft;
+            startY = pageY - cvScrollArea.offsetTop;
+            scrollLeft = cvScrollArea.scrollLeft;
+            scrollTop = cvScrollArea.scrollTop;
         };
+
         const stopDrag = () => { isDragging = false; };
+
         const onDrag = (e) => {
             if (!isDragging) return;
             e.preventDefault();
-            const p = pointOf(e);
-            cvScrollArea.scrollLeft = startScrollLeft - (p.clientX - startX);
-            cvScrollArea.scrollTop = startScrollTop - (p.clientY - startY);
+            const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+            const pageY = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
+            const walkX = (pageX - cvScrollArea.offsetLeft) - startX;
+            const walkY = (pageY - cvScrollArea.offsetTop) - startY;
+            cvScrollArea.scrollLeft = scrollLeft - walkX;
+            cvScrollArea.scrollTop = scrollTop - walkY;
         };
 
         cvScrollArea.addEventListener('mousedown', startDrag);
-        cvScrollArea.addEventListener('touchstart', startDrag, { passive: true });
+        cvScrollArea.addEventListener('touchstart', startDrag, {passive: false});
         cvScrollArea.addEventListener('mouseleave', stopDrag);
         cvScrollArea.addEventListener('mouseup', stopDrag);
         cvScrollArea.addEventListener('touchend', stopDrag);
         cvScrollArea.addEventListener('mousemove', onDrag);
-        cvScrollArea.addEventListener('touchmove', onDrag, { passive: false });
+        cvScrollArea.addEventListener('touchmove', onDrag, {passive: false});
 
         function openCVModal(event) {
-            if (event) event.preventDefault();
-            lastModalFocus = document.activeElement;
-            cvModal.classList.add('active');
+            event.preventDefault();
+            document.getElementById('cvModal').classList.add('active');
             resetZoomCV();
-            const closeBtn = cvModal.querySelector('.close-modal');
-            if (closeBtn) closeBtn.focus();
         }
 
         function closeCVModal() {
-            cvModal.classList.remove('active');
-            if (lastModalFocus && lastModalFocus.focus) lastModalFocus.focus();
+            document.getElementById('cvModal').classList.remove('active');
         }
 
-        /* ========= Web Preview Modal ========= */
-        function openWebModal(url, titleKey) {
-            lastModalFocus = document.activeElement;
-            const iframe = $('webPreviewIframe');
-            const titleText = $('webModalTitleText');
-            titleText.setAttribute('data-i18n', titleKey);
-            titleText.innerText = translations[currentLang][titleKey] || '';
-            $('externalLinkBtn').href = url;
-            iframe.src = url;
-            webModal.classList.add('active');
-            const closeBtn = webModal.querySelector('.close-modal');
-            if (closeBtn) closeBtn.focus();
-        }
-
-        function closeWebModal() {
-            webModal.classList.remove('active');
-            $('webPreviewIframe').src = '';
-            document.body.classList.remove('over-iframe');
-            if (lastModalFocus && lastModalFocus.focus) lastModalFocus.focus();
-        }
-
-        document.querySelectorAll('[data-web-url]').forEach((el) => {
-            const open = () => openWebModal(el.dataset.webUrl, el.dataset.webTitle);
-            el.addEventListener('click', open);
-            el.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
-            });
-        });
-
-        // ضغطة على الخلفية بتقفل النافذة المفتوحة (مرة واحدة لكل النوافذ)
         window.addEventListener('click', (e) => {
-            if (e.target === cvModal) closeCVModal();
-            if (e.target === webModal) closeWebModal();
+            const modal = document.getElementById('cvModal');
+            if (e.target === modal) closeCVModal();
         });
 
-        /* ========= Localization ========= */
+        // Localization Dictionary
         const translations = {
             ar: {
-                page_title: "Seif Ahmed | Art Director - جرافيك ديزاين ومونتاج وتطوير مواقع",
                 nav_about: "عني",
                 nav_work: "الأعمال",
                 nav_cv: "السيرة الذاتية",
@@ -1633,25 +1460,19 @@
                 empty_soon: "سيتم إضافة الأعمال قريباً...",
                 about_role: "Art Director",
                 about_desc: "خبرة أكثر من 7 سنوات في مجال الجرافيك ديزاين والمونتاج والتصوير،<br>وتطوير المواقع الإلكترونية وتطوير الهويات البصرية للعلامات التجارية.",
-
-                // برمجة المواقع
-                preview_click: "انقر للمعاينة التفاعلية",
-                web_modal_default: "معاينة الموقع",
-                web_title_aya: "منصة عيادات دكتور آية",
-                web_title_leil: "متجر ليل لمنتجات العناية",
-                open_new_tab: "تكبير / فتح تاب جديد",
+                
+                // ترجمات برمجة المواقع
                 visit_site: "زيارة الموقع",
                 aya_desc: "تم بناء وتطوير نظام رقمي متكامل (System) خصيصاً لإدارة وتشغيل عيادات دكتورة آية بشكل احترافي، يهدف لتقديم تجربة مستخدم سلسة للمرضى وتسهيل عمليات الحجز والمتابعة الطبية.",
                 leil_desc: "تطوير وبناء متجر إلكتروني متكامل لمنتجات العناية لبراند (ليل)، يتميز بتصميم عصري وأزرار تفاعلية مخصصة لاختيار المنتجات بلغة HTML/CSS وتجهيز المتجر بأداء فائق وسرعة عالية.",
-
-                // تصوير ومونتاج
+                
+                // ترجمات تصوير ومونتاج
                 beit_lebnen_desc: "الإشراف على تصوير ومونتاج فيديوهات 'Reels' سريعة وديناميكية لتغطية أجواء المكان وإبراز جودة الأطباق والتجربة المميزة للمطعم بأسلوب جذاب يناسب منصات السوشيال ميديا.",
                 aya_video_desc: "إنتاج وتصوير فيديوهات طبية توعوية وترويجية لعيادات دكتورة آية، مع مونتاج احترافي يركز على إيصال المعلومات الطبية للمرضى بثقة ووضوح.",
                 bobz_desc: "تصوير ومونتاج فيديوهات 'Trendy' بأسلوب عصري وإيقاع سريع يهدف لانتشار المحتوى (Viral) وجذب انتباه الشباب، لتعزيز الهوية البصرية للبراند.",
                 vigour_desc: "تصوير ومونتاج حملة دعائية مصغرة مخصصة لأحد المدربين بهدف إبراز الخدمات الرياضية المتنوعة داخل الجيم، باستخدام حركة كاميرا تعكس الطاقة والنشاط."
             },
             en: {
-                page_title: "Seif Ahmed | Art Director - Graphic Design, Video Editing & Web Development",
                 nav_about: "About",
                 nav_work: "Portfolio",
                 nav_cv: "CV",
@@ -1668,53 +1489,92 @@
                 empty_soon: "Projects coming soon...",
                 about_role: "Art Director",
                 about_desc: "Over 7 years of experience in Graphic Design, Video Editing, Photography,<br>Web Development, and Brand Identity Development.",
-
-                // Web Development
-                preview_click: "Click for live preview",
-                web_modal_default: "Website Preview",
-                web_title_aya: "Dr. Aya's Clinics Platform",
-                web_title_leil: "Leil Care Products Store",
-                open_new_tab: "Enlarge / Open in new tab",
+                
+                // Web Development Translations
                 visit_site: "Visit Website",
-                aya_desc: "Built and developed an integrated digital system specifically designed to manage and operate Dr. Aya's clinics professionally, aiming to provide a seamless user experience for patients and simplify booking and medical follow-up.",
-                leil_desc: "Developed and built an integrated e-commerce store for care products for the (Leil) brand, featuring modern design, custom interactive buttons built with HTML/CSS, and high performance.",
-
-                // Videography & Editing
+                aya_desc: "Built and developed an integrated digital system specifically designed to manage and operate Dr. Aya's clinics professionally, aiming to provide a seamless user experience for patients.",
+                leil_desc: "Developed and built an integrated e-commerce store for care products for the (Leil) brand, featuring modern design, custom interactive buttons, and high performance.",
+                
+                // Videography & Editing Translations
                 beit_lebnen_desc: "Directed and edited fast-paced, dynamic Reels capturing the venue's atmosphere, highlighting food quality and the unique restaurant experience for social media.",
                 aya_video_desc: "Produced and filmed medical awareness and promotional videos for Dr. Aya's clinics, with professional editing focused on delivering medical information to patients with trust and clarity.",
                 bobz_desc: "Filmed and edited trendy, fast-paced videos aimed at viral content creation and capturing youth attention, enhancing the brand's visual identity.",
                 vigour_desc: "Filmed and edited a mini promotional campaign for a fitness coach to highlight diverse gym services, using dynamic camera movements that reflect energy and activity."
             }
         };
-
+        
         let currentLang = 'ar';
         function toggleLanguage() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             document.documentElement.setAttribute('lang', currentLang);
             document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
-            $('langToggle').innerText = currentLang === 'ar' ? 'EN' : 'AR';
-            document.title = translations[currentLang].page_title;
-
-            const arrow = $('btn-arrow');
+            document.getElementById('langToggle').innerText = currentLang === 'ar' ? 'EN' : 'AR';
+            
+            const arrow = document.getElementById('btn-arrow');
             if (arrow) {
                 arrow.style.transform = currentLang === 'en' ? 'rotate(180deg)' : 'rotate(0deg)';
             }
 
-            document.querySelectorAll('[data-i18n]').forEach((el) => {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang][key]) el.innerHTML = translations[currentLang][key];
             });
         }
 
-        /* ========= Auto-scroll (بيتلغي عند أول تفاعل من المستخدم) ========= */
-        const autoScrollTimer = setTimeout(() => {
-            if (!hasAutoScrolled && currentSlide === 0 && !isModalOpen() && !isLightboxOpen()) {
+        setTimeout(() => {
+            if (!hasAutoScrolled && currentSlide === 0 && !isModalOpen()) {
                 goToSlide(1);
             }
         }, 5000);
-        ['click', 'keydown', 'wheel', 'touchstart'].forEach((evt) => {
-            window.addEventListener(evt, () => clearTimeout(autoScrollTimer), { once: true, passive: true });
-        });
+        function openWebModal(url, title) {
+        const modal = document.getElementById('webPreviewModal');
+        const iframe = document.getElementById('webPreviewIframe');
+        const titleText = document.getElementById('webModalTitleText');
+        const externalBtn = document.getElementById('externalLinkBtn');
+        
+        iframe.src = url;
+        titleText.innerText = title;
+        externalBtn.href = url;
+        modal.classList.add('active');
+    }
+
+    function closeWebModal() {
+        const modal = document.getElementById('webPreviewModal');
+        const iframe = document.getElementById('webPreviewIframe');
+        modal.classList.remove('active');
+        iframe.src = ""; 
+    }
+
+    window.addEventListener('click', (e) => {
+        const webModal = document.getElementById('webPreviewModal');
+        if (e.target === webModal) {
+            closeWebModal();
+        }
+    });
     </script>
+<!-- Web Preview Modal (Popup) with Fullscreen/External Toggle -->
+    <div class="cv-modal" id="webPreviewModal" role="dialog" aria-modal="true" aria-labelledby="webModalTitle">
+        <div class="cv-modal-content" style="max-width: 1400px; height: 95dvh;">
+            <div class="cv-modal-header">
+                <h3 id="webModalTitle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span id="webModalTitleText">معاينة الموقع</span>
+                </h3>
+                <div class="cv-modal-actions">
+                    <!-- زرار/أيقونة تكبير الصفحة أو فتحها في تاب لوحدها -->
+                    <a href="#" id="externalLinkBtn" target="_blank" class="btn-download-cv" title="فتح في تبويب مستقل" style="padding: 8px 12px; display: inline-flex; align-items: center; gap: 6px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        <span>تكبير / فتح تاب جديد</span>
+                    </a>
+                    <button class="close-modal" onclick="closeWebModal()" aria-label="Close Preview">&times;</button>
+                </div>
+            </div>
+            <div class="cv-viewer-area" style="background: #fff;">
+                <iframe id="webPreviewIframe" src="" style="width: 100%; height: 100%; border: none;" title="Website Preview"></iframe>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
