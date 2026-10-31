@@ -100,11 +100,10 @@
         }
 
         /* زرار تكبير الموقع (Fullscreen) */
-        /* زرار تكبير الموقع (Fullscreen) */
         .fullscreen-btn {
             position: absolute;
             top: 15px;
-            right: 25px; /* نقلناه لليمين بدل الشمال */
+            left: 50px; /* رجعناه شمال وبعدناه عن السكرول بار */
             background: rgba(11, 17, 26, 0.7);
             border: 1px solid var(--border-color);
             color: var(--text-main);
@@ -115,7 +114,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer !important;
-            z-index: 99999; /* أقصى قيمة عشان يلقط الضغطة فوق أي حاجة */
+            z-index: 999999;
             transition: var(--transition);
             backdrop-filter: blur(10px);
             pointer-events: auto;
@@ -125,6 +124,15 @@
             border-color: var(--accent-blue);
             color: #fff;
             transform: scale(1.1);
+        }
+        
+        /* تظبيط مقاس الموقع لما يفتح فول سكرين */
+        .vid-wrapper:fullscreen {
+            height: 100vh !important;
+            background: #000;
+        }
+        .vid-wrapper:fullscreen iframe {
+            height: 100vh !important;
         }
         
         /* مقاس طولي ثابت لكل الفيديوهات 9:16 */
@@ -1133,15 +1141,14 @@
                             <span style="background: rgba(37,109,150,0.15); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--accent-blue);">System Architecture</span>
                         </div>
                         
-                        <!-- العرض المباشر للموقع -->
-                        <div class="vid-wrapper" style="height: 500px; padding-top: 0; background: #ffffff; border: 1px solid rgba(255,255,255,0.1); position: relative;">
-                            <!-- زرار الفول سكرين -->
-                            <button class="fullscreen-btn" onclick="toggleFullScreen(this.nextElementSibling)" title="Full Screen" aria-label="Full Screen">
+                        <!-- العرض المباشر لموقع دكتور آية -->
+                        <div class="vid-wrapper" id="aya-site-wrapper" style="height: 500px; padding-top: 0; background: #ffffff; border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                            <button class="fullscreen-btn" onclick="toggleSiteFullscreen('aya-site-wrapper')" title="Full Screen" aria-label="Full Screen">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
                                 </svg>
                             </button>
-                            <iframe src="https://drayakhattab.com/" style="width: 100%; height: 100%; border: none;" allow="fullscreen" title="Dr Aya Khattab Platform"></iframe>
+                            <iframe src="https://drayakhattab.com/" style="width: 100%; height: 100%; border: none;" allowfullscreen title="Dr Aya Khattab Platform"></iframe>
                         </div>
                     </div>
 
@@ -1167,14 +1174,15 @@
                         </div>
 
                         <!-- العرض المباشر للموقع -->
-                        <div class="vid-wrapper" style="height: 500px; padding-top: 0; background: #ffffff; border: 1px solid rgba(255,255,255,0.1); position: relative;">
-    <button class="fullscreen-btn" onclick="toggleFullScreen('leil-iframe')" title="Full Screen">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-        </svg>
-    </button>
-    <iframe id="leil-iframe" src="https://leil.shop/" style="width: 100%; height: 100%; border: none;" allow="fullscreen" title="Leil Store"></iframe>
-</div>
+                        <!-- العرض المباشر لموقع ليل -->
+                        <div class="vid-wrapper" id="leil-site-wrapper" style="height: 500px; padding-top: 0; background: #ffffff; border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                            <button class="fullscreen-btn" onclick="toggleSiteFullscreen('leil-site-wrapper')" title="Full Screen" aria-label="Full Screen">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                                </svg>
+                            </button>
+                            <iframe src="https://leil.shop/" style="width: 100%; height: 100%; border: none;" allowfullscreen title="Leil Store"></iframe>
+                        </div>
                     </div>
 
                 </div>
