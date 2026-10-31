@@ -525,13 +525,7 @@
             border: 1px solid var(--border-color);
             border-radius: 15px;
             padding: 30px;
-            margin-bottom: 40px; /* دي المسافة الثابتة بين كل كارت واللي تحته */
             transition: var(--transition);
-        }
-        
-        /* إزالة الـ margin من آخر كارت عشان ما يعملش مسافة فاضية تحت خالص */
-        .brand-item:last-child {
-            margin-bottom: 0; 
         }
 
         .brand-item:hover {
@@ -539,6 +533,12 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
+
+        .brands-showcase-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px; /* دي المسافة الثابتة بين كل كارت والتاني */
+}
 
         .brand-header {
             display: flex;
