@@ -30,15 +30,13 @@
     
     <style>
         /* منع تجمد الماوس المخصص فوق الـ iframes */
-        iframe {
-            pointer-events: auto; /* بيسمح بالتفاعل مع الـ iframe عند الضغط فقط */
-        }
-        
-        /* لو حابب تمنع أي تداخل نهائي أثناء تحريك الماوس السريع فوق الفيديوهات */
-        .vid-wrapper iframe, 
-        .cv-viewer-area iframe {
-            pointer-events: auto;
-        }
+iframe {
+    pointer-events: auto;
+}
+.vid-wrapper iframe, 
+.cv-viewer-area iframe {
+    pointer-events: auto;
+}
         /* Floating WhatsApp Button */
         .floating-whatsapp {
             position: fixed;
