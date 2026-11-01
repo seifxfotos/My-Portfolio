@@ -1,0 +1,16 @@
+{
+  "name": "Seif Ahmed Portfolio",
+  "short_name": "Seif Ahmed",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#020408",
+  "theme_color": "#020408",
+  "icons": [
+    {
+      "src": "WebsiteIcon180px.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
