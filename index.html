@@ -843,8 +843,11 @@
             
             /* تنوير زرار السيرة الذاتية على الموبايل */
             .hero-left .btn-secondary {
-                background: rgba(37, 109, 150, 0.7) !important;
-                box-shadow: 0 5px 15px rgba(37, 109, 150, 0.3) !important;
+                background: var(--accent-blue) !important; /* لون صريح عشان مايندمجش مع البدلة الغامقة */
+                border: 2px solid var(--accent-gold) !important; /* إطار دهبي ينطقه */
+                color: #ffffff !important;
+                box-shadow: 0 8px 25px rgba(37, 109, 150, 0.6) !important;
+                backdrop-filter: none !important; /* إلغاء التأثير الزجاجي اللي بيسحب اللون الأسود */
             }
             
             #showcase { padding: 100px 5%; }
