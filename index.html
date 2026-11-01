@@ -85,7 +85,6 @@
             }
             70%, 100% {
                 background-color: var(--accent-gold);
-                box-shadow: 0 10px 25px rgba(212, 175, 55, 0.6);
                 color: #fff; /* تم التعديل للون الأبيض */
             }
         }
@@ -575,6 +574,19 @@
             perspective: 1500px;
         }
         #about.slide-in { transform: translateY(0); }
+        /* شيل الظل وهما مستخبيين، وفعّله بس لما يدخلوا */
+        #showcase, #about {
+            box-shadow: none;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1),
+                        opacity 1.2s cubic-bezier(0.7, 0, 0.2, 1),
+                        filter 1.2s ease,
+                        box-shadow 1.2s ease;
+        }
+
+        #showcase.slide-in, #about.slide-in {
+            box-shadow: 0 -40px 100px rgba(0,0,0,0.9);
+            transform: translateY(0);
+        }
         #about::-webkit-scrollbar { display: none; }
         
         .about-container { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; text-align: center; justify-content: center; min-height: 60vh; }
