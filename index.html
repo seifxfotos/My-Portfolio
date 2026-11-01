@@ -1204,50 +1204,6 @@
 </div>
                     </div>
             
-                    <!-- ستايل مخصص لشبكة Aurora لضبط الأبعاد بدون قص أو حواف سوداء -->
-                    <style>
-                        .aurora-flex-row {
-                            display: flex;
-                            gap: 15px;
-                            width: 100%;
-                            max-width: 1200px;
-                            margin: 0 auto 15px auto;
-                            align-items: stretch; /* يخلي كل الأعمدة نفس الطول بالظبط */
-                        }
-                        .aurora-vid-col {
-                            flex: 0.75; /* عرض الفيديو (أقل شوية عشان يحافظ على أبعاد الريلز) */
-                            position: relative;
-                            aspect-ratio: 9/16;
-                            border-radius: 12px;
-                            overflow: hidden;
-                            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                            background: #000;
-                        }
-                        .aurora-img-col {
-                            flex: 1; /* عرض الصور (أكبر عشان تظهر التفاصيل بدون قص) */
-                            position: relative;
-                            border-radius: 12px;
-                            overflow: hidden;
-                        }
-                        .aurora-img-col img {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                            object-position: center;
-                        }
-                        /* تظبيط الموبايل عشان تنزل تحت بعض بشياكة */
-                        @media(max-width: 900px) {
-                            .aurora-flex-row { flex-wrap: wrap; }
-                            .aurora-vid-col, .aurora-img-col { 
-                                flex: 1 1 45%; 
-                                aspect-ratio: 9/16; 
-                            }
-                        }
-                    </style>
-
                     <!-- مشروع متجر Aurora -->
                     <div class="brand-item">
                         <div class="brand-header">
@@ -1257,42 +1213,35 @@
                             جلسة تصوير احترافية وإنتاج مقاطع فيديو مميزة لقطع فنية من متجر منتجات يدوية الصنع (Handmade)، تركز على إبراز أدق التفاصيل، الملمس، وجمال الحرفية اليدوية بأسلوب بصري دافئ وجذاب.
                         </p>
                         
-                        <!-- ================= الصف الأول ================= -->
-                        <div class="aurora-flex-row">
+                        <!-- شبكة العرض (متطابقة تماماً مع مقاسات وتنسيق Cozma) -->
+                        <div class="brand-gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; margin: 0 auto;">
+                            
+                            <!-- ================= الصف الأول ================= -->
                             <!-- الفيديو 1 -->
-                            <div class="aurora-vid-col">
-                                <iframe src="https://player.vimeo.com/video/882685050?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" title="Auroora Campaign 1"></iframe>
+                            <div class="vid-wrapper vid-portrait" style="margin: 0; width: 100%; height: 100%;">
+                                <iframe src="https://player.vimeo.com/video/882685050?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="Auroora Campaign 1"></iframe>
                             </div>
                             
                             <!-- الـ 3 صور -->
-                            <div class="aurora-img-col">
-                                <img src="Aurora-1.webp" alt="Aurora Art Piece 1" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
-                            </div>
-                            <div class="aurora-img-col">
-                                <img src="Aurora-2.webp" alt="Aurora Art Piece 2" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
-                            </div>
-                            <div class="aurora-img-col">
-                                <img src="Aurora-3.webp" alt="Aurora Art Piece 3" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
-                            </div>
-                        </div>
-
-                        <!-- ================= الصف الثاني ================= -->
-                        <div class="aurora-flex-row" style="margin-bottom: 0;">
+                            <img src="Aurora-1.webp" alt="Aurora Art Piece 1" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 12px;" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                            
+                            <img src="Aurora-2.webp" alt="Aurora Art Piece 2" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 12px;" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                            
+                            <img src="Aurora-3.webp" alt="Aurora Art Piece 3" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 12px;" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                            
+                            <!-- ================= الصف الثاني ================= -->
                             <!-- الفيديو 2 -->
-                            <div class="aurora-vid-col">
-                                <iframe src="https://player.vimeo.com/video/882684459?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" title="Auroora Campaign 2"></iframe>
+                            <div class="vid-wrapper vid-portrait" style="margin: 0; width: 100%; height: 100%;">
+                                <iframe src="https://player.vimeo.com/video/882684459?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="Auroora Campaign 2"></iframe>
                             </div>
                             
                             <!-- الـ 3 صور -->
-                            <div class="aurora-img-col">
-                                <img src="Aurora-4.webp" alt="Aurora Art Piece 4" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
-                            </div>
-                            <div class="aurora-img-col">
-                                <img src="Aurora-5.webp" alt="Aurora Art Piece 5" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
-                            </div>
-                            <div class="aurora-img-col">
-                                <img src="Aurora-6.webp" alt="Aurora Art Piece 6" class="gallery-img" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
-                            </div>
+                            <img src="Aurora-4.webp" alt="Aurora Art Piece 4" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 12px;" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                            
+                            <img src="Aurora-5.webp" alt="Aurora Art Piece 5" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 12px;" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                            
+                            <img src="Aurora-6.webp" alt="Aurora Art Piece 6" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 12px;" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View Image">
+                            
                         </div>
                     </div>
                         
