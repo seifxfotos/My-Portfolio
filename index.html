@@ -2087,6 +2087,17 @@
                 closeWebModal();
             }
         });
+        
+        // حفظ واسترجاع اللغة
+        const _origToggleLanguage = toggleLanguage;
+        toggleLanguage = function () {
+            _origToggleLanguage();
+            try { localStorage.setItem('lang', currentLang); } catch (e) {}
+        };
+
+        try {
+            if (localStorage.getItem('lang') === 'en') toggleLanguage();
+        } catch (e) {}
     </script>
 <!-- Web Preview Modal (Popup) with Fullscreen/External Toggle -->
     <div class="cv-modal" id="webPreviewModal" role="dialog" aria-modal="true" aria-labelledby="webModalTitle">
