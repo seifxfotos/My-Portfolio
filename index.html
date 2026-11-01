@@ -841,13 +841,21 @@
             
             .btn-primary, .btn-secondary, .hero-left .availability-badge { width: 100%; justify-content: center; padding: 13px; box-sizing: border-box; }
             
-            /* تنوير زرار السيرة الذاتية على الموبايل */
-            .hero-left .btn-secondary {
-                background: var(--accent-blue) !important; /* لون صريح عشان مايندمجش مع البدلة الغامقة */
-                border: 2px solid var(--accent-gold) !important; /* إطار دهبي ينطقه */
+            /* تظبيط أزرار الموبايل (السيرة الذاتية + عني) عشان تنور وتفصل عن الخلفية */
+            .hero-left .btn-secondary, 
+            .hero-left .availability-badge {
+                background: var(--accent-blue) !important; /* لون أزرق صريح وموحد */
+                border: none !important; /* شيلنا الفريم الأصفر السخيف */
                 color: #ffffff !important;
-                box-shadow: 0 8px 25px rgba(37, 109, 150, 0.6) !important;
-                backdrop-filter: none !important; /* إلغاء التأثير الزجاجي اللي بيسحب اللون الأسود */
+                box-shadow: 0 5px 15px rgba(37, 109, 150, 0.4) !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important; /* ده الكود السري اللي هيمنع التضليم على الموبايل */
+            }
+            
+            /* تلوين محتوى زرار (عني) بالأبيض عشان يبان بوضوح وميضلمش */
+            .hero-left .availability-badge span,
+            .hero-left .availability-badge svg {
+                color: #ffffff !important;
             }
             
             #showcase { padding: 100px 5%; }
