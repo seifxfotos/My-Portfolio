@@ -1643,15 +1643,23 @@
         const tabContents = document.querySelectorAll('.tab-content');
 
         tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                
-                btn.classList.add('active');
-                const targetId = btn.getAttribute('data-tab');
-                document.getElementById(targetId).classList.add('active');
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            btn.classList.add('active');
+            const targetId = btn.getAttribute('data-tab');
+            const targetContent = document.getElementById(targetId);
+            targetContent.classList.add('active');
+
+            // تفعيل الفيديوهات أو المواقع المخفية لما التاب يفتح
+            const lazyIframes = targetContent.querySelectorAll('iframe[data-src]');
+            lazyIframes.forEach(iframe => {
+                iframe.src = iframe.getAttribute('data-src');
+                iframe.removeAttribute('data-src');
             });
         });
+    });
 
         // Lightbox Logic 
         const lightboxModal = document.getElementById('imageLightbox');
