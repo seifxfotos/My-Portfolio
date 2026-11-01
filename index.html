@@ -874,23 +874,6 @@
             .lightbox-prev { right: 5px; top: 50%; }
             .lightbox-next { left: 5px; top: 50%; }
             .lightbox-close { top: 15px; right: 15px; }
-
-            /* 1. تسريع حركة السلايدز لـ 0.5 ثانية بدل 1.2 عشان السكرول يشتغل فوراً */
-        .slide, #showcase, #about {
-            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease, box-shadow 0.5s ease !important;
-        }
-        
-        /* 2. إيقاف وإخفاء الألوان المتحركة في الخلفية لأنها بتدمر أداء الموبايل */
-        .mesh-blob {
-            display: none !important;
-            animation: none !important;
-        }
-        
-        /* 3. إلغاء تأثيرات الـ Blur المعقدة اللي بتعمل تقطيع (Lag) في التمرير */
-        .mobile-dropdown, .zoom-controls, .hero-left .btn-secondary, .availability-badge, .tab-btn {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            background-color: #0b111a !important; /* لون سادة بدل الشفافية */
         }
     </style>
 </head>
@@ -1838,7 +1821,7 @@
             const t = e.changedTouches[0];
             const dy = tStartY - t.clientY;
             const dx = tStartX - t.clientX;
-            if (Math.abs(dy) < 100 || Math.abs(dy) < Math.abs(dx) * 1.5 || isAnimating) return;
+            if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.2) return;
 
             if (dy > 0) {
                 if (currentSlide === 0) goToSlide(1);
