@@ -1644,50 +1644,52 @@
 
         // Custom Cursor Logic
         if (hasFinePointer) {
-            const dot = $('customCursorDot');
-            const circle = $('customCursorCircle');
-            let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-            let cx = mx, cy = my;
-            let scale = 1, targetScale = 1, ticking = false;
+            setTimeout(() => {
+                const dot = $('customCursorDot');
+                const circle = $('customCursorCircle');
+                let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+                let cx = mx, cy = my;
+                let scale = 1, targetScale = 1, ticking = false;
 
-            const paint = () => {
-                cx += (mx - cx) * 0.22;
-                cy += (my - cy) * 0.22;
-                scale += (targetScale - scale) * 0.2;
-                dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
-                circle.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${scale})`;
-                const settled = Math.abs(mx - cx) < 0.1 && Math.abs(my - cy) < 0.1 && Math.abs(targetScale - scale) < 0.01;
-                if (settled) { ticking = false; return; }
-                requestAnimationFrame(paint);
-            };
-            const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
+                const paint = () => {
+                    cx += (mx - cx) * 0.22;
+                    cy += (my - cy) * 0.22;
+                    scale += (targetScale - scale) * 0.2;
+                    dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+                    circle.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${scale})`;
+                    const settled = Math.abs(mx - cx) < 0.1 && Math.abs(my - cy) < 0.1 && Math.abs(targetScale - scale) < 0.01;
+                    if (settled) { ticking = false; return; }
+                    requestAnimationFrame(paint);
+                };
+                const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
 
-            window.addEventListener('mousemove', (e) => {
-                if (!document.body.classList.contains('custom-cursor-active')) {
-                    document.body.classList.add('custom-cursor-active');
-                    dot.style.opacity = '1';
-                    circle.style.opacity = '1';
-                }
-                mx = e.clientX; my = e.clientY; kick(); 
-            }, { passive: true });
+                window.addEventListener('mousemove', (e) => {
+                    if (!document.body.classList.contains('custom-cursor-active')) {
+                        document.body.classList.add('custom-cursor-active');
+                        dot.style.opacity = '1';
+                        circle.style.opacity = '1';
+                    }
+                    mx = e.clientX; my = e.clientY; kick(); 
+                }, { passive: true });
 
-            document.addEventListener('mouseover', (e) => {
-                const hot = !!e.target.closest('a, button, .bento-card, .logo-svg, .gallery-img, .lightbox-close, .lightbox-nav, .tab-btn, .social-btn');
-                targetScale = hot ? 1.8 : 1;
-                circle.style.backgroundColor = hot ? 'rgba(212, 175, 55, 0.1)' : 'rgba(212, 175, 55, 0.05)';
-                circle.style.borderColor = hot ? 'var(--accent-gold)' : 'rgba(212, 175, 55, 0.6)';
-                kick();
-            });
-            
-            document.documentElement.addEventListener('mouseleave', () => { 
-                dot.style.opacity = '0'; circle.style.opacity = '0'; 
-                document.body.classList.remove('custom-cursor-active');
-            });
-            document.documentElement.addEventListener('mouseenter', () => { 
-                if(document.body.classList.contains('custom-cursor-active')){
-                    dot.style.opacity = '1'; circle.style.opacity = '1'; 
-                }
-            });
+                document.addEventListener('mouseover', (e) => {
+                    const hot = !!e.target.closest('a, button, .bento-card, .logo-svg, .gallery-img, .lightbox-close, .lightbox-nav, .tab-btn, .social-btn');
+                    targetScale = hot ? 1.8 : 1;
+                    circle.style.backgroundColor = hot ? 'rgba(212, 175, 55, 0.1)' : 'rgba(212, 175, 55, 0.05)';
+                    circle.style.borderColor = hot ? 'var(--accent-gold)' : 'rgba(212, 175, 55, 0.6)';
+                    kick();
+                });
+                
+                document.documentElement.addEventListener('mouseleave', () => { 
+                    dot.style.opacity = '0'; circle.style.opacity = '0'; 
+                    document.body.classList.remove('custom-cursor-active');
+                });
+                document.documentElement.addEventListener('mouseenter', () => { 
+                    if(document.body.classList.contains('custom-cursor-active')){
+                        dot.style.opacity = '1'; circle.style.opacity = '1'; 
+                    }
+                });
+            }, 1000); // تأخير تشغيل السكريبت ثانية واحدة لتخفيف الحمل الابتدائي
         }
 
         // Tabs Logic
