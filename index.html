@@ -267,13 +267,18 @@
         .logo-svg svg { height: 45px; width: auto; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3)); transition: var(--transition); }
         
         .animated-path {
-            fill: transparent;
-            stroke: #fff;
-            stroke-width: 15px; 
-            stroke-dasharray: 1;
-            stroke-dashoffset: 1;
-            animation: drawAndFill 3.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-        }
+    fill: transparent;
+    stroke: #fff;
+    stroke-width: 15px; 
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: drawAndFill 3.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+    
+    /* السطرين الجداد ضفناهم هنا جوا نفس البلوك */
+    will-change: stroke-dashoffset, fill;
+    transform: translateZ(0);
+}
+        
         @keyframes drawAndFill {
             0% { stroke-dashoffset: 1; fill: transparent; stroke: #fff; }
             60% { stroke-dashoffset: 0; fill: transparent; stroke: #fff; }
