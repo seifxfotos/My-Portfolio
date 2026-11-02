@@ -874,6 +874,25 @@
             .lightbox-prev { right: 5px; top: 50%; }
             .lightbox-next { left: 5px; top: 50%; }
             .lightbox-close { top: 15px; right: 15px; }
+
+            /* تفعيل سكرول الموبايل الناعم السريع (Momentum) */
+        #showcase, #about {
+            -webkit-overflow-scrolling: touch !important;
+            overscroll-behavior-y: contain;
+        }
+
+        /* نقل معالجة الخلفيات الزجاجية لكارت الشاشة عشان السكرول مايقطعش */
+        .mesh-blob, header, .mobile-dropdown, .availability-badge, .btn-secondary {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* ميزة حديثة: إخفاء الكروت اللي برا الشاشة من حسابات المعالج (بتسرع جداً) */
+        .brand-item {
+            content-visibility: auto;
+            contain-intrinsic-size: 500px;
+            transform: translateZ(0);
+        }
         }
     </style>
 </head>
@@ -1671,11 +1690,13 @@
             targetContent.classList.add('active');
 
             // تفعيل الفيديوهات أو المواقع المخفية لما التاب يفتح
-            const lazyIframes = targetContent.querySelectorAll('iframe[data-src]');
-            lazyIframes.forEach(iframe => {
-                iframe.src = iframe.getAttribute('data-src');
-                iframe.removeAttribute('data-src');
-            });
+            // تفعيل الفيديوهات أو المواقع المخفية لما التاب يفتح
+        const lazyIframes = targetContent.querySelectorAll('iframe[data-src]');
+        lazyIframes.forEach(iframe => {
+            iframe.setAttribute('loading', 'lazy'); // السطر ده السحري لمنع تجميد الشاشة
+            iframe.src = iframe.getAttribute('data-src');
+            iframe.removeAttribute('data-src');
+        });
         });
     });
 
